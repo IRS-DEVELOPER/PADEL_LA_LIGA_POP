@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PADEL LA LIGA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo-container">
+                <i class="ph-fill ph-tennis-ball icon-logo"></i>
+                <h1>PADEL <span class="accent">LA LIGA</span></h1>
+            </div>
+            <nav>
+                <button class="nav-btn active" data-tab="registration">
+                    <i class="ph ph-users-three"></i> Registro
+                </button>
+                <button class="nav-btn" data-tab="bracket">
+                    <i class="ph ph-trophy"></i> Torneo
+                </button>
+                <button class="nav-btn" data-tab="scoreboard">
+                    <i class="ph ph-scoreboard"></i> Marcador
+                </button>
+                <button class="nav-btn" data-tab="history">
+                    <i class="ph ph-clock-counter-clockwise"></i> Historial
+                </button>
+                <button class="nav-btn" data-tab="ranking">
+                    <i class="ph ph-chart-bar"></i> Ranking
+                </button>
+                <button class="nav-btn" data-tab="settings">
+                    <i class="ph ph-gear"></i> Config
+                </button>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Registration Section -->
+            <section id="registration" class="tab-content active">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="ph ph-user-plus"></i>
+                        <h2>Registrar Jugadores</h2>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="new-player-name" placeholder="Nombre del Jugador">
+                        <button id="add-individual-btn" class="btn-primary">
+                            <i class="ph ph-plus"></i> Registrar
+                        </button>
+                    </div>
+
+                    <div class="player-management-list">
+                        <h3>Jugadores Registrados</h3>
+                        <ul id="individual-player-list" class="player-list">
+                            <!-- Individual players will be added here -->
+                        </ul>
+                    </div>
+
+                    <hr class="divider">
+
+                    <div class="card-header">
+                        <i class="ph ph-users"></i>
+                        <h2>Formar Parejas</h2>
+                    </div>
+                    <div class="input-group pair-input">
+                        <select id="select-p1">
+                            <option value="">Jugador 1</option>
+                        </select>
+                        <select id="select-p2">
+                            <option value="">Jugador 2</option>
+                        </select>
+                        <button id="add-team-btn" class="btn-primary">
+                            <i class="ph ph-link"></i> Crear Pareja
+                        </button>
+                    </div>
+
+                    <h3>Parejas Inscritas</h3>
+                    <ul id="team-list" class="player-list">
+                        <!-- Teams will be added here -->
+                    </ul>
+                </div>
+                <div class="input-wrapper">
+                    <label>Sets</label>
+                    <select id="tournament-sets">
+                        <option value="3" selected>Al mejor de 3</option>
+                        <option value="1">1 Set Único</option>
+                        <option value="5">Al mejor de 5</option>
+                    </select>
+                </div>
+    </div>
+
+    <button id="start-tournament-btn" class="btn-success" disabled>
+        <i class="ph-fill ph-play-circle"></i> COMENZAR TORNEO
+    </button>
+    </div>
+    </section>
+
+    <!-- Scoreboard Section -->
+    <section id="scoreboard" class="tab-content">
+        <div class="card">
+            <div class="card-header-actions">
+                <div class="card-header" style="margin-bottom: 0; border-bottom: none;">
+                    <i class="ph ph-scoreboard"></i>
+                    <h2>Marcador en Vivo</h2>
+                </div>
+                <button id="toggle-mode-btn" class="btn-secondary-outline" onclick="toggleScoreMode()">
+                    <i class="ph ph-pencil-simple"></i> Modo Manual
+                </button>
+            </div>
+
+            <!-- Timer -->
+            <div class="timer-container">
+                <div id="match-timer" class="digital-clock">00:00:00</div>
+                <div class="timer-controls">
+                    <button onclick="startTimer()" class="btn-timer"><i class="ph-fill ph-play"></i></button>
+                    <button onclick="stopTimer()" class="btn-timer"><i class="ph-fill ph-pause"></i></button>
+                    <button onclick="resetTimer()" class="btn-timer"><i
+                            class="ph-fill ph-arrow-counter-clockwise"></i></button>
+                </div>
+            </div>
+
+            <div class="match-meta" id="match-meta-display">
+                <!-- Club, Court, Time info -->
+            </div>
+
+            <!-- Live Scoreboard -->
+            <div id="live-scoreboard">
+                <div class="scoreboard-grid">
+                    <!-- Team A -->
+                    <div class="team-column">
+                        <h3 id="team-a-name" class="team-name">Equipo A</h3>
+                        <div class="score-box">
+                            <div class="sets-display" id="sets-a">0</div>
+                            <div class="points-display" id="points-a">0</div>
+                        </div>
+                        <button class="btn-point" onclick="addPoint('A')">PUNTO</button>
+                    </div>
+
+                    <!-- Center Info -->
+                    <div class="center-column">
+                        <div class="set-scores" id="set-scores-container">
+                            <!-- Set scores will go here -->
+                        </div>
+                        <div class="indicators">
+                            <span id="tie-break-indicator" class="badge badge-warning"
+                                style="display: none;">TIE-BREAK</span>
+                            <span id="golden-point-indicator" class="badge badge-gold" style="display: none;">
+                                <i class="ph-fill ph-star"></i> PUNTO DE ORO
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Team B -->
+                    <div class="team-column">
+                        <h3 id="team-b-name" class="team-name">Equipo B</h3>
+                        <div class="score-box">
+                            <div class="sets-display" id="sets-b">0</div>
+                            <div class="points-display" id="points-b">0</div>
+                        </div>
+                        <button class="btn-point" onclick="addPoint('B')">PUNTO</button>
+                    </div>
+                </div>
+
+                <div class="cumulative-score">
+                    <small>Puntos Totales: <span id="cumulative-points-a">0</span> - <span
+                            id="cumulative-points-b">0</span></small>
+                </div>
+
+                <div class="controls-row">
+                    <button onclick="undoPoint()" class="btn-undo">
+                        <i class="ph ph-arrow-u-up-left"></i> Deshacer
+                    </button>
+                    <button onclick="resetMatch()" class="btn-reset">
+                        <i class="ph ph-arrow-counter-clockwise"></i> Reiniciar Partido
+                    </button>
+                </div>
+            </div>
+
+            <!-- Manual Scoreboard -->
+            <div id="manual-scoreboard" style="display: none;">
+                <div class="manual-sets-grid" id="manual-sets-container">
+                    <!-- Manual inputs generated by JS -->
+                </div>
+                <button onclick="finishMatchManual()" class="btn-success">
+                    <i class="ph-fill ph-check-circle"></i> Finalizar Partido
+                </button>
+            </div>
+
+            <div class="match-log">
+                <h3>Registro del Partido</h3>
+                <div id="log-container" class="log-container">
+                    <!-- Logs -->
+                    <i class="ph ph-crown"></i>
+                    <h2>Ranking de Victorias</h2>
+                </div>
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th>Pos</th>
+                            <th>Jugador</th>
+                            <th>Victorias</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ranking-body">
+                        <!-- Ranking rows -->
+                    </tbody>
+                </table>
+            </div>
+    </section>
+
+    <!-- Settings Section -->
+    <section id="settings" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <i class="ph ph-gear"></i>
+                <h2>Gestión de Datos</h2>
+            </div>
+            <div class="settings-grid">
+                <button onclick="resetPlayers()" class="btn-danger-outline">
+                    <i class="ph ph-users"></i> Borrar Jugadores
+                </button>
+                <button onclick="resetTeams()" class="btn-danger-outline">
+                    <i class="ph ph-users-three"></i> Borrar Parejas
+                </button>
+                <button onclick="resetTournament()" class="btn-danger-outline">
+                    <i class="ph ph-trophy"></i> Borrar Torneo Actual
+                </button>
+                <button onclick="resetHistory()" class="btn-danger-outline">
+                    <i class="ph ph-clock-counter-clockwise"></i> Borrar Historial
+                </button>
+            </div>
+            <hr class="divider">
+            <div class="danger-zone">
+                <h3>Zona de Peligro</h3>
+                <button onclick="resetAllData()" class="btn-danger-full">
+                    <i class="ph ph-trash"></i> BORRAR TODO (Restaurar Fábrica)
+                </button>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <footer>
+        <p>Desarrollado por: RAMON SILVERIO (IRS)</p>
+    </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
