@@ -277,23 +277,33 @@ function askScore() {
     // Prompt structure Example: "Un set a cero, dos juegos a dos, Treinta iguales"
     speak(`${setsStr}, ${gamesStr}, ${ptsStr}`);
 }
-// ====== Bluetooth Single-Button Engine ======
+// ====== Input Control Engine ======
 
 let btnPressTime = 0;
 let btnTapCount = 0;
 let btnTapTimeout = null;
 
-const triggerKeys = ['AudioVolumeUp', 'VolumeUp', '+', 'Enter', ' ', 'MediaPlayPause'];
+const genericKeys = ['AudioVolumeUp', 'VolumeUp', '+', 'Enter', ' ', 'MediaPlayPause'];
 
 document.addEventListener('keydown', (e) => {
     // Ignore UI interaction
-    if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' || e.target.closest('.init-overlay')) return;
+    if (e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION' || e.target.tagName === 'INPUT' || e.target.closest('.init-overlay')) return;
     
-    if (e.key.toLowerCase() === 'z') { undo(); return; }
-    if (e.key === 'ArrowUp') { e.preventDefault(); scorePoint('A'); return; }
-    if (e.key === 'ArrowDown') { e.preventDefault(); scorePoint('B'); return; }
+    const mode = document.getElementById('controlMode').value;
     
-    if (triggerKeys.includes(e.key)) {
+    if (mode === 'DESKTOP') {
+        if (e.key.toLowerCase() === 'z') { undo(); return; }
+        if (e.key === 'ArrowUp') { e.preventDefault(); scorePoint('A'); return; }
+        if (e.key === 'ArrowDown') { e.preventDefault(); scorePoint('B'); return; }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); askScore(); return; }
+        return;
+    }
+
+    // Smartphone Mode: Merge Arrows and volume keys to the single-button multi-tap engine
+    if (e.key.toLowerCase() === 'z') { undo(); return; } // Allow standard Z key always
+    
+    const allTriggers = [...genericKeys, 'ArrowUp', 'ArrowDown'];
+    if (allTriggers.includes(e.key)) {
         e.preventDefault();
         if (e.repeat) return; // Prevent hold auto-repeats
         btnPressTime = Date.now();
@@ -301,7 +311,11 @@ document.addEventListener('keydown', (e) => {
 });
 
 document.addEventListener('keyup', (e) => {
-    if (triggerKeys.includes(e.key)) {
+    const mode = document.getElementById('controlMode').value;
+    if (mode === 'DESKTOP') return;
+
+    const allTriggers = [...genericKeys, 'ArrowUp', 'ArrowDown'];
+    if (allTriggers.includes(e.key)) {
         e.preventDefault();
         if (btnPressTime === 0) return;
         
@@ -313,7 +327,7 @@ document.addEventListener('keyup', (e) => {
         } else if (duration >= 1400) { // 1.4s a 4s
             undo();
         } else {
-            // Clic corto (Doble tap param)
+            // Clic corto (Doble tap)
             btnTapCount++;
             clearTimeout(btnTapTimeout);
             btnTapTimeout = setTimeout(() => {
@@ -327,6 +341,30 @@ document.addEventListener('keyup', (e) => {
         }
     }
 });
+
+function updateInstructions() {
+    const mode = document.getElementById('controlMode').value;
+    const instDiv = document.getElementById('instructionsBox');
+    if (mode === 'DESKTOP') {
+        instDiv.innerHTML = `
+            <strong>⌨️ Modo PC (Teclas separadas):</strong>
+            <span><kbd>↑</kbd> Pto Eq. A</span>
+            <span><kbd>↓</kbd> Pto Eq. B</span>
+            <span><kbd>Enter</kbd> Dictar Score</span>
+            <span><kbd>Z</kbd> Deshacer</span>
+        `;
+    } else {
+        instDiv.innerHTML = `
+            <strong>📱 Modo Móvil (Botón Único o Volumen):</strong>
+            <span>1 Clic: Pto Eq. A</span>
+            <span>2 Clics Rápidos: Pto Eq. B</span>
+            <span>Mantener 2s: Deshacer <kbd>Z</kbd></span>
+            <span>Mantener 5s: Dictar Voz</span>
+        `;
+    }
+}
+document.getElementById('controlMode').addEventListener('change', updateInstructions);
+updateInstructions();
 
 // ====== iOS Audio Unlock & Touch Fallback ======
 

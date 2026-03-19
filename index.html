@@ -36,6 +36,13 @@
                         <option value="NORMAL">Jugar 3er Set Largo</option>
                     </select>
                 </div>
+                <div>
+                    <label for="controlMode">Modo de Control:</label>
+                    <select id="controlMode">
+                        <option value="SMARTPHONE" selected>📱 Celular (1 Botón)</option>
+                        <option value="DESKTOP">💻 Escritorio (PC Clásico)</option>
+                    </select>
+                </div>
             </div>
         </header>
 
@@ -86,13 +93,7 @@
         </main>
 
         <footer>
-            <div class="instructions">
-                <strong>Control Bluetooth o Tocar la Pantalla (Smartphone):</strong>
-                <span>1 Toque Corto: Punto Eq. A</span>
-                <span>2 Toques Rápidos: Punto Eq. B</span>
-                <span>Mantener 2s: Deshacer <kbd>Z</kbd></span>
-                <span>Mantener 5s: Dictar Voz</span>
-            </div>
+            <div class="instructions" id="instructionsBox"></div>
             <div class="match-status" id="matchStatus"></div>
             <div class="watermark">RS ENGINE &ndash; Developed by RAMON SILVERIO.</div>
         </footer>
