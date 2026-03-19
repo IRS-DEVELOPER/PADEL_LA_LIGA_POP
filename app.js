@@ -280,6 +280,82 @@ function askScore() {
     // Prompt structure Example: "Un set a cero, dos juegos a dos, Treinta iguales"
     speak(`${setsStr}, ${gamesStr}, ${ptsStr}`);
 }
+// ====== Reconocimiento de Voz (Micrófono Inteligente) ======
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null;
+let isVoiceControlActive = false;
+
+if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = false;
+    recognition.lang = 'es-ES'; 
+    
+    recognition.onresult = (event) => {
+        const lastResult = event.results[event.results.length - 1];
+        const transcript = lastResult[0].transcript.toLowerCase().trim();
+        console.log("Voz escuchada: ", transcript);
+        
+        const nameA = getTeamName('A').toLowerCase();
+        const nameB = getTeamName('B').toLowerCase();
+
+        const hitsA = ['punto equipo a', 'punto al equipo a', 'punto para el equipo a', `punto ${nameA}`, `punto para ${nameA}`, 'punto local'];
+        const hitsB = ['punto equipo b', 'punto al equipo b', 'punto para el equipo b', `punto ${nameB}`, `punto para ${nameB}`, 'punto visitante'];
+        const hitsUndo = ['deshacer', 'atrás', 'borrar punto', 'corregir marcador'];
+        const hitsScore = ['marcador', 'cuánto vamos', 'resultado', 'dictar marcador'];
+
+        if (hitsA.some(phrase => transcript.includes(phrase)) || transcript === "punto" || transcript === "siguiente") {
+            playBeep(); flashScreen(); scorePoint('A');
+        } else if (hitsB.some(phrase => transcript.includes(phrase))) {
+            playBeep(); flashScreen(); scorePoint('B');
+        } else if (hitsUndo.some(phrase => transcript.includes(phrase))) {
+            playBeep(); flashScreen(); undo();
+        } else if (hitsScore.some(phrase => transcript.includes(phrase))) {
+            playBeep(); flashScreen(); askScore();
+        }
+    };
+    
+    recognition.onerror = (event) => {
+        if (event.error !== 'no-speech') console.warn("Micrófono error:", event.error);
+    };
+    
+    // Auto-restart para evitar que se apague solo
+    recognition.onend = () => {
+        if (isVoiceControlActive) {
+            try { recognition.start(); } catch(e) {}
+        }
+    };
+}
+
+function toggleVoiceControl() {
+    if (!SpeechRecognition) {
+        speak("El micrófono inteligente no es compatible de forma nativa con este navegador (utilice Chrome o Edge).");
+        return;
+    }
+    const btn = document.getElementById('btnVoiceControl');
+    isVoiceControlActive = !isVoiceControlActive;
+    
+    if (isVoiceControlActive) {
+        try {
+            recognition.start();
+            btn.classList.add('mic-active');
+            btn.innerText = '🎙️ Escuchando...';
+            speak("Comandos por voz activados. Diga Punto Equipo A, o Siguiente.");
+        } catch(e) {}
+    } else {
+        recognition.stop();
+        btn.classList.remove('mic-active');
+        btn.innerText = '🎤 Activar Voz';
+        speak("Micrófono apagado");
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('btnVoiceControl');
+    if(btn) btn.addEventListener('click', toggleVoiceControl);
+});
+
 // ====== Feedback Visual y Sonoro (PWA) ======
 
 function playBeep() {

@@ -346,6 +346,7 @@ kbd {
     .config-bar div:last-child { border-bottom: none; }
     .config-bar label { font-size: 0.8rem; }
     .config-bar select { padding: 0.3rem 0.5rem; font-size: 0.75rem; width: 150px; }
+    .config-bar .mic-btn { width: 150px; font-size: 0.75rem; padding: 0.3rem 0.5rem; }
     
     footer { gap: 0.5rem; }
     .match-status { font-size: 1.2rem; min-height: 1.4rem; }
@@ -418,4 +419,30 @@ kbd {
 
 .config-bar select:hover, .config-bar select:focus {
     border-color: var(--accent-color);
+}
+
+/* Mic Button */
+.mic-btn {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.2);
+    color: var(--text-primary);
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    outline: none;
+}
+.mic-btn:hover { border-color: var(--accent-color); }
+.mic-btn.mic-active {
+    border-color: #ef4444; 
+    color: #ef4444;
+    animation: pulseMic 2s infinite;
+}
+@keyframes pulseMic {
+    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
