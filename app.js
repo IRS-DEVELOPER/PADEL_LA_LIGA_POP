@@ -279,9 +279,14 @@ function askScore() {
 }
 // ====== Input Control Engine ======
 
+// Autobúsqueda Inteligente de Dispositivo
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (window.innerWidth <= 1024);
+const currentMode = isMobileDevice ? 'SMARTPHONE' : 'DESKTOP';
+
 let btnPressTime = 0;
 let btnTapCount = 0;
 let btnTapTimeout = null;
+let lastKeyTime = 0; // Para el debounce de PC
 
 const genericKeys = ['AudioVolumeUp', 'VolumeUp', '+', 'Enter', ' ', 'MediaPlayPause'];
 
@@ -289,13 +294,15 @@ document.addEventListener('keydown', (e) => {
     // Ignore UI interaction
     if (e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION' || e.target.tagName === 'INPUT' || e.target.closest('.init-overlay')) return;
     
-    const mode = document.getElementById('controlMode').value;
-    
-    if (mode === 'DESKTOP') {
+    if (currentMode === 'DESKTOP') {
         if (e.key.toLowerCase() === 'z') { undo(); return; }
-        if (e.key === 'ArrowUp') { e.preventDefault(); scorePoint('A'); return; }
-        if (e.key === 'ArrowDown') { e.preventDefault(); scorePoint('B'); return; }
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); askScore(); return; }
+        
+        const now = Date.now();
+        if (now - lastKeyTime < 500) return; // 500ms debounce originario
+        
+        if (e.key === 'ArrowUp') { e.preventDefault(); scorePoint('A'); lastKeyTime = now; return; }
+        if (e.key === 'ArrowDown') { e.preventDefault(); scorePoint('B'); lastKeyTime = now; return; }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); askScore(); lastKeyTime = now; return; }
         return;
     }
 
@@ -311,8 +318,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 document.addEventListener('keyup', (e) => {
-    const mode = document.getElementById('controlMode').value;
-    if (mode === 'DESKTOP') return;
+    if (currentMode === 'DESKTOP') return;
 
     const allTriggers = [...genericKeys, 'ArrowUp', 'ArrowDown'];
     if (allTriggers.includes(e.key)) {
@@ -343,19 +349,18 @@ document.addEventListener('keyup', (e) => {
 });
 
 function updateInstructions() {
-    const mode = document.getElementById('controlMode').value;
     const instDiv = document.getElementById('instructionsBox');
-    if (mode === 'DESKTOP') {
+    if (currentMode === 'DESKTOP') {
         instDiv.innerHTML = `
-            <strong>⌨️ Modo PC (Teclas separadas):</strong>
-            <span><kbd>↑</kbd> Pto Eq. A</span>
-            <span><kbd>↓</kbd> Pto Eq. B</span>
-            <span><kbd>Enter</kbd> Dictar Score</span>
+            <strong>Controles:</strong>
+            <span><kbd>↑</kbd> Punto Eq. A</span>
+            <span><kbd>↓</kbd> Punto Eq. B</span>
+            <span><kbd>Enter/Esp</kbd> Escuchar Marcador</span>
             <span><kbd>Z</kbd> Deshacer</span>
         `;
     } else {
         instDiv.innerHTML = `
-            <strong>📱 Modo Móvil (Botón Único o Volumen):</strong>
+            <strong>📱 Control Remoto Bluetooth (1 Botón Múltiple):</strong>
             <span>1 Clic: Pto Eq. A</span>
             <span>2 Clics Rápidos: Pto Eq. B</span>
             <span>Mantener 2s: Deshacer <kbd>Z</kbd></span>
@@ -363,16 +368,42 @@ function updateInstructions() {
         `;
     }
 }
-document.getElementById('controlMode').addEventListener('change', updateInstructions);
 updateInstructions();
 
-// ====== iOS Audio Unlock & Touch Fallback ======
+// ====== iOS Audio Unlock & Apple Watch Media Session ======
+
+let silentAudio = null;
+
+function setupMediaSession() {
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: 'Marcador RS Engine',
+            artist: 'Partido en Curso',
+            album: 'Apple Watch / Audífonos soportados'
+        });
+
+        // ⌚ Apple Watch / Smartwatch / Airpods Integration
+        navigator.mediaSession.setActionHandler('play', () => { scorePoint('A'); if(silentAudio) silentAudio.play(); });
+        navigator.mediaSession.setActionHandler('pause', () => { scorePoint('B'); if(silentAudio) silentAudio.play(); });
+        navigator.mediaSession.setActionHandler('previoustrack', () => { undo(); if(silentAudio) silentAudio.play(); });
+        navigator.mediaSession.setActionHandler('nexttrack', () => { askScore(); if(silentAudio) silentAudio.play(); });
+    }
+}
 
 const initOverlay = document.getElementById('initOverlay');
 initOverlay.addEventListener('click', () => {
     // Unlocks global audio Engine
     const unlockUtterance = new SpeechSynthesisUtterance('');
     window.speechSynthesis.speak(unlockUtterance);
+    
+    // Apple Watch Mute Media Loop
+    try {
+        silentAudio = new Audio("data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABpRzE2IFNpbGVudCBBdWRpbyAtIEZyZWUgRG93bmxvYWQAAAAATGF2YzU3LjczLjEwMAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAJAAAAVwADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwPz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz///////////////////////////////////////////////////wAAADhMYXZjNTcuNzMAAAAAAAAAAAAAAAABAAAALgAAAAAAAFcE3wAAAAAAAAAAAAAAAAAAAAAA//MUZAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//MUZAMAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//MUZAYAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//MUZAgAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//MUZAkAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//MUZAoAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//MUZAsAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//MUZAwAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+        silentAudio.loop = true;
+        silentAudio.play().then(() => {
+            setupMediaSession();
+        }).catch(e => console.warn(e));
+    } catch(err) {}
     
     // HACK: Start a silent Web Audio oscillator in the background. 
     // This forces Android Chrome into generic "Media Playback" state, 
