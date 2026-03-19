@@ -1,285 +1,95 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PADEL LA LIGA</title>
+    <title>Marcador de Pádel por Voz</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@400;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <div class="app-container">
-        <!-- Mobile Menu Toggle -->
-        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
-            <i class="ph ph-list"></i>
-        </button>
-
-        <!-- Mobile Header -->
-        <div class="mobile-header">
-            <i class="ph-fill ph-tennis-ball"></i>
-            <h1>PADEL LA LIGA</h1>
+    <!-- iOS Audio Unlock Overlay -->
+    <div id="initOverlay" class="init-overlay">
+        <div class="overlay-content">
+            <h2>▶ Iniciar Partido</h2>
+            <p>Toca la pantalla para habilitar el audio</p>
         </div>
+    </div>
 
-        <nav class="sidebar" id="sidebar">
-            <div class="logo">
-                <i class="ph-fill ph-tennis-ball"></i>
-                <h1>PADEL<br>LA LIGA</h1>
+    <div class="container">
+        <header>
+            <h1>Marcador de Pádel</h1>
+            <p class="subtitle">Control por Bluetooth & Voz</p>
+            <div class="config-bar">
+                <label for="gamesToWin">Juegos para ganar el Set:</label>
+                <select id="gamesToWin">
+                    <option value="TB">Tie-Break a 7</option>
+                    <option value="STB">Super Tie-Break a 10</option>
+                    <option value="4">4 Juegos (Fast)</option>
+                    <option value="6" selected>6 Juegos (Clásico)</option>
+                    <option value="8">8 Juegos (Pro Set)</option>
+                </select>
             </div>
-            <button class="nav-btn active" data-tab="registration">
-                <i class="ph ph-users"></i> Registro
-            </button>
-            <button class="nav-btn" data-tab="bracket">
-                <i class="ph ph-tree-structure"></i> Torneo
-            </button>
-            <button class="nav-btn" data-tab="scoreboard">
-                <i class="ph ph-scoreboard"></i> Marcador
-            </button>
-            <button class="nav-btn" data-tab="history">
-                <i class="ph ph-clock-counter-clockwise"></i> Historial
-            </button>
-            <button class="nav-btn" data-tab="ranking">
-                <i class="ph ph-trophy"></i> Ranking
-            </button>
-            <button class="nav-btn" data-tab="settings">
-                <i class="ph ph-gear"></i> Config
-            </button>
-        </nav>
+        </header>
 
-        <main class="content">
-            <!-- Registration Section -->
-            <section id="registration" class="tab-content active">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="ph ph-user-plus"></i>
-                        <h2>Registro de Jugadores</h2>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="new-player-name" placeholder="Nombre del Jugador">
-                        <button id="add-individual-btn" class="btn-primary">
-                            <i class="ph ph-plus"></i> Registrar
-                        </button>
-                    </div>
-
-                    <h3>Jugadores Disponibles</h3>
-                    <ul id="individual-player-list" class="player-list">
-                        <!-- Players will be added here -->
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <i class="ph ph-users-three"></i>
-                        <h2>Formar Parejas</h2>
-                    </div>
-                    <div class="team-creation">
-                        <select id="select-p1">
-                            <option value="">Jugador 1</option>
-                        </select>
-                        <select id="select-p2">
-                            <option value="">Jugador 2</option>
-                        </select>
-                        <button id="add-team-btn" class="btn-primary">
-                            <i class="ph ph-link"></i> Crear Pareja
-                        </button>
-                    </div>
-
-                    <h3>Parejas Inscritas</h3>
-                    <ul id="team-list" class="player-list">
-                        <!-- Teams will be added here -->
-                    </ul>
-                </div>
-
-                <div class="input-wrapper">
-                    <label>Club</label>
-                    <input type="text" id="tournament-club" placeholder="Nombre del Club">
-                </div>
-                <div class="input-wrapper">
-                    <label>Cancha</label>
-                    <input type="text" id="tournament-court" placeholder="Nº Cancha">
-                </div>
-                <div class="input-wrapper">
-                    <label>Hora</label>
-                    <input type="time" id="tournament-time">
-                </div>
-                <div class="input-wrapper">
-                    <label>Sets</label>
-                    <select id="tournament-sets">
-                        <option value="3" selected>Al mejor de 3</option>
-                        <option value="1">1 Set Único</option>
-                        <option value="5">Al mejor de 5</option>
-                    </select>
-                </div>
-
-                <button id="start-tournament-btn" class="btn-success" disabled>
-                    <i class="ph-fill ph-play-circle"></i> COMENZAR TORNEO
-                </button>
-            </section>
-
-            <!-- Scoreboard Section -->
-            <section id="scoreboard" class="tab-content">
-                <div class="card">
-                    <div class="card-header-actions">
-                        <div class="card-header" style="margin-bottom: 0; border-bottom: none;">
-                            <i class="ph ph-scoreboard"></i>
-                            <h2>Marcador en Vivo</h2>
+        <main class="scoreboard">
+            <div class="team" id="teamA">
+                <input type="text" class="team-name" id="nameA" value="Equipo A">
+                <div class="score">
+                    <div class="sets-games">
+                        <div class="stat-box">
+                            <span class="label">Sets</span>
+                            <span class="value" id="setsA">0</span>
                         </div>
-                        <button id="toggle-mode-btn" class="btn-secondary-outline" onclick="toggleScoreMode()">
-                            <i class="ph ph-pencil-simple"></i> Modo Manual
-                        </button>
-                    </div>
-
-                    <div id="live-scoreboard">
-                        <div class="match-meta" id="match-meta-display">
-                            <!-- Meta info will be injected here -->
-                        </div>
-
-                        <div class="scoreboard-display">
-                            <div class="team-score">
-                                <h3 id="team-a-name">Equipo A</h3>
-                                <div class="points-display" id="points-a">0</div>
-                                <div class="sets-display" id="sets-a">0</div>
-                                <button class="btn-point" onclick="addPoint('A')">PUNTO</button>
-                            </div>
-
-                            <div class="match-info-center">
-                                <div id="match-timer" class="digital-clock">00:00:00</div>
-                                <div class="set-scores" id="set-scores-container">
-                                    <!-- Set scores will be injected here -->
-                                </div>
-                                <div id="tie-break-indicator" class="badge badge-warning" style="display: none;">
-                                    TIE-BREAK</div>
-                                <div id="golden-point-indicator" class="badge badge-gold" style="display: none;">PUNTO
-                                    DE ORO</div>
-                            </div>
-
-                            <div class="team-score">
-                                <h3 id="team-b-name">Equipo B</h3>
-                                <div class="points-display" id="points-b">0</div>
-                                <div class="sets-display" id="sets-b">0</div>
-                                <button class="btn-point" onclick="addPoint('B')">PUNTO</button>
-                            </div>
+                        <div class="stat-box">
+                            <span class="label">Juegos</span>
+                            <span class="value" id="gamesA">0</span>
                         </div>
                     </div>
+                    <div class="points-box">
+                        <span class="label">Puntos</span>
+                        <span class="points" id="pointsA">0</span>
+                    </div>
+                </div>
+            </div>
 
-                    <div id="manual-scoreboard" style="display: none;">
-                        <div class="manual-entry-container">
-                            <h3>Ingreso Manual de Resultados</h3>
-                            <div id="manual-sets-container">
-                                <!-- Manual inputs generated here -->
-                            </div>
-                            <button class="btn-primary" onclick="finishMatchManual()">Finalizar Partido</button>
+            <div class="divider">
+                <div class="vs">VS</div>
+            </div>
+
+            <div class="team" id="teamB">
+                <input type="text" class="team-name" id="nameB" value="Equipo B">
+                <div class="score">
+                     <div class="sets-games">
+                        <div class="stat-box">
+                            <span class="label">Sets</span>
+                            <span class="value" id="setsB">0</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="label">Juegos</span>
+                            <span class="value" id="gamesB">0</span>
                         </div>
                     </div>
-
-                    <div class="match-log">
-                        <h3>Historial del Partido</h3>
-                        <div id="log-container"></div>
+                    <div class="points-box">
+                        <span class="label">Puntos</span>
+                        <span class="points" id="pointsB">0</span>
                     </div>
                 </div>
-            </section>
-
-            <!-- Bracket Section -->
-            <section id="bracket" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="ph ph-tree-structure"></i>
-                        <h2>Cuadro del Torneo</h2>
-                    </div>
-                    <div id="bracket-container" class="bracket-view">
-                        <p class="placeholder-text">Registra parejas para comenzar el torneo.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- History Section -->
-            <section id="history" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="ph ph-clock-counter-clockwise"></i>
-                        <h2>Historial de Partidos</h2>
-                    </div>
-                    <div class="history-actions"
-                        style="padding: 0 1rem 1rem 1rem; display: flex; justify-content: flex-end;">
-                        <button class="btn-success" onclick="exportToExcel()"
-                            style="display: flex; align-items: center; gap: 8px;">
-                            <i class="ph-fill ph-microsoft-excel-logo"></i> Exportar a Excel
-                        </button>
-                    </div>
-                    <ul id="history-list" class="history-list">
-                        <!-- History items -->
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Ranking Section -->
-            <section id="ranking" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="ph ph-trophy"></i>
-                        <h2>Ranking de Jugadores</h2>
-                    </div>
-                    <table class="ranking-table">
-                        <thead>
-                            <tr>
-                                <th>Pos</th>
-                                <th>Jugador</th>
-                                <th>Victorias</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ranking-body">
-                            <!-- Ranking rows -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Settings Section -->
-            <section id="settings" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="ph ph-gear"></i>
-                        <h2>Configuración</h2>
-                    </div>
-
-                    <div class="settings-grid">
-                        <button class="btn-danger-outline" onclick="resetPlayers()">
-                            <i class="ph ph-users"></i> Borrar Jugadores
-                        </button>
-                        <button class="btn-danger-outline" onclick="resetTeams()">
-                            <i class="ph ph-users-three"></i> Borrar Parejas
-                        </button>
-                        <button class="btn-danger-outline" onclick="resetTournament()">
-                            <i class="ph ph-tree-structure"></i> Borrar Torneo
-                        </button>
-                        <button class="btn-danger-outline" onclick="resetHistory()">
-                            <i class="ph ph-clock-counter-clockwise"></i> Borrar Historial
-                        </button>
-                    </div>
-
-                    <div class="danger-zone">
-                        <h3>Zona de Peligro</h3>
-                        <p>Estas acciones son irreversibles.</p>
-                        <button class="btn-danger-full" onclick="resetAllData()">
-                            <i class="ph ph-trash"></i> BORRAR TODO (Restaurar Fábrica)
-                        </button>
-                    </div>
-                </div>
-            </section>
+            </div>
         </main>
 
-        <footer class="app-footer">
-            <p>&copy; 2025 R.Silverio (IRS). Todos los derechos reservados.</p>
-            <p>Desarrollado por: Ramon Silverio | Política de Privacidad | Términos y Condiciones</p>
-            <p>Contacto: ing.silverio.r@gmail.com | Instagram | Facebook</p>
+        <footer>
+            <div class="instructions">
+                <strong>Controles:</strong>
+                <span><kbd>↑</kbd> Punto Eq. A</span>
+                <span><kbd>↓</kbd> Punto Eq. B</span>
+                <span><kbd>Enter/Esp</kbd> Escuchar Marcador</span>
+                <span><kbd>Z</kbd> Deshacer</span>
+            </div>
+            <div class="match-status" id="matchStatus"></div>
+            <div class="watermark">RS ENGINE &ndash; Developed by RAMON SILVERIO.</div>
         </footer>
     </div>
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
-
 </html>
