@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Marcador de Pádel por Voz</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- iOS Audio Unlock Overlay -->
+    <div id="initOverlay" class="init-overlay">
+        <div class="overlay-content">
+            <h2>▶ Iniciar Partido</h2>
+            <p>Toca la pantalla para habilitar el audio</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Marcador de Pádel</h1>
+            <p class="subtitle">Control por Bluetooth & Voz</p>
+            <div class="config-bar" style="flex-wrap: wrap;">
+                <div>
+                    <label for="gamesToWin">Juegos por Set:</label>
+                    <select id="gamesToWin">
+                        <option value="4">4 Juegos (Fast)</option>
+                        <option value="6" selected>6 Juegos (Clásico)</option>
+                        <option value="8">8 Juegos (Pro Set)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="thirdSetRule">Al empatar 1-1 en Sets:</label>
+                    <select id="thirdSetRule">
+                        <option value="STB" selected>Súper Tie-Break (10 pts)</option>
+                        <option value="NORMAL">Jugar 3er Set Largo</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <main class="scoreboard">
+            <div class="team" id="teamA">
+                <input type="text" class="team-name" id="nameA" value="Equipo A">
+                <div class="score">
+                    <div class="sets-games">
+                        <div class="stat-box">
+                            <span class="label">Sets</span>
+                            <span class="value" id="setsA">0</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="label">Juegos</span>
+                            <span class="value" id="gamesA">0</span>
+                        </div>
+                    </div>
+                    <div class="points-box">
+                        <span class="label">Puntos</span>
+                        <span class="points" id="pointsA">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider">
+                <div class="vs">VS</div>
+            </div>
+
+            <div class="team" id="teamB">
+                <input type="text" class="team-name" id="nameB" value="Equipo B">
+                <div class="score">
+                     <div class="sets-games">
+                        <div class="stat-box">
+                            <span class="label">Sets</span>
+                            <span class="value" id="setsB">0</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="label">Juegos</span>
+                            <span class="value" id="gamesB">0</span>
+                        </div>
+                    </div>
+                    <div class="points-box">
+                        <span class="label">Puntos</span>
+                        <span class="points" id="pointsB">0</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="instructions" id="instructionsBox"></div>
+            <div class="match-status" id="matchStatus"></div>
+            <div class="watermark">RS ENGINE &ndash; Developed by RAMON SILVERIO.</div>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
