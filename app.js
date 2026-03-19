@@ -284,30 +284,46 @@ let interactionPressTime = 0;
 let interactionTapCount = 0;
 let interactionTapTimeout = null;
 
+let vibeTimeout2s = null;
+let vibeTimeout5s = null;
+
 const genericKeys = ['AudioVolumeUp', 'VolumeUp', '+', 'Enter', ' ', 'MediaPlayPause', 'ArrowUp'];
 
+function isExcludedElement(target) {
+    if (!target) return false;
+    if (target.tagName === 'SELECT' || target.tagName === 'OPTION' || target.tagName === 'INPUT') return true;
+    if (target.closest('.config-bar') || target.closest('.init-overlay') || target.id === 'initOverlay') return true;
+    if (target.tagName === 'A' || target.tagName === 'BUTTON') return true;
+    return false;
+}
+
 function startInteraction(e) {
-    if (e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION' || e.target.tagName === 'INPUT' || e.target.id === 'initOverlay' || e.target.closest('#initOverlay')) return;
+    if (isExcludedElement(e.target)) return;
     
     if (e.type === 'keydown') {
         if (e.repeat) { e.preventDefault(); return; }
+    } else {
+        if (e.cancelable) e.preventDefault(); // Prevents zoom/scroll on game board
     }
     
-    if (interactionPressTime === 0) {
-        interactionPressTime = Date.now();
-    }
+    interactionPressTime = Date.now();
+    
+    clearTimeout(vibeTimeout2s);
+    clearTimeout(vibeTimeout5s);
+    
+    vibeTimeout2s = setTimeout(() => {
+        if (navigator.vibrate) navigator.vibrate(50);
+    }, 1800);
+    
+    vibeTimeout5s = setTimeout(() => {
+        if (navigator.vibrate) navigator.vibrate([50, 100, 50]);
+    }, 4500);
 }
 
-function endInteraction(e) {
-    if (e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION' || e.target.tagName === 'INPUT' || e.target.id === 'initOverlay' || e.target.closest('#initOverlay')) return;
-    if (interactionPressTime === 0) return;
-    
-    const duration = Date.now() - interactionPressTime;
-    interactionPressTime = 0; // reset
-    
-    if (duration >= 5000) {
+function handleEnd(duration) {
+    if (duration >= 4500) {
         askScore();
-    } else if (duration >= 2000) {
+    } else if (duration >= 1800) {
         undo();
     } else {
         interactionTapCount++;
@@ -319,18 +335,33 @@ function endInteraction(e) {
                 scorePoint('B');
             }
             interactionTapCount = 0;
-        }, 400); // 400ms double-tap allowance window
+        }, 400); // 400ms double-tap window
     }
 }
 
+function endInteraction(e) {
+    if (isExcludedElement(e.target)) return;
+    
+    clearTimeout(vibeTimeout2s);
+    clearTimeout(vibeTimeout5s);
+    
+    if (interactionPressTime === 0) return;
+    
+    const duration = Date.now() - interactionPressTime;
+    interactionPressTime = 0; // Prevent duplicate end processing
+    
+    handleEnd(duration);
+}
+
 // Bind Screen Touch Events for Phones/Tablets
-document.addEventListener('touchstart', startInteraction, {passive: true});
+document.addEventListener('touchstart', startInteraction, {passive: false});
 document.addEventListener('touchend', endInteraction);
+document.addEventListener('touchcancel', endInteraction);
 
 // Bind Bluetooth Remote Events
 document.addEventListener('keydown', (e) => {
     if (e.key.toLowerCase() === 'z') { undo(); return; }
-    if (e.key === 'ArrowDown') { e.preventDefault(); scorePoint('B'); return; } // legacy
+    if (e.key === 'ArrowDown') { e.preventDefault(); scorePoint('B'); return; }
     
     if (genericKeys.includes(e.key)) {
         e.preventDefault();
