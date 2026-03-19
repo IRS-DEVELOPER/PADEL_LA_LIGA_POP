@@ -277,6 +277,38 @@ function askScore() {
     // Prompt structure Example: "Un set a cero, dos juegos a dos, Treinta iguales"
     speak(`${setsStr}, ${gamesStr}, ${ptsStr}`);
 }
+// ====== Feedback Visual y Sonoro (PWA) ======
+
+function playBeep() {
+    try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, ctx.currentTime); // Beep agudo corto
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.1);
+    } catch(e) {}
+}
+
+function flashScreen() {
+    const sb = document.querySelector('.scoreboard');
+    if (sb) {
+        sb.style.transition = 'box-shadow 0.1s ease';
+        sb.style.boxShadow = '0 0 50px 15px rgba(56, 189, 248, 0.8), inset 0 0 20px rgba(56, 189, 248, 0.4)';
+        setTimeout(() => {
+            sb.style.boxShadow = ''; // restored by css class
+            setTimeout(() => sb.style.transition = '', 150);
+        }, 150);
+    }
+}
+
 // ====== Input Control Engine ======
 
 // Autobúsqueda Inteligente de Dispositivo
@@ -300,20 +332,23 @@ document.addEventListener('keydown', (e) => {
         const now = Date.now();
         if (now - lastKeyTime < 500) return; // 500ms debounce originario
         
-        if (e.key === 'ArrowUp') { e.preventDefault(); scorePoint('A'); lastKeyTime = now; return; }
-        if (e.key === 'ArrowDown') { e.preventDefault(); scorePoint('B'); lastKeyTime = now; return; }
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); askScore(); lastKeyTime = now; return; }
+        if (e.key === 'ArrowUp') { e.preventDefault(); playBeep(); flashScreen(); scorePoint('A'); lastKeyTime = now; return; }
+        if (e.key === 'ArrowDown') { e.preventDefault(); playBeep(); flashScreen(); scorePoint('B'); lastKeyTime = now; return; }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); playBeep(); flashScreen(); askScore(); lastKeyTime = now; return; }
         return;
     }
 
     // Smartphone Mode: Merge Arrows and volume keys to the single-button multi-tap engine
     if (e.key.toLowerCase() === 'z') { undo(); return; } // Allow standard Z key always
     
+    // Capturar botón BT inmediatamente para el feedback visual
     const allTriggers = [...genericKeys, 'ArrowUp', 'ArrowDown'];
     if (allTriggers.includes(e.key)) {
         e.preventDefault();
         if (e.repeat) return; // Prevent hold auto-repeats
         btnPressTime = Date.now();
+        playBeep();
+        flashScreen();
     }
 });
 
@@ -390,8 +425,27 @@ function setupMediaSession() {
     }
 }
 
+// ====== Screen Wake Lock API ======
+let wakeLock = null;
+async function requestWakeLock() {
+    try {
+        if ('wakeLock' in navigator) {
+            wakeLock = await navigator.wakeLock.request('screen');
+        }
+    } catch (err) {
+        console.warn('Wake Lock error:', err);
+    }
+}
+document.addEventListener('visibilitychange', () => {
+    if (wakeLock !== null && document.visibilityState === 'visible') {
+        requestWakeLock();
+    }
+});
+
 const initOverlay = document.getElementById('initOverlay');
 initOverlay.addEventListener('click', () => {
+    requestWakeLock(); // Keep screen on during matches!
+    
     // Unlocks global audio Engine
     const unlockUtterance = new SpeechSynthesisUtterance('');
     window.speechSynthesis.speak(unlockUtterance);
