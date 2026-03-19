@@ -370,8 +370,27 @@ updateInstructions();
 
 const initOverlay = document.getElementById('initOverlay');
 initOverlay.addEventListener('click', () => {
+    // Unlocks global audio Engine
     const unlockUtterance = new SpeechSynthesisUtterance('');
     window.speechSynthesis.speak(unlockUtterance);
+    
+    // HACK: Start a silent Web Audio oscillator in the background. 
+    // This forces Android Chrome into generic "Media Playback" state, 
+    // which sometimes permits physical Volume Up/Down keys to be captured by JS `keydown` events.
+    try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+            const ctx = new AudioContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            gain.gain.value = 0; // Pure silence
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(0);
+        }
+    } catch (err) {
+        console.warn("AudioContext bypass failed.");
+    }
     
     initOverlay.style.opacity = '0';
     setTimeout(() => initOverlay.style.display = 'none', 500);
