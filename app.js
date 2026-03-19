@@ -277,110 +277,61 @@ function askScore() {
     // Prompt structure Example: "Un set a cero, dos juegos a dos, Treinta iguales"
     speak(`${setsStr}, ${gamesStr}, ${ptsStr}`);
 }
+// ====== Bluetooth Single-Button Engine ======
 
-// ====== Universal Input Engine (Touch & Bluetooth) ======
+let btnPressTime = 0;
+let btnTapCount = 0;
+let btnTapTimeout = null;
 
-let interactionPressTime = 0;
-let interactionTapCount = 0;
-let interactionTapTimeout = null;
+const triggerKeys = ['AudioVolumeUp', 'VolumeUp', '+', 'Enter', ' ', 'MediaPlayPause'];
 
-let vibeTimeout2s = null;
-let vibeTimeout5s = null;
-
-const genericKeys = ['AudioVolumeUp', 'VolumeUp', '+', 'Enter', ' ', 'MediaPlayPause', 'ArrowUp'];
-
-function isExcludedElement(target) {
-    if (!target) return false;
-    if (target.tagName === 'SELECT' || target.tagName === 'OPTION' || target.tagName === 'INPUT') return true;
-    if (target.closest('.config-bar') || target.closest('.init-overlay') || target.id === 'initOverlay') return true;
-    if (target.tagName === 'A' || target.tagName === 'BUTTON') return true;
-    return false;
-}
-
-function startInteraction(e) {
-    if (isExcludedElement(e.target)) return;
-    
-    if (e.type === 'keydown') {
-        if (e.repeat) { e.preventDefault(); return; }
-    } else {
-        if (e.cancelable) e.preventDefault(); // Prevents zoom/scroll on game board
-    }
-    
-    interactionPressTime = Date.now();
-    
-    clearTimeout(vibeTimeout2s);
-    clearTimeout(vibeTimeout5s);
-    
-    vibeTimeout2s = setTimeout(() => {
-        if (navigator.vibrate) navigator.vibrate(50);
-    }, 1800);
-    
-    vibeTimeout5s = setTimeout(() => {
-        if (navigator.vibrate) navigator.vibrate([50, 100, 50]);
-    }, 4500);
-}
-
-function handleEnd(duration) {
-    if (duration >= 4500) {
-        askScore();
-    } else if (duration >= 1800) {
-        undo();
-    } else {
-        interactionTapCount++;
-        clearTimeout(interactionTapTimeout);
-        interactionTapTimeout = setTimeout(() => {
-            if (interactionTapCount === 1) {
-                scorePoint('A');
-            } else if (interactionTapCount >= 2) {
-                scorePoint('B');
-            }
-            interactionTapCount = 0;
-        }, 400); // 400ms double-tap window
-    }
-}
-
-function endInteraction(e) {
-    if (isExcludedElement(e.target)) return;
-    
-    clearTimeout(vibeTimeout2s);
-    clearTimeout(vibeTimeout5s);
-    
-    if (interactionPressTime === 0) return;
-    
-    const duration = Date.now() - interactionPressTime;
-    interactionPressTime = 0; // Prevent duplicate end processing
-    
-    handleEnd(duration);
-}
-
-// Bind Screen Touch Events for Phones/Tablets
-document.addEventListener('touchstart', startInteraction, {passive: false});
-document.addEventListener('touchend', endInteraction);
-document.addEventListener('touchcancel', endInteraction);
-
-// Bind Bluetooth Remote Events
 document.addEventListener('keydown', (e) => {
+    // Ignore UI interaction
+    if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' || e.target.closest('.init-overlay')) return;
+    
     if (e.key.toLowerCase() === 'z') { undo(); return; }
+    if (e.key === 'ArrowUp') { e.preventDefault(); scorePoint('A'); return; }
     if (e.key === 'ArrowDown') { e.preventDefault(); scorePoint('B'); return; }
     
-    if (genericKeys.includes(e.key)) {
+    if (triggerKeys.includes(e.key)) {
         e.preventDefault();
-        startInteraction(e);
+        if (e.repeat) return; // Prevent hold auto-repeats
+        btnPressTime = Date.now();
     }
 });
 
 document.addEventListener('keyup', (e) => {
-    if (genericKeys.includes(e.key)) {
+    if (triggerKeys.includes(e.key)) {
         e.preventDefault();
-        endInteraction(e);
+        if (btnPressTime === 0) return;
+        
+        const duration = Date.now() - btnPressTime;
+        btnPressTime = 0; // Reset
+        
+        if (duration >= 4000) { // 4+ seg
+            askScore();
+        } else if (duration >= 1400) { // 1.4s a 4s
+            undo();
+        } else {
+            // Clic corto (Doble tap param)
+            btnTapCount++;
+            clearTimeout(btnTapTimeout);
+            btnTapTimeout = setTimeout(() => {
+                if (btnTapCount === 1) {
+                    scorePoint('A');
+                } else if (btnTapCount >= 2) {
+                    scorePoint('B');
+                }
+                btnTapCount = 0;
+            }, 350); // 350ms window 
+        }
     }
 });
 
-// ====== iOS Audio Unlock ======
+// ====== iOS Audio Unlock & Touch Fallback ======
 
 const initOverlay = document.getElementById('initOverlay');
 initOverlay.addEventListener('click', () => {
-    // Unlocks global audio Engine
     const unlockUtterance = new SpeechSynthesisUtterance('');
     window.speechSynthesis.speak(unlockUtterance);
     
@@ -389,10 +340,20 @@ initOverlay.addEventListener('click', () => {
     speak("Partido iniciado. ¡A jugar!");
 });
 
+// Touch controls directos en los recuadros de puntos
+document.querySelector('#teamA .points-box').addEventListener('click', () => scorePoint('A'));
+document.querySelector('#teamB .points-box').addEventListener('click', () => scorePoint('B'));
+
 // ====== Config Modalities ======
 const configChange = () => {
     historyStack = [];
     state = initializeState();
+    
+    const settings = getGameSettings();
+    if (settings.type !== 'normal') {
+        state.isTieBreak = true;
+    }
+    
     render();
     speak("Configuración cambiada. Marcador reiniciado.");
 };
