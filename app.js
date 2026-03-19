@@ -12,6 +12,7 @@ function initializeState() {
         games: { A: 0, B: 0 },
         sets: { A: 0, B: 0 },
         isTieBreak: false,
+        isSuperTieBreak: false,
         tbPoints: { A: 0, B: 0 },
         matchOver: false,
         winner: null
@@ -48,7 +49,7 @@ function render() {
     }
 
     if (state.isTieBreak) {
-        status.innerText = "TIE-BREAK";
+        status.innerText = state.isSuperTieBreak ? "SÚPER TIE-BREAK" : "TIE-BREAK";
         ptsA.innerText = state.tbPoints.A;
         ptsB.innerText = state.tbPoints.B;
     } else {
@@ -68,9 +69,13 @@ function render() {
 
 function getGameSettings() {
     const val = document.getElementById('gamesToWin').value;
-    if (val === 'TB') return { type: 'TB', tbPointsToWin: 7 };
-    if (val === 'STB') return { type: 'STB', tbPointsToWin: 10 };
-    return { type: 'normal', gamesToWinSet: parseInt(val, 10), tbPointsToWin: 7 };
+    const thirdSet = document.getElementById('thirdSetRule').value;
+    return { 
+        type: 'normal', 
+        gamesToWinSet: parseInt(val, 10), 
+        tbPointsToWin: 7,
+        thirdSetSuperTieBreak: (thirdSet === 'STB') 
+    };
 }
 
 function scorePoint(team) {
@@ -83,10 +88,18 @@ function scorePoint(team) {
     let event = 'POINT';
     const settings = getGameSettings();
 
-    if (state.isTieBreak) {
+    if (state.isTieBreak || state.isSuperTieBreak) {
         state.tbPoints[team]++;
-        if (state.tbPoints[team] >= settings.tbPointsToWin && (state.tbPoints[team] - state.tbPoints[other]) >= 2) {
-            event = winGame(team); 
+        let targetTbPts = state.isSuperTieBreak ? 10 : settings.tbPointsToWin;
+
+        if (state.tbPoints[team] >= targetTbPts && (state.tbPoints[team] - state.tbPoints[other]) >= 2) {
+            if (state.isSuperTieBreak) {
+                // Winning a Super Tie Break wins the set immediately
+                event = winSet(team);
+            } else {
+                state.games[team]++; // normal tie break wins the 7th game
+                event = winSet(team); 
+            }
         }
     } else {
         const pts = state.points[team];
@@ -144,18 +157,22 @@ function winSet(team) {
     state.sets[team]++;
     state.games = { A: 0, B: 0 };
     state.isTieBreak = false;
+    state.isSuperTieBreak = false;
     state.tbPoints = { A: 0, B: 0 };
-
-    const settings = getGameSettings();
-    if (settings.type !== 'normal') {
-        state.isTieBreak = true;
-    }
 
     if (state.sets[team] === CONFIG.setsToWin) {
         state.matchOver = true;
         state.winner = team;
         return 'MATCH';
     }
+
+    const settings = getGameSettings();
+    // Check if moving to 3rd Set and STB rule is ON
+    if (settings.thirdSetSuperTieBreak && state.sets.A === 1 && state.sets.B === 1) {
+        state.isSuperTieBreak = true;
+        state.isTieBreak = true; // also true for render styling
+    }
+
     return 'SET';
 }
 
@@ -174,8 +191,19 @@ function undo() {
 let customVoice = null;
 function loadVoices() {
     const voices = window.speechSynthesis.getVoices();
-    // Try to find a Dominican Republic Spanish voice if the device has one installed
     customVoice = voices.find(v => v.lang === 'es-DO' || v.lang.includes('DO') || v.name.toLowerCase().includes('dominican'));
+    
+    // Fallback to Latina / Mexicana
+    if (!customVoice) {
+        customVoice = voices.find(v => 
+            v.lang.includes('es-MX') || 
+            v.lang.includes('es-US') || 
+            v.lang.includes('es-419') || 
+            v.lang.includes('es-AR') || 
+            v.name.toLowerCase().includes('mexican') || 
+            v.name.toLowerCase().includes('latin')
+        );
+    }
 }
 
 // Load voices once they are available in the browser
@@ -190,11 +218,11 @@ function speak(text) {
     }
     const utterance = new SpeechSynthesisUtterance(text);
     
-    // Force Dominican Republic Locale tag
-    utterance.lang = 'es-DO';
-    // Bind the specific OS voice if found
     if (customVoice) {
         utterance.voice = customVoice;
+        utterance.lang = customVoice.lang;
+    } else {
+        utterance.lang = 'es-MX'; // Fallback to ask OS for Mexico/Latin
     }
     
     // Slightly slower rate is sometimes clearer on scoreboards
@@ -250,111 +278,96 @@ function askScore() {
     speak(`${setsStr}, ${gamesStr}, ${ptsStr}`);
 }
 
-// ------ Keyboard Input Logic ------
+// ====== Universal Input Engine (Touch & Bluetooth) ======
 
-let lastKeyTime = 0;
-let volButtonPressTime = 0;
-let volButtonTapCount = 0;
-let volButtonTapTimeout = null;
+let interactionPressTime = 0;
+let interactionTapCount = 0;
+let interactionTapTimeout = null;
 
-document.addEventListener('keydown', (e) => {
-    // Volume button logic (State machine start)
-    if (e.key === 'AudioVolumeUp' || e.key === 'VolumeUp') {
-        // Prevent volume UI from showing (depends on OS/Browser combinations)
-        e.preventDefault(); 
-        if (e.repeat) return; // ignore hold auto-repeats
-        volButtonPressTime = Date.now();
-        return;
-    }
+const genericKeys = ['AudioVolumeUp', 'VolumeUp', '+', 'Enter', ' ', 'MediaPlayPause', 'ArrowUp'];
 
-    // Check undo first. Bluetooth controllers might not send Ctrl for Z. So we accept plain 'z' or 'Z'
-    if (e.key.toLowerCase() === 'z') {
-        undo();
-        return;
-    }
-
-    const now = Date.now();
-    if (now - lastKeyTime < 500) return; // 500ms debounce
+function startInteraction(e) {
+    if (e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION' || e.target.tagName === 'INPUT' || e.target.id === 'initOverlay' || e.target.closest('#initOverlay')) return;
     
-    if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        scorePoint('A');
-        lastKeyTime = now;
-    } else if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        scorePoint('B');
-        lastKeyTime = now;
-    } else if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
+    if (e.type === 'keydown') {
+        if (e.repeat) { e.preventDefault(); return; }
+    }
+    
+    if (interactionPressTime === 0) {
+        interactionPressTime = Date.now();
+    }
+}
+
+function endInteraction(e) {
+    if (e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION' || e.target.tagName === 'INPUT' || e.target.id === 'initOverlay' || e.target.closest('#initOverlay')) return;
+    if (interactionPressTime === 0) return;
+    
+    const duration = Date.now() - interactionPressTime;
+    interactionPressTime = 0; // reset
+    
+    if (duration >= 5000) {
         askScore();
-        lastKeyTime = now;
+    } else if (duration >= 2000) {
+        undo();
+    } else {
+        interactionTapCount++;
+        clearTimeout(interactionTapTimeout);
+        interactionTapTimeout = setTimeout(() => {
+            if (interactionTapCount === 1) {
+                scorePoint('A');
+            } else if (interactionTapCount >= 2) {
+                scorePoint('B');
+            }
+            interactionTapCount = 0;
+        }, 400); // 400ms double-tap allowance window
+    }
+}
+
+// Bind Screen Touch Events for Phones/Tablets
+document.addEventListener('touchstart', startInteraction, {passive: true});
+document.addEventListener('touchend', endInteraction);
+
+// Bind Bluetooth Remote Events
+document.addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() === 'z') { undo(); return; }
+    if (e.key === 'ArrowDown') { e.preventDefault(); scorePoint('B'); return; } // legacy
+    
+    if (genericKeys.includes(e.key)) {
+        e.preventDefault();
+        startInteraction(e);
     }
 });
 
 document.addEventListener('keyup', (e) => {
-    if (e.key === 'AudioVolumeUp' || e.key === 'VolumeUp') {
+    if (genericKeys.includes(e.key)) {
         e.preventDefault();
-        if (volButtonPressTime === 0) return;
-        
-        const duration = Date.now() - volButtonPressTime;
-        volButtonPressTime = 0;
-        
-        // Timer Logic
-        if (duration >= 5000) {
-            // >= 5 seconds -> Ask Score
-            askScore();
-        } else if (duration >= 2000) {
-            // >= 2 seconds -> Undo
-            undo();
-        } else {
-            // Short press (Double tap logic)
-            volButtonTapCount++;
-            clearTimeout(volButtonTapTimeout);
-            volButtonTapTimeout = setTimeout(() => {
-                if (volButtonTapCount === 1) {
-                    scorePoint('A'); // 1 push
-                } else if (volButtonTapCount >= 2) {
-                    scorePoint('B'); // 2 pushes
-                }
-                volButtonTapCount = 0;
-            }, 400); // 400ms buffer to detect a second tap
-        }
+        endInteraction(e);
     }
 });
 
-// ====== iOS Audio Unlock & Touch Controls ======
+// ====== iOS Audio Unlock ======
 
 const initOverlay = document.getElementById('initOverlay');
 initOverlay.addEventListener('click', () => {
-    // This empty utterance unlocks the speechSynthesis engine on iOS Safari
+    // Unlocks global audio Engine
     const unlockUtterance = new SpeechSynthesisUtterance('');
     window.speechSynthesis.speak(unlockUtterance);
     
-    // Hide overlay
     initOverlay.style.opacity = '0';
     setTimeout(() => initOverlay.style.display = 'none', 500);
-    
-    // Announce start
     speak("Partido iniciado. ¡A jugar!");
 });
 
-// Touch controls for mobile/tablets
-document.querySelector('#teamA .points-box').addEventListener('click', () => scorePoint('A'));
-document.querySelector('#teamB .points-box').addEventListener('click', () => scorePoint('B'));
-
 // ====== Config Modalities ======
-document.getElementById('gamesToWin').addEventListener('change', () => {
+const configChange = () => {
     historyStack = [];
     state = initializeState();
-    
-    const settings = getGameSettings();
-    if (settings.type !== 'normal') {
-        state.isTieBreak = true;
-    }
-    
     render();
-    speak("Modalidad de set cambiada. Marcador reiniciado.");
-});
+    speak("Configuración cambiada. Marcador reiniciado.");
+};
+
+document.getElementById('gamesToWin').addEventListener('change', configChange);
+document.getElementById('thirdSetRule').addEventListener('change', configChange);
 
 // Start app
 const currentSettings = getGameSettings();

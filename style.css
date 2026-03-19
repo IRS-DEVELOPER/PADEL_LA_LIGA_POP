@@ -24,7 +24,9 @@ body {
     justify-content: center;
     align-items: center;
     background-image: radial-gradient(circle at top, rgba(56, 189, 248, 0.1), transparent 40%);
+    touch-action: manipulation;
 }
+html { touch-action: manipulation; }
 
 .container {
     width: 100%;

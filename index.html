@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Marcador de Pádel por Voz</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
@@ -20,15 +20,22 @@
         <header>
             <h1>Marcador de Pádel</h1>
             <p class="subtitle">Control por Bluetooth & Voz</p>
-            <div class="config-bar">
-                <label for="gamesToWin">Juegos para ganar el Set:</label>
-                <select id="gamesToWin">
-                    <option value="TB">Tie-Break a 7</option>
-                    <option value="STB">Super Tie-Break a 10</option>
-                    <option value="4">4 Juegos (Fast)</option>
-                    <option value="6" selected>6 Juegos (Clásico)</option>
-                    <option value="8">8 Juegos (Pro Set)</option>
-                </select>
+            <div class="config-bar" style="flex-wrap: wrap;">
+                <div>
+                    <label for="gamesToWin">Juegos por Set:</label>
+                    <select id="gamesToWin">
+                        <option value="4">4 Juegos (Fast)</option>
+                        <option value="6" selected>6 Juegos (Clásico)</option>
+                        <option value="8">8 Juegos (Pro Set)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="thirdSetRule">Al empatar 1-1 en Sets:</label>
+                    <select id="thirdSetRule">
+                        <option value="STB" selected>Súper Tie-Break (10 pts)</option>
+                        <option value="NORMAL">Jugar 3er Set Largo</option>
+                    </select>
+                </div>
             </div>
         </header>
 
