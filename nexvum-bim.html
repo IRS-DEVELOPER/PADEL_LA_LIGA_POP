@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXVUM GROUP — BIM · Ingeniería · Arquitectura</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@200;300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#000000;
+  --navy:#001F3F;
+  --navy2:#002D5A;
+  --night:#06080F;
+  --silver:#8A9AB0;
+  --silver2:#C8D4E0;
+  --white:#EAEEF2;
+  --pure:#FFFFFF;
+  --gold:#C4A35A;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;cursor:none;}
+
+/* CURSOR */
+.cursor{position:fixed;width:5px;height:5px;background:var(--pure);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+.cursor-ring{position:fixed;width:28px;height:28px;border:1px solid rgba(255,255,255,0.25);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.15s ease-out;}
+
+/* LANG */
+.lang-toggle{position:fixed;top:26px;right:130px;z-index:300;display:flex;}
+.lang-btn{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;padding:6px 12px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:var(--silver);cursor:pointer;transition:all 0.2s;}
+.lang-btn:first-child{border-right:none;border-radius:3px 0 0 3px;}
+.lang-btn:last-child{border-radius:0 3px 3px 0;}
+.lang-btn.active{background:var(--navy);color:var(--pure);border-color:var(--navy);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:20px 64px;display:flex;align-items:center;justify-content:space-between;}
+nav.scrolled{background:rgba(0,0,0,0.96);backdrop-filter:blur(24px);padding:14px 64px;border-bottom:1px solid rgba(255,255,255,0.04);}
+.nav-logo{display:flex;align-items:center;gap:14px;}
+.nav-icon{width:28px;height:28px;}
+.nav-icon svg{width:100%;height:100%;}
+.logo-wm{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;letter-spacing:-0.5px;}
+.logo-wm .nex,.logo-wm .um{color:var(--pure);}
+.logo-wm .v{color:var(--silver2);}
+.nav-links{display:flex;gap:32px;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--pure);}
+.nav-cta{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;border:none;background:var(--navy);color:var(--pure);cursor:pointer;transition:all 0.25s;border-radius:3px;}
+.nav-cta:hover{background:var(--navy2);}
+
+/* ══════════════════════════════
+   HERO — Blueprint aesthetic
+══════════════════════════════ */
+.hero{height:100vh;min-height:700px;position:relative;overflow:hidden;display:flex;align-items:center;}
+
+/* Blueprint grid background */
+.bp-grid{position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,31,63,0.4) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(0,31,63,0.4) 1px, transparent 1px),
+    linear-gradient(rgba(0,31,63,0.15) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(0,31,63,0.15) 1px, transparent 1px);
+  background-size:80px 80px, 80px 80px, 20px 20px, 20px 20px;
+  mask-image:radial-gradient(ellipse 90% 90% at 50% 50%, black 30%, transparent 75%);}
+
+/* Dimension lines — like engineering drawings */
+.dim-line-h{position:absolute;height:1px;background:rgba(200,212,224,0.08);}
+.dim-line-v{position:absolute;width:1px;background:rgba(200,212,224,0.08);}
+.dl1{top:20%;left:0;right:0;}
+.dl2{top:80%;left:0;right:0;}
+.dl3{left:15%;top:0;bottom:0;}
+.dl4{right:15%;top:0;bottom:0;}
+/* Corner markers */
+.corner-mark{position:absolute;width:16px;height:16px;border-color:rgba(200,212,224,0.2);border-style:solid;}
+.cm-tl{top:20px;left:20px;border-width:1px 0 0 1px;}
+.cm-tr{top:20px;right:20px;border-width:1px 1px 0 0;}
+.cm-bl{bottom:20px;left:20px;border-width:0 0 1px 1px;}
+.cm-br{bottom:20px;right:20px;border-width:0 1px 1px 0;}
+
+/* Glows */
+.hero-glow-l{position:absolute;left:-10%;top:20%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,31,63,0.5),transparent 70%);pointer-events:none;}
+.hero-glow-r{position:absolute;right:-5%;bottom:10%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,20,40,0.4),transparent 70%);pointer-events:none;}
+
+/* Hero content — split layout */
+.hero-inner{position:relative;z-index:2;width:100%;max-width:1300px;margin:0 auto;padding:0 64px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+
+.hero-left{}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0;animation:fadeUp 0.7s ease 0.3s forwards;}
+.eyebrow-line{width:32px;height:1px;background:var(--silver2);}
+.eyebrow-txt{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--silver2);}
+
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,5.5vw,80px);font-weight:300;line-height:0.95;letter-spacing:-2px;margin-bottom:28px;opacity:0;animation:fadeUp 0.8s ease 0.5s forwards;}
+.hero-title .line1{display:block;color:var(--silver);}
+.hero-title .line2{display:block;font-style:italic;color:var(--pure);}
+.hero-title .line3{display:block;font-weight:700;color:var(--pure);}
+
+.hero-desc{font-size:14px;font-weight:300;color:var(--silver);line-height:1.75;margin-bottom:36px;max-width:420px;opacity:0;animation:fadeUp 0.7s ease 0.7s forwards;}
+
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:fadeUp 0.7s ease 0.9s forwards;}
+.btn-prim{padding:13px 32px;background:var(--navy);color:var(--pure);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;border:1px solid var(--navy);cursor:pointer;transition:all 0.25s;border-radius:3px;}
+.btn-prim:hover{background:transparent;border-color:var(--silver2);color:var(--silver2);}
+.btn-sec{padding:13px 32px;background:transparent;color:var(--silver);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;border:1px solid rgba(255,255,255,0.12);cursor:pointer;transition:all 0.25s;border-radius:3px;}
+.btn-sec:hover{border-color:var(--silver);color:var(--pure);}
+
+.hero-meta{display:flex;gap:32px;margin-top:48px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.06);opacity:0;animation:fadeUp 0.7s ease 1.1s forwards;}
+.hm-item{}
+.hm-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--pure);line-height:1;}
+.hm-lbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--silver);letter-spacing:1px;margin-top:2px;}
+
+/* Right side — Revit BIM visualization */
+.hero-right{position:relative;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards;}
+
+/* ── REVIT WINDOW FRAME ── */
+.revit-frame{
+  width:100%;
+  background:#1E2530;
+  border:1px solid #3A4555;
+  border-radius:4px;
+  overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,0.8),0 0 0 1px rgba(255,255,255,0.04);
+  font-family:'Space Mono',monospace;
+}
+
+/* Title bar */
+.revit-titlebar{
+  background:#141A22;
+  padding:5px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid #2A3340;
+}
+.revit-title-text{
+  font-size:9px;
+  color:#7A8FA8;
+  letter-spacing:0.5px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.revit-winbtns{display:flex;gap:5px;}
+.revit-winbtn{width:9px;height:9px;border-radius:50%;border:none;}
+.rwb-close{background:#FF5F56;}
+.rwb-min{background:#FFBD2E;}
+.rwb-max{background:#27C93F;}
+
+/* Ribbon tabs */
+.revit-ribbon{
+  background:#222C38;
+  border-bottom:1px solid #2A3340;
+  display:flex;
+  align-items:stretch;
+  padding:0 4px;
+  gap:0;
+}
+.revit-tab{
+  font-size:8px;
+  color:#8A9AB0;
+  padding:5px 9px;
+  cursor:default;
+  border-bottom:2px solid transparent;
+  letter-spacing:0.5px;
+  white-space:nowrap;
+}
+.revit-tab.active{
+  color:#E8EEFF;
+  border-bottom:2px solid #4A9EFF;
+  background:rgba(74,158,255,0.06);
+}
+
+/* Main layout: properties | 3d view */
+.revit-body{
+  display:grid;
+  grid-template-columns:116px 1fr;
+  height:420px;
+}
+
+/* Properties panel */
+.revit-props{
+  background:#18202A;
+  border-right:1px solid #2A3340;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.rp-header{
+  background:#1E2836;
+  padding:5px 8px;
+  font-size:8px;
+  color:#C8D4E0;
+  letter-spacing:1px;
+  border-bottom:1px solid #2A3340;
+  text-transform:uppercase;
+}
+.rp-typename{
+  padding:5px 8px 3px;
+  font-size:7px;
+  color:#6A8AAA;
+  letter-spacing:0.5px;
+}
+.rp-typeval{
+  padding:0 8px 5px;
+  font-size:8px;
+  color:#A8C4E0;
+  border-bottom:1px solid #1A2430;
+}
+.rp-section{
+  padding:4px 8px 2px;
+  font-size:7px;
+  color:#4A7A9B;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  background:#151D27;
+  border-bottom:1px solid #1E2A38;
+}
+.rp-row{
+  display:flex;
+  justify-content:space-between;
+  padding:3px 8px;
+  border-bottom:1px solid rgba(255,255,255,0.02);
+}
+.rp-key{font-size:7px;color:#5A7A9A;letter-spacing:0.3px;}
+.rp-val{font-size:7px;color:#90B8D8;letter-spacing:0.3px;}
+.rp-layers{padding:6px 6px 4px;}
+.rp-layers-title{font-size:7px;color:#4A7A9B;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;padding:2px 2px 4px;border-bottom:1px solid #1E2A38;}
+.rp-layer{display:flex;align-items:center;gap:5px;padding:2px 2px;border-radius:2px;}
+.rp-layer-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+.rp-layer-name{font-size:7px;color:#8AAAC8;letter-spacing:0.3px;}
+.rp-layer-check{width:8px;height:8px;margin-left:auto;background:#2A4A6A;border-radius:1px;display:flex;align-items:center;justify-content:center;font-size:5px;color:#4AF;}
+
+/* 3D viewport */
+.revit-viewport{
+  position:relative;
+  background:#0D1117;
+  overflow:hidden;
+}
+
+/* Grid overlay in viewport */
+.revit-viewport::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(0,31,63,0.25) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,31,63,0.25) 1px,transparent 1px);
+  background-size:30px 30px;
+  pointer-events:none;
+  z-index:0;
+}
+
+.revit-viewport-label{
+  position:absolute;
+  top:8px;
+  left:10px;
+  font-size:8px;
+  color:#3A5A7A;
+  letter-spacing:1px;
+  z-index:2;
+  text-transform:uppercase;
+}
+
+/* BIM building SVG */
+.bim-svg-wrap{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1;
+}
+
+/* BIM dimension badges */
+.bim-badge{
+  position:absolute;
+  z-index:5;
+  padding:5px 8px;
+  border-radius:4px;
+  font-family:'Space Mono',monospace;
+  font-size:8px;
+  letter-spacing:0.5px;
+  backdrop-filter:blur(8px);
+  border:1px solid;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  white-space:nowrap;
+}
+.badge-3d{
+  top:8px;right:8px;
+  background:rgba(20,40,80,0.85);
+  border-color:rgba(74,158,255,0.4);
+  color:#A8D4FF;
+  animation:badgeFloat 3s ease-in-out infinite;
+}
+.badge-4d{
+  top:52px;right:8px;
+  background:rgba(30,50,20,0.85);
+  border-color:rgba(80,200,80,0.35);
+  color:#A8EAA8;
+  animation:badgeFloat 3s ease-in-out 0.5s infinite;
+}
+.badge-5d{
+  bottom:55px;right:8px;
+  background:rgba(50,40,10,0.85);
+  border-color:rgba(255,215,0,0.35);
+  color:#FFE880;
+  animation:badgeFloat 3s ease-in-out 1s infinite;
+}
+.badge-6d{
+  bottom:20px;right:8px;
+  background:rgba(10,40,20,0.85);
+  border-color:rgba(76,175,80,0.35);
+  color:#90E890;
+  animation:badgeFloat 3.5s ease-in-out 1.5s infinite;
+}
+.badge-7d{
+  bottom:20px;left:8px;
+  background:rgba(40,20,50,0.85);
+  border-color:rgba(180,80,255,0.35);
+  color:#D8A8FF;
+  animation:badgeFloat 3s ease-in-out 2s infinite;
+}
+.badge-icon{font-size:9px;}
+.badge-label{font-weight:700;}
+.badge-sub{font-size:6px;color:inherit;opacity:0.7;margin-left:2px;}
+
+/* Mini gantt bars */
+.gantt-wrap{display:flex;flex-direction:column;gap:2px;margin-left:2px;}
+.gantt-bar{height:3px;border-radius:1px;background:currentColor;opacity:0.7;}
+
+/* Status bar */
+.revit-statusbar{
+  background:#141A22;
+  border-top:1px solid #2A3340;
+  padding:4px 10px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.rsb-item{font-size:7px;color:#5A7A9A;letter-spacing:0.5px;display:flex;align-items:center;gap:4px;}
+.rsb-item span.ok{color:#4CAF50;}
+.rsb-sep{width:1px;height:10px;background:#2A3340;}
+
+/* MEP pipe flow animation */
+@keyframes mepFlow{
+  0%{stroke-dashoffset:40;}
+  100%{stroke-dashoffset:0;}
+}
+@keyframes mepFlowRev{
+  0%{stroke-dashoffset:0;}
+  100%{stroke-dashoffset:40;}
+}
+@keyframes badgeFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-4px);}
+}
+@keyframes disciplinePulse{
+  0%,100%{opacity:1;}
+  50%{opacity:0.7;}
+}
+@keyframes modelBob{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-5px);}
+}
+
+.mep-pipe-h{stroke-dasharray:8,4;animation:mepFlow 1.8s linear infinite;}
+.mep-pipe-v{stroke-dasharray:6,3;animation:mepFlow 2.4s linear infinite;}
+.elec-conduit{stroke-dasharray:5,3;animation:mepFlow 1.2s linear infinite;}
+.plumb-pipe{stroke-dasharray:6,4;animation:mepFlowRev 2s linear infinite;}
+
+.layer-struct{animation:disciplinePulse 4s ease-in-out infinite;}
+.layer-arch{animation:disciplinePulse 4s ease-in-out 1s infinite;}
+.layer-mep{animation:disciplinePulse 4s ease-in-out 2s infinite;}
+
+.bim-model-group{animation:modelBob 6s ease-in-out infinite;}
+
+/* Floating data cards */
+.data-card{position:absolute;padding:10px 14px;background:rgba(0,0,0,0.85);border:1px solid rgba(200,212,224,0.15);border-radius:6px;backdrop-filter:blur(12px);}
+.dc1{top:8%;right:-5%;animation:floatA 4s ease-in-out infinite;}
+.dc2{bottom:15%;left:-8%;animation:floatB 4s ease-in-out 2s infinite;}
+.dc-label{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:var(--silver);text-transform:uppercase;margin-bottom:4px;}
+.dc-val{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--pure);line-height:1;}
+.dc-sub{font-size:10px;color:var(--silver);font-weight:300;}
+
+@keyframes floatA{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes floatB{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+/* ── MARQUEE ── */
+.marquee-wrap{padding:14px 0;border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);background:rgba(0,31,63,0.08);overflow:hidden;}
+.marquee-track{display:flex;gap:40px;white-space:nowrap;animation:marquee 24s linear infinite;}
+.mq-item{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--silver);display:flex;align-items:center;gap:14px;}
+.mq-dot{width:3px;height:3px;background:var(--navy2);border:0.5px solid var(--silver2);transform:rotate(45deg);flex-shrink:0;}
+
+/* ══════════════════════════════
+   SERVICES
+══════════════════════════════ */
+.services-wrap{background:#000;padding:100px 64px;}
+.services-header{max-width:1200px;margin:0 auto 64px;}
+.sec-eyebrow{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--silver);display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.sec-eyebrow::before{content:'';width:20px;height:1px;background:var(--navy2);}
+.sec-h{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,54px);font-weight:300;letter-spacing:-1px;line-height:1.05;}
+.sec-h em{font-style:italic;color:var(--silver2);}
+.sec-h strong{font-weight:700;}
+
+.srv-layout{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:2px;background:rgba(255,255,255,0.03);}
+.srv-nav{background:#000;padding:0;}
+.srv-nav-item{padding:28px 32px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.srv-nav-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--navy);transform:scaleY(0);transition:transform 0.3s;transform-origin:bottom;}
+.srv-nav-item:hover::before,.srv-nav-item.active::before{transform:scaleY(1);}
+.srv-nav-item.active{background:rgba(0,31,63,0.15);}
+.sni-num{font-family:'Space Mono',monospace;font-size:8px;color:var(--silver);letter-spacing:2px;margin-bottom:6px;}
+.sni-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;margin-bottom:4px;transition:color 0.2s;}
+.srv-nav-item:hover .sni-title,.srv-nav-item.active .sni-title{color:var(--pure);}
+.sni-sub{font-size:11px;color:var(--silver);font-weight:300;}
+
+.srv-content{background:#050505;padding:48px;}
+.sc-panel{display:none;}
+.sc-panel.active{display:block;}
+.sc-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--silver);text-transform:uppercase;margin-bottom:16px;}
+.sc-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;margin-bottom:20px;line-height:1.1;}
+.sc-desc{font-size:14px;color:var(--silver);font-weight:300;line-height:1.75;margin-bottom:32px;}
+.sc-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px;}
+.sc-feat{padding:16px 18px;background:rgba(0,31,63,0.12);border:1px solid rgba(0,31,63,0.4);border-radius:4px;}
+.scf-icon{font-size:18px;margin-bottom:8px;}
+.scf-title{font-size:12px;font-weight:500;margin-bottom:3px;}
+.scf-desc{font-size:11px;color:var(--silver);font-weight:300;}
+.sc-software{display:flex;flex-wrap:wrap;gap:6px;}
+.sc-sw{font-family:'Space Mono',monospace;font-size:8px;padding:4px 10px;border:1px solid rgba(200,212,224,0.12);color:var(--silver);border-radius:2px;}
+
+/* ══════════════════════════════
+   NUMBERS
+══════════════════════════════ */
+.numbers-wrap{background:var(--night);border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);}
+.numbers-inner{max-width:1200px;margin:0 auto;padding:80px 64px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,0.03);}
+.num-cell{padding:40px 32px;background:var(--night);text-align:center;position:relative;}
+.num-cell::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:1px;background:var(--navy2);transition:width 0.4s;}
+.num-cell:hover::after{width:60%;}
+.nc-num{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,5vw,68px);font-weight:300;color:var(--pure);line-height:1;letter-spacing:-2px;}
+.nc-num sup{font-size:0.4em;color:var(--silver2);vertical-align:top;margin-top:8px;}
+.nc-lbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--silver);letter-spacing:2px;text-transform:uppercase;margin-top:10px;}
+
+/* ══════════════════════════════
+   BIM DIMENSIONS
+══════════════════════════════ */
+.bim-wrap{background:#000;padding:100px 64px;}
+.bim-inner{max-width:1200px;margin:0 auto;}
+.bim-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:rgba(255,255,255,0.03);margin-top:64px;}
+.bim-card{background:#000;padding:32px 24px;position:relative;overflow:hidden;transition:background 0.3s;}
+.bim-card:hover{background:#030303;}
+.bim-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--navy),var(--silver2));transform:scaleX(0);transition:transform 0.4s;transform-origin:left;}
+.bim-card:hover::before{transform:scaleX(1);}
+.bim-d{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:rgba(0,31,63,0.5);line-height:1;margin-bottom:12px;transition:color 0.3s;}
+.bim-card:hover .bim-d{color:var(--navy2);}
+.bim-name{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver2);margin-bottom:6px;}
+.bim-desc{font-size:12px;color:var(--silver);font-weight:300;line-height:1.5;}
+
+/* ══════════════════════════════
+   PROCESS
+══════════════════════════════ */
+.process-wrap{background:var(--night);padding:100px 64px;}
+.process-inner{max-width:1200px;margin:0 auto;}
+.process-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px;position:relative;}
+.process-timeline::before{content:'';position:absolute;top:28px;left:5%;right:5%;height:1px;background:linear-gradient(90deg,transparent,var(--navy),var(--navy),transparent);}
+.proc-card{padding:40px 28px;text-align:center;position:relative;}
+.proc-dot{width:56px;height:56px;border-radius:50%;border:1px solid rgba(0,31,63,0.6);background:var(--night);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-family:'Space Mono',monospace;font-size:10px;color:var(--silver);position:relative;z-index:1;transition:all 0.3s;}
+.proc-card:hover .proc-dot{border-color:var(--navy2);background:rgba(0,31,63,0.3);color:var(--pure);}
+.proc-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:10px;}
+.proc-desc{font-size:12px;color:var(--silver);font-weight:300;line-height:1.6;}
+
+/* ══════════════════════════════
+   TESTIMONIALS
+══════════════════════════════ */
+.test-wrap{background:#000;padding:100px 64px;}
+.test-inner{max-width:1200px;margin:0 auto;}
+.test-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(255,255,255,0.03);margin-top:64px;}
+.test-card{background:#000;padding:40px 32px;position:relative;}
+.test-card::before{content:'"';font-family:'Cormorant Garamond',serif;font-size:80px;color:rgba(0,31,63,0.3);position:absolute;top:20px;left:24px;line-height:1;}
+.tc-stars{display:flex;gap:3px;margin-bottom:16px;}
+.tc-star{color:var(--silver2);font-size:12px;}
+.tc-txt{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;font-weight:300;color:var(--silver);line-height:1.7;margin-bottom:24px;padding-top:24px;}
+.tc-div{height:1px;background:rgba(255,255,255,0.05);margin-bottom:16px;}
+.tc-name{font-size:13px;font-weight:500;margin-bottom:2px;}
+.tc-role{font-size:11px;color:var(--silver);font-weight:300;letter-spacing:0.5px;}
+
+/* ══════════════════════════════
+   CTA
+══════════════════════════════ */
+.cta-wrap{position:relative;overflow:hidden;padding:120px 64px;text-align:center;}
+.cta-wrap::before{content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,31,63,0.15) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,31,63,0.15) 1px,transparent 1px);
+  background-size:40px 40px;}
+.cta-wrap::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(0,31,63,0.35),transparent);}
+.cta-inner{position:relative;z-index:1;max-width:640px;margin:0 auto;}
+.cta-eyebrow{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--silver);margin-bottom:20px;}
+.cta-h{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,68px);font-weight:300;letter-spacing:-1.5px;line-height:1.05;margin-bottom:18px;}
+.cta-h em{font-style:italic;color:var(--silver2);}
+.cta-sub{font-size:14px;color:var(--silver);font-weight:300;line-height:1.7;margin-bottom:44px;}
+.cta-form{display:flex;gap:0;max-width:440px;margin:0 auto 12px;}
+.cta-inp{flex:1;padding:13px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-right:none;color:var(--pure);font-size:13px;font-family:'Jost',sans-serif;outline:none;border-radius:3px 0 0 3px;transition:border-color 0.2s;}
+.cta-inp::placeholder{color:var(--silver);}
+.cta-inp:focus{border-color:var(--navy2);}
+.cta-btn{padding:13px 24px;background:var(--navy);color:var(--pure);border:1px solid var(--navy);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.25s;border-radius:0 3px 3px 0;}
+.cta-btn:hover{background:var(--silver2);border-color:var(--silver2);color:var(--black);}
+.cta-note{font-size:10px;color:rgba(138,154,176,0.35);letter-spacing:1px;}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer{border-top:1px solid rgba(255,255,255,0.04);padding:56px 64px 36px;max-width:1400px;margin:0 auto;}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.ft-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;letter-spacing:-0.5px;margin-bottom:12px;}
+.ft-logo .nex,.ft-logo .um{color:var(--pure);}
+.ft-logo .v{color:var(--silver2);}
+.ft-tag{font-size:12px;color:var(--silver);font-weight:300;line-height:1.6;max-width:220px;margin-bottom:20px;}
+.ft-col-h{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--navy2);margin-bottom:14px;}
+.ft-links{display:flex;flex-direction:column;gap:9px;}
+.ft-links a{font-size:12px;color:var(--silver);text-decoration:none;font-weight:300;transition:color 0.2s;}
+.ft-links a:hover{color:var(--pure);}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid rgba(255,255,255,0.04);}
+.ft-copy{font-family:'Space Mono',monospace;font-size:8px;color:rgba(138,154,176,0.3);letter-spacing:1px;}
+.ft-soc{display:flex;gap:8px;}
+.soc{width:30px;height:30px;border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;color:var(--silver);border-radius:3px;transition:all 0.2s;}
+.soc:hover{border-color:var(--navy2);background:rgba(0,31,63,0.4);color:var(--pure);}
+
+/* KEYFRAMES */
+@keyframes growY{from{transform:scaleY(0);}to{transform:scaleY(1);}}
+@keyframes growX{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+@keyframes show{to{opacity:1;}}
+@keyframes popIn{from{opacity:0;transform:scale(0);}to{opacity:1;transform:scale(1);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@keyframes drawDash{to{stroke-dashoffset:0;}}
+@keyframes buildUp{from{transform:scaleY(0);}to{transform:scaleY(1);}}
+
+/* LANG */
+.es-t{display:block;}.en-t{display:none;}
+body.en .es-t{display:none;}body.en .en-t{display:block;}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.rv.in{opacity:1;transform:translateY(0);}
+
+/* MOBILE */
+@media(max-width:960px){
+  nav{padding:14px 24px;}nav.scrolled{padding:12px 24px;}
+  .nav-links{display:none;}
+  .lang-toggle{right:80px;top:20px;}
+  .hero-inner{grid-template-columns:1fr;padding:0 24px;gap:40px;}
+  .hero-right{display:none;}
+  .services-wrap,.bim-wrap,.process-wrap,.test-wrap,.cta-wrap{padding:60px 24px;}
+  .numbers-inner{padding:60px 24px;grid-template-columns:repeat(2,1fr);}
+  .srv-layout{grid-template-columns:1fr;}
+  .bim-grid{grid-template-columns:1fr 1fr;}
+  .process-timeline{grid-template-columns:1fr 1fr;}
+  .test-grid{grid-template-columns:1fr;}
+  .ft-grid{grid-template-columns:1fr 1fr;}
+  footer{padding:40px 24px 28px;}
+  .cta-form{flex-direction:column;}
+  .cta-inp{border-right:1px solid rgba(255,255,255,0.1);border-radius:3px;}
+  .cta-btn{border-radius:3px;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- LANG -->
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('es')">ES</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">
+    <div class="nav-icon">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="12" height="78" fill="#FFF"/>
+        <rect x="66" y="0" width="12" height="78" fill="#FFF"/>
+        <polygon points="12,0 38,0 78,78 52,78" fill="#FFF"/>
+        <polygon points="12,16 12,0 30,0" fill="#000"/>
+        <polygon points="66,78 78,78 62,78" fill="#000"/>
+        <circle cx="39" cy="39" r="4" fill="#000"/>
+        <circle cx="39" cy="39" r="2" fill="#C8D4E0"/>
+      </svg>
+    </div>
+    <div class="logo-wm"><span class="nex">NEX</span><span class="v">V</span><span class="um">UM</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#services"><span class="es-t">Servicios</span><span class="en-t">Services</span></a>
+    <a href="#bim">BIM</a>
+    <a href="#process"><span class="es-t">Proceso</span><span class="en-t">Process</span></a>
+    <a href="#contact"><span class="es-t">Contacto</span><span class="en-t">Contact</span></a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+    <span class="es-t">Consultoría gratuita</span>
+    <span class="en-t">Free consultation</span>
+  </button>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="bp-grid"></div>
+  <div class="dim-line-h dl1"></div>
+  <div class="dim-line-h dl2"></div>
+  <div class="dim-line-v dl3"></div>
+  <div class="dim-line-v dl4"></div>
+  <div class="corner-mark cm-tl"></div>
+  <div class="corner-mark cm-tr"></div>
+  <div class="corner-mark cm-bl"></div>
+  <div class="corner-mark cm-br"></div>
+  <div class="hero-glow-l"></div>
+  <div class="hero-glow-r"></div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-txt es-t">BIM · Ingeniería · Arquitectura · Latinoamérica</span>
+        <span class="eyebrow-txt en-t">BIM · Engineering · Architecture · Latin America</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="line1 es-t">Conectamos el</span>
+        <span class="line1 en-t">Connecting the</span>
+        <span class="line2 es-t">crecimiento vertical</span>
+        <span class="line2 en-t">vertical growth</span>
+        <span class="line3 es-t">de las ciudades</span>
+        <span class="line3 en-t">of cities</span>
+      </h1>
+      <p class="hero-desc es-t">Consultoría BIM, Ingeniería y Arquitectura para proyectos que no admiten errores. Tecnología de precisión, resultados medibles en cada etapa de la obra.</p>
+      <p class="hero-desc en-t">BIM consulting, Engineering and Architecture for projects that don't allow errors. Precision technology, measurable results at every stage of construction.</p>
+      <div class="hero-btns">
+        <button class="btn-prim" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+          <span class="es-t">Agenda consultoría →</span>
+          <span class="en-t">Book consultation →</span>
+        </button>
+        <button class="btn-sec" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+          <span class="es-t">Ver servicios</span>
+          <span class="en-t">See services</span>
+        </button>
+      </div>
+      <div class="hero-meta">
+        <div class="hm-item"><div class="hm-num">120<sup>+</sup></div><div class="hm-lbl es-t">Proyectos</div><div class="hm-lbl en-t">Projects</div></div>
+        <div class="hm-item"><div class="hm-num">8</div><div class="hm-lbl es-t">Países</div><div class="hm-lbl en-t">Countries</div></div>
+        <div class="hm-item"><div class="hm-num">98%</div><div class="hm-lbl es-t">Satisfacción</div><div class="hm-lbl en-t">Satisfaction</div></div>
+      </div>
+    </div>
+
+    <!-- ══ REVIT-STYLE BIM VISUALIZATION ══ -->
+    <div class="hero-right">
+      <div class="revit-frame">
+
+        <!-- Title bar -->
+        <div class="revit-titlebar">
+          <div class="revit-winbtns">
+            <div class="revit-winbtn rwb-close"></div>
+            <div class="revit-winbtn rwb-min"></div>
+            <div class="revit-winbtn rwb-max"></div>
+          </div>
+          <div class="revit-title-text">3D View: {3D} — NEXVUM_TOWER_12N.rvt</div>
+          <div style="width:40px"></div>
+        </div>
+
+        <!-- Ribbon tabs -->
+        <div class="revit-ribbon">
+          <div class="revit-tab active">Architecture</div>
+          <div class="revit-tab">Structure</div>
+          <div class="revit-tab">MEP</div>
+          <div class="revit-tab">Annotate</div>
+          <div class="revit-tab">View</div>
+          <div class="revit-tab">Manage</div>
+        </div>
+
+        <!-- Body: Properties + 3D viewport -->
+        <div class="revit-body">
+
+          <!-- Properties panel -->
+          <div class="revit-props">
+            <div class="rp-header">Properties</div>
+            <div class="rp-typename">Floor Plan</div>
+            <div class="rp-typeval">Level 6</div>
+
+            <div class="rp-section">Constraints</div>
+            <div class="rp-row"><span class="rp-key">Level</span><span class="rp-val">L6 +18.0</span></div>
+            <div class="rp-row"><span class="rp-key">Base Offset</span><span class="rp-val">0'-0"</span></div>
+
+            <div class="rp-section">Structural</div>
+            <div class="rp-row"><span class="rp-key">Structural Usage</span><span class="rp-val">Bearing</span></div>
+            <div class="rp-row"><span class="rp-key">Material</span><span class="rp-val">Concrete</span></div>
+            <div class="rp-row"><span class="rp-key">Section</span><span class="rp-val">60x60cm</span></div>
+
+            <div class="rp-section">Identity</div>
+            <div class="rp-row"><span class="rp-key">Family</span><span class="rp-val">Column</span></div>
+            <div class="rp-row"><span class="rp-key">Type</span><span class="rp-val">C-600x600</span></div>
+            <div class="rp-row"><span class="rp-key">Mark</span><span class="rp-val">C-L6-04</span></div>
+
+            <div class="rp-section">LOD</div>
+            <div class="rp-row"><span class="rp-key">Level</span><span class="rp-val" style="color:#FFD700">LOD 400</span></div>
+
+            <!-- Layer toggles -->
+            <div class="rp-layers">
+              <div class="rp-layers-title">Disciplines</div>
+              <div class="rp-layer">
+                <div class="rp-layer-dot" style="background:#E8833A"></div>
+                <div class="rp-layer-name">Structural</div>
+                <div class="rp-layer-check">✓</div>
+              </div>
+              <div class="rp-layer">
+                <div class="rp-layer-dot" style="background:#89CFF0"></div>
+                <div class="rp-layer-name">Architect.</div>
+                <div class="rp-layer-check">✓</div>
+              </div>
+              <div class="rp-layer">
+                <div class="rp-layer-dot" style="background:#00BCD4"></div>
+                <div class="rp-layer-name">MEP</div>
+                <div class="rp-layer-check">✓</div>
+              </div>
+              <div class="rp-layer">
+                <div class="rp-layer-dot" style="background:#FFD700"></div>
+                <div class="rp-layer-name">Electrical</div>
+                <div class="rp-layer-check">✓</div>
+              </div>
+              <div class="rp-layer">
+                <div class="rp-layer-dot" style="background:#4CAF50"></div>
+                <div class="rp-layer-name">Plumbing</div>
+                <div class="rp-layer-check">✓</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3D Viewport -->
+          <div class="revit-viewport">
+            <div class="revit-viewport-label">3D — Isometric</div>
+
+            <!-- BIM model SVG -->
+            <div class="bim-svg-wrap">
+              <svg viewBox="0 0 520 410" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;max-height:418px;">
+                <defs>
+                  <filter id="glow-str" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                  <filter id="glow-top" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="6" result="blur"/>
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                  <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#1A2A4A;stop-opacity:0.6"/>
+                    <stop offset="100%" style="stop-color:#0D1117;stop-opacity:0"/>
+                  </linearGradient>
+                  <linearGradient id="groundGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#1E3A5A;stop-opacity:0.15"/>
+                    <stop offset="100%" style="stop-color:#0D1117;stop-opacity:0"/>
+                  </linearGradient>
+                  <!-- MEP pipe pattern -->
+                  <pattern id="mepDash" patternUnits="userSpaceOnUse" width="12" height="4">
+                    <rect width="8" height="2" fill="#00BCD4" opacity="0.8"/>
+                  </pattern>
+                </defs>
+
+                <!-- Background sky glow -->
+                <ellipse cx="260" cy="80" rx="180" ry="80" fill="url(#skyGrad)"/>
+
+                <!-- Ground shadow -->
+                <ellipse cx="265" cy="385" rx="120" ry="18" fill="rgba(0,31,63,0.3)"/>
+
+                <!-- Ground plane grid -->
+                <g opacity="0.3">
+                  <line x1="145" y1="380" x2="265" y2="310" stroke="rgba(0,31,63,0.6)" stroke-width="0.5"/>
+                  <line x1="185" y1="380" x2="305" y2="310" stroke="rgba(0,31,63,0.6)" stroke-width="0.5"/>
+                  <line x1="225" y1="380" x2="345" y2="310" stroke="rgba(0,31,63,0.6)" stroke-width="0.5"/>
+                  <line x1="145" y1="380" x2="345" y2="380" stroke="rgba(0,31,63,0.4)" stroke-width="0.5"/>
+                  <line x1="165" y1="370" x2="345" y2="370" stroke="rgba(0,31,63,0.3)" stroke-width="0.5"/>
+                </g>
+
+                <!-- ══ BUILDING GROUP (isometric) ══ -->
+                <!-- Isometric projection: building spans from ~x:150 to x:370, y:30 to y:375 -->
+                <!-- Floor height in isometric = ~28px vertical, width ~120px left face, ~100px right face -->
+
+                <!-- Building base foundation -->
+                <polygon points="155,375 265,315 375,375 265,435" fill="#1A2836" stroke="#2A3A50" stroke-width="0.5" opacity="0.6"/>
+
+                <g class="bim-model-group">
+
+                <!-- ══ ARCHITECTURAL LAYER: Glass curtain wall facade ══ -->
+                <g class="layer-arch">
+                  <!-- Left face glass panels — 12 floors -->
+                  <!-- Floor 1 left face -->
+                  <polygon points="155,347 265,287 265,315 155,375" fill="#89CFF0" fill-opacity="0.08" stroke="rgba(137,207,240,0.2)" stroke-width="0.3"/>
+                  <!-- Floor 2 -->
+                  <polygon points="155,319 265,259 265,287 155,347" fill="#89CFF0" fill-opacity="0.1" stroke="rgba(137,207,240,0.2)" stroke-width="0.3"/>
+                  <!-- Floor 3 -->
+                  <polygon points="155,291 265,231 265,259 155,319" fill="#89CFF0" fill-opacity="0.09" stroke="rgba(137,207,240,0.2)" stroke-width="0.3"/>
+                  <!-- Floor 4 -->
+                  <polygon points="155,263 265,203 265,231 155,291" fill="#89CFF0" fill-opacity="0.11" stroke="rgba(137,207,240,0.2)" stroke-width="0.3"/>
+                  <!-- Floor 5 -->
+                  <polygon points="155,235 265,175 265,203 155,263" fill="#89CFF0" fill-opacity="0.08" stroke="rgba(137,207,240,0.2)" stroke-width="0.3"/>
+                  <!-- Floor 6 -->
+                  <polygon points="155,207 265,147 265,175 155,235" fill="#89CFF0" fill-opacity="0.12" stroke="rgba(137,207,240,0.25)" stroke-width="0.5"/>
+                  <!-- Floor 7 -->
+                  <polygon points="155,179 265,119 265,147 155,207" fill="#89CFF0" fill-opacity="0.1" stroke="rgba(137,207,240,0.2)" stroke-width="0.3"/>
+                  <!-- Floor 8 -->
+                  <polygon points="155,151 265,91 265,119 155,179" fill="#89CFF0" fill-opacity="0.09" stroke="rgba(137,207,240,0.2)" stroke-width="0.3"/>
+                  <!-- Floor 9 -->
+                  <polygon points="155,123 265,63 265,91 155,151" fill="#89CFF0" fill-opacity="0.11" stroke="rgba(137,207,240,0.2)" stroke-width="0.3"/>
+                  <!-- Floor 10 -->
+                  <polygon points="155,107 265,47 265,63 155,123" fill="#89CFF0" fill-opacity="0.08" stroke="rgba(137,207,240,0.2)" stroke-width="0.3"/>
+                  <!-- Floor 11 -->
+                  <polygon points="155,91 265,31 265,47 155,107" fill="#89CFF0" fill-opacity="0.1" stroke="rgba(137,207,240,0.2)" stroke-width="0.3"/>
+                  <!-- Floor 12 penthouse -->
+                  <polygon points="155,75 265,15 265,31 155,91" fill="#89CFF0" fill-opacity="0.15" stroke="rgba(137,207,240,0.3)" stroke-width="0.5"/>
+
+                  <!-- Right face glass panels -->
+                  <polygon points="265,287 375,347 375,375 265,315" fill="#89CFF0" fill-opacity="0.05" stroke="rgba(137,207,240,0.12)" stroke-width="0.3"/>
+                  <polygon points="265,259 375,319 375,347 265,287" fill="#89CFF0" fill-opacity="0.06" stroke="rgba(137,207,240,0.12)" stroke-width="0.3"/>
+                  <polygon points="265,231 375,291 375,319 265,259" fill="#89CFF0" fill-opacity="0.05" stroke="rgba(137,207,240,0.12)" stroke-width="0.3"/>
+                  <polygon points="265,203 375,263 375,291 265,231" fill="#89CFF0" fill-opacity="0.07" stroke="rgba(137,207,240,0.12)" stroke-width="0.3"/>
+                  <polygon points="265,175 375,235 375,263 265,203" fill="#89CFF0" fill-opacity="0.05" stroke="rgba(137,207,240,0.12)" stroke-width="0.3"/>
+                  <polygon points="265,147 375,207 375,235 265,175" fill="#89CFF0" fill-opacity="0.08" stroke="rgba(137,207,240,0.15)" stroke-width="0.3"/>
+                  <polygon points="265,119 375,179 375,207 265,147" fill="#89CFF0" fill-opacity="0.05" stroke="rgba(137,207,240,0.12)" stroke-width="0.3"/>
+                  <polygon points="265,91 375,151 375,179 265,119" fill="#89CFF0" fill-opacity="0.06" stroke="rgba(137,207,240,0.12)" stroke-width="0.3"/>
+                  <polygon points="265,63 375,123 375,151 265,91" fill="#89CFF0" fill-opacity="0.05" stroke="rgba(137,207,240,0.12)" stroke-width="0.3"/>
+                  <polygon points="265,47 375,107 375,123 265,63" fill="#89CFF0" fill-opacity="0.04" stroke="rgba(137,207,240,0.1)" stroke-width="0.3"/>
+                  <polygon points="265,31 375,91 375,107 265,47" fill="#89CFF0" fill-opacity="0.05" stroke="rgba(137,207,240,0.12)" stroke-width="0.3"/>
+                  <polygon points="265,15 375,75 375,91 265,31" fill="#89CFF0" fill-opacity="0.08" stroke="rgba(137,207,240,0.2)" stroke-width="0.3"/>
+
+                  <!-- Window panels on left face — grid -->
+                  <g opacity="0.6">
+                    <!-- Row of windows per floor, left face (isometric offset) -->
+                    <!-- Floor 1 windows -->
+                    <polygon points="170,359 195,344 195,354 170,369" fill="#89CFF0" fill-opacity="0.25" stroke="rgba(137,207,240,0.4)" stroke-width="0.5"/>
+                    <polygon points="200,341 225,326 225,336 200,351" fill="#89CFF0" fill-opacity="0.3" stroke="rgba(137,207,240,0.5)" stroke-width="0.5"/>
+                    <polygon points="230,323 255,308 255,318 230,333" fill="#89CFF0" fill-opacity="0.2" stroke="rgba(137,207,240,0.35)" stroke-width="0.5"/>
+                    <!-- Floor 3 windows -->
+                    <polygon points="170,303 195,288 195,298 170,313" fill="#89CFF0" fill-opacity="0.3" stroke="rgba(137,207,240,0.5)" stroke-width="0.5"/>
+                    <polygon points="200,285 225,270 225,280 200,295" fill="#89CFF0" fill-opacity="0.2" stroke="rgba(137,207,240,0.4)" stroke-width="0.5"/>
+                    <polygon points="230,267 255,252 255,262 230,277" fill="#89CFF0" fill-opacity="0.35" stroke="rgba(137,207,240,0.5)" stroke-width="0.5"/>
+                    <!-- Floor 5 windows -->
+                    <polygon points="170,247 195,232 195,242 170,257" fill="#89CFF0" fill-opacity="0.25" stroke="rgba(137,207,240,0.4)" stroke-width="0.5"/>
+                    <polygon points="200,229 225,214 225,224 200,239" fill="#89CFF0" fill-opacity="0.35" stroke="rgba(137,207,240,0.55)" stroke-width="0.5"/>
+                    <polygon points="230,211 255,196 255,206 230,221" fill="#89CFF0" fill-opacity="0.2" stroke="rgba(137,207,240,0.35)" stroke-width="0.5"/>
+                    <!-- Floor 6 lit windows (active floor highlight) -->
+                    <polygon points="170,219 195,204 195,214 170,229" fill="#89CFF0" fill-opacity="0.5" stroke="rgba(137,207,240,0.8)" stroke-width="0.8"/>
+                    <polygon points="200,201 225,186 225,196 200,211" fill="#89CFF0" fill-opacity="0.55" stroke="rgba(137,207,240,0.9)" stroke-width="0.8"/>
+                    <polygon points="230,183 255,168 255,178 230,193" fill="#89CFF0" fill-opacity="0.4" stroke="rgba(137,207,240,0.7)" stroke-width="0.5"/>
+                    <!-- Floor 8 windows -->
+                    <polygon points="170,163 195,148 195,158 170,173" fill="#89CFF0" fill-opacity="0.25" stroke="rgba(137,207,240,0.4)" stroke-width="0.5"/>
+                    <polygon points="200,145 225,130 225,140 200,155" fill="#89CFF0" fill-opacity="0.3" stroke="rgba(137,207,240,0.45)" stroke-width="0.5"/>
+                    <polygon points="230,127 255,112 255,122 230,137" fill="#89CFF0" fill-opacity="0.2" stroke="rgba(137,207,240,0.35)" stroke-width="0.5"/>
+                    <!-- Floor 10 windows -->
+                    <polygon points="170,107 195,92 195,102 170,117" fill="#89CFF0" fill-opacity="0.3" stroke="rgba(137,207,240,0.4)" stroke-width="0.5"/>
+                    <polygon points="200,89 225,74 225,84 200,99" fill="#89CFF0" fill-opacity="0.35" stroke="rgba(137,207,240,0.5)" stroke-width="0.5"/>
+                    <!-- Floor 12 penthouse windows -->
+                    <polygon points="170,79 195,64 195,74 170,89" fill="#89CFF0" fill-opacity="0.5" stroke="rgba(137,207,240,0.7)" stroke-width="0.8"/>
+                    <polygon points="200,61 225,46 225,56 200,71" fill="#89CFF0" fill-opacity="0.45" stroke="rgba(137,207,240,0.65)" stroke-width="0.8"/>
+                    <polygon points="230,43 255,28 255,38 230,53" fill="#89CFF0" fill-opacity="0.4" stroke="rgba(137,207,240,0.6)" stroke-width="0.8"/>
+                  </g>
+                </g>
+
+                <!-- ══ STRUCTURAL LAYER: Columns and beams ══ -->
+                <g class="layer-struct" filter="url(#glow-str)">
+                  <!-- 4 corner columns + intermediate, left face -->
+                  <!-- Left-front column -->
+                  <polygon points="152,75 162,69 162,375 152,381" fill="#E8833A" fill-opacity="0.75" stroke="#E8833A" stroke-width="0.5"/>
+                  <!-- Right-front column of left face -->
+                  <polygon points="262,15 272,9 272,315 262,321" fill="#E8833A" fill-opacity="0.72" stroke="#E8833A" stroke-width="0.5"/>
+                  <!-- Mid column left face -->
+                  <polygon points="205,46 215,40 215,345 205,351" fill="#E8833A" fill-opacity="0.5" stroke="#E8833A" stroke-width="0.3" opacity="0.7"/>
+
+                  <!-- Right face columns -->
+                  <polygon points="272,9 282,15 282,315 272,321" fill="#E8833A" fill-opacity="0.65" stroke="#E8833A" stroke-width="0.5"/>
+                  <polygon points="372,69 382,75 382,375 372,381" fill="#E8833A" fill-opacity="0.6" stroke="#E8833A" stroke-width="0.5"/>
+                  <polygon points="322,39 332,45 332,345 322,351" fill="#E8833A" fill-opacity="0.45" stroke="#E8833A" stroke-width="0.3" opacity="0.7"/>
+
+                  <!-- Floor slab lines — 12 floors, left face -->
+                  <g stroke="#E8833A" stroke-opacity="0.55" stroke-width="1">
+                    <line x1="152" y1="375" x2="265" y2="315"/><!-- F1 base -->
+                    <line x1="152" y1="347" x2="265" y2="287"/><!-- F2 -->
+                    <line x1="152" y1="319" x2="265" y2="259"/><!-- F3 -->
+                    <line x1="152" y1="291" x2="265" y2="231"/><!-- F4 -->
+                    <line x1="152" y1="263" x2="265" y2="203"/><!-- F5 -->
+                    <line x1="152" y1="235" x2="265" y2="175"/><!-- F6 -->
+                    <line x1="152" y1="207" x2="265" y2="147"/><!-- F7 -->
+                    <line x1="152" y1="179" x2="265" y2="119"/><!-- F8 -->
+                    <line x1="152" y1="151" x2="265" y2="91"/><!-- F9 -->
+                    <line x1="152" y1="123" x2="265" y2="63"/><!-- F10 -->
+                    <line x1="152" y1="107" x2="265" y2="47"/><!-- F11 -->
+                    <line x1="152" y1="91" x2="265" y2="31"/><!-- F12 -->
+                    <line x1="152" y1="75" x2="265" y2="15"/><!-- Roof -->
+                  </g>
+                  <!-- Slab lines right face -->
+                  <g stroke="#E8833A" stroke-opacity="0.4" stroke-width="0.8">
+                    <line x1="265" y1="315" x2="375" y2="375"/>
+                    <line x1="265" y1="287" x2="375" y2="347"/>
+                    <line x1="265" y1="259" x2="375" y2="319"/>
+                    <line x1="265" y1="231" x2="375" y2="291"/>
+                    <line x1="265" y1="203" x2="375" y2="263"/>
+                    <line x1="265" y1="175" x2="375" y2="235"/>
+                    <line x1="265" y1="147" x2="375" y2="207"/>
+                    <line x1="265" y1="119" x2="375" y2="179"/>
+                    <line x1="265" y1="91" x2="375" y2="151"/>
+                    <line x1="265" y1="63" x2="375" y2="123"/>
+                    <line x1="265" y1="47" x2="375" y2="107"/>
+                    <line x1="265" y1="31" x2="375" y2="91"/>
+                    <line x1="265" y1="15" x2="375" y2="75"/>
+                  </g>
+
+                  <!-- Top roof slab -->
+                  <polygon points="155,75 265,15 375,75 265,135" fill="#E8833A" fill-opacity="0.18" stroke="#E8833A" stroke-width="1"/>
+                  <!-- Roof detail: parapet/penthouse box -->
+                  <polygon points="195,55 265,18 335,55 265,92" fill="#E8833A" fill-opacity="0.25" stroke="#E8833A" stroke-width="0.8"/>
+                  <!-- Column caps on roof -->
+                  <polygon points="155,75 165,69 175,75 165,81" fill="#E8833A" fill-opacity="0.8"/>
+                  <polygon points="262,15 272,9 282,15 272,21" fill="#E8833A" fill-opacity="0.8"/>
+                  <polygon points="370,69 380,75 370,81 360,75" fill="#E8833A" fill-opacity="0.7"/>
+                </g>
+
+                <!-- ══ MEP LAYER: Pipes, ducts, conduit ══ -->
+                <g class="layer-mep">
+                  <!-- HVAC ducts — cyan horizontal runs at floor levels (isometric) -->
+                  <!-- Level 3 duct run, left face diagonal -->
+                  <line x1="162" y1="308" x2="262" y2="248" stroke="#00BCD4" stroke-width="3" stroke-opacity="0.7" class="mep-pipe-h"/>
+                  <!-- Level 6 main HVAC duct -->
+                  <line x1="162" y1="224" x2="262" y2="164" stroke="#00BCD4" stroke-width="4" stroke-opacity="0.8" class="mep-pipe-h"/>
+                  <!-- Level 9 duct -->
+                  <line x1="162" y1="140" x2="262" y2="80" stroke="#00BCD4" stroke-width="3" stroke-opacity="0.65" class="mep-pipe-h"/>
+                  <!-- Duct on right face -->
+                  <line x1="272" y1="164" x2="372" y2="224" stroke="#00BCD4" stroke-width="3" stroke-opacity="0.5" class="mep-pipe-h"/>
+                  <!-- Vertical riser pipe left -->
+                  <line x1="168" y1="75" x2="168" y2="340" stroke="#00BCD4" stroke-width="2.5" stroke-opacity="0.55" class="mep-pipe-v"/>
+                  <!-- Vertical riser right side (adjusted isometric) -->
+                  <line x1="258" y1="16" x2="258" y2="310" stroke="#00BCD4" stroke-width="2" stroke-opacity="0.4" class="mep-pipe-v"/>
+
+                  <!-- Electrical conduit — yellow -->
+                  <!-- Level 2 conduit run -->
+                  <line x1="175" y1="329" x2="258" y2="282" stroke="#FFD700" stroke-width="2" stroke-opacity="0.7" class="elec-conduit"/>
+                  <!-- Level 5 conduit -->
+                  <line x1="175" y1="245" x2="258" y2="198" stroke="#FFD700" stroke-width="2" stroke-opacity="0.65" class="elec-conduit"/>
+                  <!-- Level 8 conduit -->
+                  <line x1="175" y1="161" x2="258" y2="114" stroke="#FFD700" stroke-width="2" stroke-opacity="0.6" class="elec-conduit"/>
+                  <!-- Level 11 conduit -->
+                  <line x1="175" y1="93" x2="258" y2="46" stroke="#FFD700" stroke-width="2" stroke-opacity="0.55" class="elec-conduit"/>
+                  <!-- Vertical electrical bus -->
+                  <line x1="178" y1="75" x2="178" y2="340" stroke="#FFD700" stroke-width="1.5" stroke-opacity="0.45" class="elec-conduit"/>
+
+                  <!-- Plumbing — green vertical stacks -->
+                  <line x1="254" y1="16" x2="254" y2="310" stroke="#4CAF50" stroke-width="2" stroke-opacity="0.5" class="plumb-pipe"/>
+                  <line x1="185" y1="52" x2="185" y2="346" stroke="#4CAF50" stroke-width="1.5" stroke-opacity="0.4" class="plumb-pipe"/>
+
+                  <!-- Rectangular duct shapes (HVAC boxes at floor levels) -->
+                  <!-- Level 6 AHU box -->
+                  <polygon points="195,174 225,158 225,168 195,184" fill="none" stroke="#00BCD4" stroke-width="1.2" stroke-opacity="0.7"/>
+                  <polygon points="225,158 240,166 240,176 225,168" fill="none" stroke="#00BCD4" stroke-width="1" stroke-opacity="0.6"/>
+                  <!-- Level 3 AHU box -->
+                  <polygon points="195,258 225,242 225,252 195,268" fill="none" stroke="#00BCD4" stroke-width="1" stroke-opacity="0.55"/>
+
+                  <!-- MEP pipe elbows/tees at intersections -->
+                  <circle cx="168" cy="224" r="3" fill="none" stroke="#00BCD4" stroke-width="1.5" stroke-opacity="0.8"/>
+                  <circle cx="168" cy="140" r="2.5" fill="none" stroke="#00BCD4" stroke-width="1.2" stroke-opacity="0.7"/>
+                  <circle cx="178" cy="161" r="2" fill="none" stroke="#FFD700" stroke-width="1" stroke-opacity="0.7"/>
+                </g>
+
+                <!-- ══ Structural outline (building silhouette) ══ -->
+                <!-- Left face outline -->
+                <polyline points="155,375 155,75 265,15 265,315 155,375" fill="none" stroke="rgba(200,220,255,0.2)" stroke-width="0.8"/>
+                <!-- Right face outline -->
+                <polyline points="265,315 265,15 375,75 375,375 265,315" fill="none" stroke="rgba(200,220,255,0.12)" stroke-width="0.6"/>
+
+                <!-- ══ Dimension annotations ══ -->
+                <!-- Vertical dimension line — building height -->
+                <line x1="125" y1="75" x2="125" y2="375" stroke="rgba(200,212,224,0.25)" stroke-width="0.8" stroke-dasharray="4,3"/>
+                <line x1="120" y1="75" x2="130" y2="75" stroke="rgba(200,212,224,0.4)" stroke-width="1"/>
+                <line x1="120" y1="375" x2="130" y2="375" stroke="rgba(200,212,224,0.4)" stroke-width="1"/>
+                <!-- Arrowheads -->
+                <polygon points="125,78 122,90 128,90" fill="rgba(200,212,224,0.4)"/>
+                <polygon points="125,372 122,360 128,360" fill="rgba(200,212,224,0.4)"/>
+                <!-- Height label -->
+                <text x="112" y="230" font-family="'Space Mono',monospace" font-size="7" fill="rgba(200,212,224,0.5)" transform="rotate(-90,112,230)" text-anchor="middle">42.0 m</text>
+
+                <!-- Floor count annotation -->
+                <line x1="134" y1="225" x2="150" y2="218" stroke="rgba(200,212,224,0.2)" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <text x="93" y="226" font-family="'Space Mono',monospace" font-size="6.5" fill="rgba(200,212,224,0.45)" text-anchor="middle">12 FLOORS</text>
+
+                <!-- LOD tag -->
+                <rect x="82" y="230" width="42" height="13" rx="2" fill="rgba(255,215,0,0.08)" stroke="rgba(255,215,0,0.3)" stroke-width="0.5"/>
+                <text x="103" y="240" font-family="'Space Mono',monospace" font-size="6.5" fill="#FFD700" text-anchor="middle">LOD 400</text>
+
+                <!-- Level markers on left face -->
+                <g font-family="'Space Mono',monospace" font-size="5.5" fill="rgba(137,207,240,0.5)">
+                  <text x="146" y="378">L01</text>
+                  <text x="146" y="350">L02</text>
+                  <text x="146" y="322">L03</text>
+                  <text x="146" y="294">L04</text>
+                  <text x="146" y="266">L05</text>
+                  <text x="146" y="238" fill="rgba(137,207,240,0.9)" font-size="6.5">L06</text>
+                  <text x="146" y="210">L07</text>
+                  <text x="146" y="182">L08</text>
+                  <text x="146" y="154">L09</text>
+                  <text x="146" y="126">L10</text>
+                  <text x="146" y="110">L11</text>
+                  <text x="146" y="94">L12</text>
+                </g>
+
+                <!-- Coordinate axis (bottom right) -->
+                <g transform="translate(400,360)">
+                  <line x1="0" y1="0" x2="30" y2="0" stroke="rgba(200,212,224,0.35)" stroke-width="0.8"/>
+                  <line x1="0" y1="0" x2="0" y2="-30" stroke="rgba(200,212,224,0.35)" stroke-width="0.8"/>
+                  <line x1="0" y1="0" x2="-18" y2="10" stroke="rgba(200,212,224,0.2)" stroke-width="0.8"/>
+                  <polygon points="30,0 23,-2 23,2" fill="rgba(200,212,224,0.35)"/>
+                  <polygon points="0,-30 -2,-23 2,-23" fill="rgba(200,212,224,0.35)"/>
+                  <polygon points="-18,10 -10,6 -12,12" fill="rgba(200,212,224,0.2)"/>
+                  <text x="33" y="3" font-family="'Space Mono',monospace" font-size="7" fill="rgba(200,212,224,0.4)">X</text>
+                  <text x="-4" y="-33" font-family="'Space Mono',monospace" font-size="7" fill="rgba(200,212,224,0.4)">Z</text>
+                  <text x="-26" y="16" font-family="'Space Mono',monospace" font-size="7" fill="rgba(200,212,224,0.3)">Y</text>
+                </g>
+
+                <!-- Top glow on roof -->
+                <ellipse cx="265" cy="20" rx="70" ry="18" fill="rgba(0,60,120,0.3)" filter="url(#glow-top)"/>
+                <ellipse cx="265" cy="15" rx="40" ry="10" fill="rgba(137,207,240,0.08)" filter="url(#glow-top)"/>
+
+                </g><!-- end bim-model-group -->
+              </svg>
+            </div>
+
+            <!-- BIM dimension badges -->
+            <div class="bim-badge badge-3d">
+              <span class="badge-icon">⬡</span>
+              <span class="badge-label">3D</span>
+              <span class="badge-sub">MODEL</span>
+            </div>
+            <div class="bim-badge badge-4d">
+              <span class="badge-icon">⏱</span>
+              <span class="badge-label">4D TIME</span>
+              <div class="gantt-wrap">
+                <div class="gantt-bar" style="width:28px"></div>
+                <div class="gantt-bar" style="width:18px"></div>
+                <div class="gantt-bar" style="width:22px"></div>
+              </div>
+            </div>
+            <div class="bim-badge badge-5d">
+              <span class="badge-icon">$</span>
+              <span class="badge-label">5D COST</span>
+            </div>
+            <div class="bim-badge badge-6d">
+              <span class="badge-icon">🌿</span>
+              <span class="badge-label">6D SUSTAIN</span>
+            </div>
+            <div class="bim-badge badge-7d">
+              <span class="badge-icon">⚙</span>
+              <span class="badge-label">7D FM</span>
+            </div>
+
+          </div><!-- end revit-viewport -->
+        </div><!-- end revit-body -->
+
+        <!-- Status bar -->
+        <div class="revit-statusbar">
+          <div class="rsb-item">Model ready</div>
+          <div class="rsb-sep"></div>
+          <div class="rsb-item">12 Levels</div>
+          <div class="rsb-sep"></div>
+          <div class="rsb-item">847 Elements</div>
+          <div class="rsb-sep"></div>
+          <div class="rsb-item">Clash: 0 <span class="ok">✓</span></div>
+          <div class="rsb-sep"></div>
+          <div class="rsb-item" style="margin-left:auto;color:#3A6A8A">NEXVUM BIM · Autodesk Revit 2025</div>
+        </div>
+
+      </div><!-- end revit-frame -->
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="mq-item"><span class="mq-dot"></span>BIM 3D · 4D · 5D · 6D · 7D</span>
+    <span class="mq-item"><span class="mq-dot"></span>Autodesk Revit</span>
+    <span class="mq-item"><span class="mq-dot"></span>Navisworks Manage</span>
+    <span class="mq-item"><span class="mq-dot"></span><span class="es-t">Ingeniería Estructural</span><span class="en-t">Structural Engineering</span></span>
+    <span class="mq-item"><span class="mq-dot"></span><span class="es-t">Arquitectura Paramétrica</span><span class="en-t">Parametric Architecture</span></span>
+    <span class="mq-item"><span class="mq-dot"></span>Digital Twin</span>
+    <span class="mq-item"><span class="mq-dot"></span>MEP Coordination</span>
+    <span class="mq-item"><span class="mq-dot"></span>IFC / Open BIM</span>
+    <span class="mq-item"><span class="mq-dot"></span>LOD 100 → 500</span>
+    <span class="mq-item"><span class="mq-dot"></span>BIM 3D · 4D · 5D · 6D · 7D</span>
+    <span class="mq-item"><span class="mq-dot"></span>Autodesk Revit</span>
+    <span class="mq-item"><span class="mq-dot"></span>Navisworks Manage</span>
+    <span class="mq-item"><span class="mq-dot"></span><span class="es-t">Ingeniería Estructural</span><span class="en-t">Structural Engineering</span></span>
+    <span class="mq-item"><span class="mq-dot"></span><span class="es-t">Arquitectura Paramétrica</span><span class="en-t">Parametric Architecture</span></span>
+    <span class="mq-item"><span class="mq-dot"></span>Digital Twin</span>
+    <span class="mq-item"><span class="mq-dot"></span>MEP Coordination</span>
+    <span class="mq-item"><span class="mq-dot"></span>IFC / Open BIM</span>
+    <span class="mq-item"><span class="mq-dot"></span>LOD 100 → 500</span>
+  </div>
+</div>
+
+<!-- ══ SERVICES ══ -->
+<div class="services-wrap rv" id="services">
+  <div class="services-header">
+    <p class="sec-eyebrow"><span class="es-t">Lo que hacemos</span><span class="en-t">What we do</span></p>
+    <h2 class="sec-h"><span class="es-t">Tres disciplinas,<br><em>un solo equipo</em></span><span class="en-t">Three disciplines,<br><em>one team</em></span></h2>
+  </div>
+  <div class="srv-layout">
+    <div class="srv-nav">
+      <div class="srv-nav-item active" onclick="showSrv(0,this)">
+        <p class="sni-num">01</p>
+        <h3 class="sni-title">NEXVUM BIM</h3>
+        <p class="sni-sub es-t">Consultoría e implementación</p>
+        <p class="sni-sub en-t">Consulting & implementation</p>
+      </div>
+      <div class="srv-nav-item" onclick="showSrv(1,this)">
+        <p class="sni-num">02</p>
+        <h3 class="sni-title es-t">Ingeniería</h3>
+        <h3 class="sni-title en-t">Engineering</h3>
+        <p class="sni-sub es-t">Estructural · MEP · Civil</p>
+        <p class="sni-sub en-t">Structural · MEP · Civil</p>
+      </div>
+      <div class="srv-nav-item" onclick="showSrv(2,this)">
+        <p class="sni-num">03</p>
+        <h3 class="sni-title es-t">Arquitectura</h3>
+        <h3 class="sni-title en-t">Architecture</h3>
+        <p class="sni-sub es-t">Diseño · Renders · Documentación</p>
+        <p class="sni-sub en-t">Design · Renders · Documentation</p>
+      </div>
+      <div class="srv-nav-item" onclick="showSrv(3,this)">
+        <p class="sni-num">04</p>
+        <h3 class="sni-title es-t">Capacitación</h3>
+        <h3 class="sni-title en-t">Training</h3>
+        <p class="sni-sub es-t">Cursos · Corporativo · Online</p>
+        <p class="sni-sub en-t">Courses · Corporate · Online</p>
+      </div>
+    </div>
+    <div class="srv-content">
+      <!-- Panel 0 -->
+      <div class="sc-panel active">
+        <p class="sc-tag">01 — BIM Consulting</p>
+        <h3 class="sc-title es-t">Implementación BIM<br>de punta a punta</h3>
+        <h3 class="sc-title en-t">End-to-end BIM<br>implementation</h3>
+        <p class="sc-desc es-t">Llevamos tu proyecto desde el diseño conceptual hasta el modelo as-built con los más altos estándares BIM. Coordinamos todas las disciplinas en un modelo federado único, eliminando conflictos antes de que lleguen a la obra.</p>
+        <p class="sc-desc en-t">We take your project from conceptual design to as-built model with the highest BIM standards. We coordinate all disciplines in a single federated model, eliminating conflicts before they reach the construction site.</p>
+        <div class="sc-features">
+          <div class="sc-feat"><div class="scf-icon">🔷</div><div class="scf-title es-t">Modelado BIM 3D</div><div class="scf-title en-t">3D BIM Modeling</div><div class="scf-desc es-t">LOD 100 a 500 según requerimiento</div><div class="scf-desc en-t">LOD 100 to 500 as required</div></div>
+          <div class="sc-feat"><div class="scf-icon">⏱️</div><div class="scf-title">BIM 4D</div><div class="scf-desc es-t">Simulación de cronograma de obra</div><div class="scf-desc en-t">Construction schedule simulation</div></div>
+          <div class="sc-feat"><div class="scf-icon">💰</div><div class="scf-title">BIM 5D</div><div class="scf-desc es-t">Gestión de costos en tiempo real</div><div class="scf-desc en-t">Real-time cost management</div></div>
+          <div class="sc-feat"><div class="scf-icon">🌱</div><div class="scf-title">BIM 6D</div><div class="scf-desc es-t">Análisis de sostenibilidad</div><div class="scf-desc en-t">Sustainability analysis</div></div>
+        </div>
+        <div class="sc-software">
+          <span class="sc-sw">Revit</span><span class="sc-sw">Navisworks</span><span class="sc-sw">BIM 360</span><span class="sc-sw">IFC</span><span class="sc-sw">Civil 3D</span>
+        </div>
+      </div>
+      <!-- Panel 1 -->
+      <div class="sc-panel">
+        <p class="sc-tag">02 — Engineering</p>
+        <h3 class="sc-title es-t">Ingeniería de precisión<br>integrada con BIM</h3>
+        <h3 class="sc-title en-t">Precision engineering<br>integrated with BIM</h3>
+        <p class="sc-desc es-t">Diseñamos y calculamos estructuras, instalaciones MEP y sistemas civiles directamente en el modelo BIM. Cada elemento está coordinado con las demás disciplinas para garantizar constructibilidad perfecta.</p>
+        <p class="sc-desc en-t">We design and calculate structures, MEP installations and civil systems directly in the BIM model. Every element is coordinated with other disciplines to ensure perfect constructability.</p>
+        <div class="sc-features">
+          <div class="sc-feat"><div class="scf-icon">🏗️</div><div class="scf-title es-t">Estructural</div><div class="scf-title en-t">Structural</div><div class="scf-desc es-t">Concreto, acero, madera</div><div class="scf-desc en-t">Concrete, steel, timber</div></div>
+          <div class="sc-feat"><div class="scf-icon">⚡</div><div class="scf-title">MEP</div><div class="scf-desc es-t">Mecánico, eléctrico, plomería</div><div class="scf-desc en-t">Mechanical, electrical, plumbing</div></div>
+          <div class="sc-feat"><div class="scf-icon">🛣️</div><div class="scf-title es-t">Civil</div><div class="scf-title en-t">Civil</div><div class="scf-desc es-t">Infraestructura y vialidad</div><div class="scf-desc en-t">Infrastructure and roads</div></div>
+          <div class="sc-feat"><div class="scf-icon">🔍</div><div class="scf-title es-t">Clash Detection</div><div class="scf-title en-t">Clash Detection</div><div class="scf-desc es-t">Cero interferencias en obra</div><div class="scf-desc en-t">Zero on-site interferences</div></div>
+        </div>
+        <div class="sc-software">
+          <span class="sc-sw">Revit Structure</span><span class="sc-sw">Robot</span><span class="sc-sw">AutoCAD MEP</span><span class="sc-sw">Civil 3D</span>
+        </div>
+      </div>
+      <!-- Panel 2 -->
+      <div class="sc-panel">
+        <p class="sc-tag">03 — Architecture</p>
+        <h3 class="sc-title es-t">Arquitectura que<br>construye ciudades</h3>
+        <h3 class="sc-title en-t">Architecture that<br>builds cities</h3>
+        <p class="sc-desc es-t">Diseño arquitectónico integrado con BIM desde el primer trazo. Renders fotorrealistas, documentación técnica completa y modelos paramétricos que evolucionan con el proyecto.</p>
+        <p class="sc-desc en-t">Architectural design integrated with BIM from the first line. Photorealistic renders, complete technical documentation and parametric models that evolve with the project.</p>
+        <div class="sc-features">
+          <div class="sc-feat"><div class="scf-icon">✏️</div><div class="scf-title es-t">Diseño conceptual</div><div class="scf-title en-t">Concept design</div><div class="scf-desc es-t">Del boceto al modelo BIM</div><div class="scf-desc en-t">From sketch to BIM model</div></div>
+          <div class="sc-feat"><div class="scf-icon">🖼️</div><div class="scf-title es-t">Renders & Animación</div><div class="scf-title en-t">Renders & Animation</div><div class="scf-desc es-t">Visualizaciones fotorrealistas</div><div class="scf-desc en-t">Photorealistic visualizations</div></div>
+          <div class="sc-feat"><div class="scf-icon">📐</div><div class="scf-title es-t">Documentación</div><div class="scf-title en-t">Documentation</div><div class="scf-desc es-t">Planos, memorias, especificaciones</div><div class="scf-desc en-t">Plans, reports, specifications</div></div>
+          <div class="sc-feat"><div class="scf-icon">🏢</div><div class="scf-title es-t">Paramétrico</div><div class="scf-title en-t">Parametric</div><div class="scf-desc es-t">Geometría inteligente adaptable</div><div class="scf-desc en-t">Adaptable intelligent geometry</div></div>
+        </div>
+        <div class="sc-software">
+          <span class="sc-sw">Revit</span><span class="sc-sw">Enscape</span><span class="sc-sw">Lumion</span><span class="sc-sw">Dynamo</span><span class="sc-sw">Rhino</span>
+        </div>
+      </div>
+      <!-- Panel 3 -->
+      <div class="sc-panel">
+        <p class="sc-tag">04 — Training</p>
+        <h3 class="sc-title es-t">Formamos los líderes<br>BIM del futuro</h3>
+        <h3 class="sc-title en-t">We train the BIM<br>leaders of the future</h3>
+        <p class="sc-desc es-t">Programas de capacitación BIM para profesionales y empresas. Desde fundamentos hasta BIM Management, con enfoque práctico en proyectos reales de construcción.</p>
+        <p class="sc-desc en-t">BIM training programs for professionals and companies. From fundamentals to BIM Management, with practical focus on real construction projects.</p>
+        <div class="sc-features">
+          <div class="sc-feat"><div class="scf-icon">🎓</div><div class="scf-title es-t">Revit Profesional</div><div class="scf-title en-t">Professional Revit</div><div class="scf-desc es-t">Básico, intermedio y avanzado</div><div class="scf-desc en-t">Basic, intermediate and advanced</div></div>
+          <div class="sc-feat"><div class="scf-icon">👔</div><div class="scf-title">BIM Manager</div><div class="scf-desc es-t">Gestión e implementación BIM</div><div class="scf-desc en-t">BIM management & implementation</div></div>
+          <div class="sc-feat"><div class="scf-icon">🏢</div><div class="scf-title es-t">Corporativo</div><div class="scf-title en-t">Corporate</div><div class="scf-desc es-t">Programas a medida para empresas</div><div class="scf-desc en-t">Custom programs for companies</div></div>
+          <div class="sc-feat"><div class="scf-icon">💻</div><div class="scf-title">Online / Presencial</div><div class="scf-desc es-t">Flexibilidad total de formato</div><div class="scf-desc en-t">Full format flexibility</div></div>
+        </div>
+        <div class="sc-software">
+          <span class="sc-sw">Revit</span><span class="sc-sw">Navisworks</span><span class="sc-sw">BIM 360</span><span class="sc-sw es-t">Certificación</span><span class="sc-sw en-t">Certification</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NUMBERS ══ -->
+<div class="numbers-wrap">
+  <div class="numbers-inner rv">
+    <div class="num-cell"><div class="stat-num" data-t="120">0<sup>+</sup></div><div class="nc-lbl es-t">Proyectos completados</div><div class="nc-lbl en-t">Completed projects</div></div>
+    <div class="num-cell"><div class="stat-num" data-t="2" data-suf="M+ m²">0</div><div class="nc-lbl es-t">Modelados en BIM</div><div class="nc-lbl en-t">Modeled in BIM</div></div>
+    <div class="num-cell"><div class="stat-num" data-t="8">0</div><div class="nc-lbl es-t">Países en Latam</div><div class="nc-lbl en-t">Countries in Latam</div></div>
+    <div class="num-cell"><div class="stat-num" data-t="98" data-suf="%">0</div><div class="nc-lbl es-t">Clientes satisfechos</div><div class="nc-lbl en-t">Satisfied clients</div></div>
+  </div>
+</div>
+
+<!-- ══ BIM DIMENSIONS ══ -->
+<div class="bim-wrap rv" id="bim">
+  <div class="bim-inner">
+    <p class="sec-eyebrow"><span class="es-t">Tecnología BIM</span><span class="en-t">BIM Technology</span></p>
+    <h2 class="sec-h"><span class="es-t">Trabajamos en todas<br>las <em>dimensiones BIM</em></span><span class="en-t">We work across all<br><em>BIM dimensions</em></span></h2>
+    <div class="bim-grid">
+      <div class="bim-card"><div class="bim-d">3D</div><div class="bim-name">Model</div><div class="bim-desc es-t">Modelo tridimensional completo con geometría e información técnica</div><div class="bim-desc en-t">Complete 3D model with geometry and technical information</div></div>
+      <div class="bim-card"><div class="bim-d">4D</div><div class="bim-name">Time</div><div class="bim-desc es-t">Simulación del cronograma de construcción vinculado al modelo</div><div class="bim-desc en-t">Construction schedule simulation linked to the model</div></div>
+      <div class="bim-card"><div class="bim-d">5D</div><div class="bim-name">Cost</div><div class="bim-desc es-t">Gestión de costos e integración presupuestaria en tiempo real</div><div class="bim-desc en-t">Cost management and budget integration in real time</div></div>
+      <div class="bim-card"><div class="bim-d">6D</div><div class="bim-name">Sustainability</div><div class="bim-desc es-t">Análisis energético y certificaciones de sostenibilidad</div><div class="bim-desc en-t">Energy analysis and sustainability certifications</div></div>
+      <div class="bim-card"><div class="bim-d">7D</div><div class="bim-name">FM</div><div class="bim-desc es-t">Gestión del ciclo de vida y operación del activo construido</div><div class="bim-desc en-t">Asset lifecycle management and operation</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROCESS ══ -->
+<div class="process-wrap rv" id="process">
+  <div class="process-inner">
+    <p class="sec-eyebrow"><span class="es-t">Cómo trabajamos</span><span class="en-t">How we work</span></p>
+    <h2 class="sec-h"><span class="es-t">De la idea a la<br><em>obra terminada</em></span><span class="en-t">From idea to<br><em>completed project</em></span></h2>
+    <div class="process-timeline">
+      <div class="proc-card"><div class="proc-dot">01</div><h4 class="proc-title es-t">Diagnóstico</h4><h4 class="proc-title en-t">Diagnosis</h4><p class="proc-desc es-t">Analizamos el proyecto, requerimientos y equipo para definir la estrategia BIM óptima.</p><p class="proc-desc en-t">We analyze the project, requirements and team to define the optimal BIM strategy.</p></div>
+      <div class="proc-card"><div class="proc-dot">02</div><h4 class="proc-title es-t">Modelado</h4><h4 class="proc-title en-t">Modeling</h4><p class="proc-desc es-t">Construimos el modelo BIM integrado con todos los sistemas y disciplinas coordinadas.</p><p class="proc-desc en-t">We build the integrated BIM model with all coordinated systems and disciplines.</p></div>
+      <div class="proc-card"><div class="proc-dot">03</div><h4 class="proc-title es-t">Coordinación</h4><h4 class="proc-title en-t">Coordination</h4><p class="proc-desc es-t">Detectamos y resolvemos interferencias antes de llegar a la obra. Cero sorpresas.</p><p class="proc-desc en-t">We detect and resolve interferences before reaching the site. Zero surprises.</p></div>
+      <div class="proc-card"><div class="proc-dot">04</div><h4 class="proc-title es-t">Entrega</h4><h4 class="proc-title en-t">Delivery</h4><p class="proc-desc es-t">As-built BIM, documentación completa y capacitación del equipo para la operación.</p><p class="proc-desc en-t">BIM as-built, complete documentation and team training for operations.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TESTIMONIALS ══ -->
+<div class="test-wrap rv">
+  <div class="test-inner">
+    <p class="sec-eyebrow"><span class="es-t">Lo que dicen</span><span class="en-t">What they say</span></p>
+    <h2 class="sec-h"><span class="es-t">Clientes que <em>confían</em></span><span class="en-t">Clients that <em>trust us</em></span></h2>
+    <div class="test-grid">
+      <div class="test-card"><div class="tc-stars"><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span></div><p class="tc-txt es-t">"NEXVUM transformó nuestra forma de gestionar proyectos. Redujimos los re-trabajos en un 35% y entregamos 3 semanas antes de lo planeado."</p><p class="tc-txt en-t">"NEXVUM transformed how we manage projects. We reduced rework by 35% and delivered 3 weeks ahead of schedule."</p><div class="tc-div"></div><p class="tc-name">Carlos Ramírez</p><p class="tc-role es-t">Director de Obra · Constructora Andina</p><p class="tc-role en-t">Project Director · Constructora Andina</p></div>
+      <div class="test-card"><div class="tc-stars"><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span></div><p class="tc-txt es-t">"La implementación BIM de NEXVUM fue clave para ganar nuestra licitación más grande. El nivel técnico de sus modelos no tiene comparación."</p><p class="tc-txt en-t">"NEXVUM's BIM implementation was key to winning our biggest bid. The technical level of their models has no comparison."</p><div class="tc-div"></div><p class="tc-name">María Vargas</p><p class="tc-role es-t">Gerente de Proyectos · IngenieraPro</p><p class="tc-role en-t">Project Manager · IngenieraPro</p></div>
+      <div class="test-card"><div class="tc-stars"><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span></div><p class="tc-txt es-t">"Su capacitación interna elevó las capacidades de todo nuestro equipo de ingeniería. Ahora licitamos con BIM en todos los proyectos."</p><p class="tc-txt en-t">"Their internal training elevated the capabilities of our entire engineering team. Now we bid with BIM on all projects."</p><div class="tc-div"></div><p class="tc-name">Jorge López</p><p class="tc-role es-t">CEO · Grupo Constructor del Norte</p><p class="tc-role en-t">CEO · Grupo Constructor del Norte</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<section class="cta-wrap rv" id="contact">
+  <div class="cta-inner">
+    <p class="cta-eyebrow es-t">¿Listo para construir más alto?</p>
+    <p class="cta-eyebrow en-t">Ready to build higher?</p>
+    <h2 class="cta-h"><span class="es-t">Tu proyecto merece<br><em>precisión BIM</em></span><span class="en-t">Your project deserves<br><em>BIM precision</em></span></h2>
+    <p class="cta-sub es-t">30 minutos. Sin compromiso. Analizamos tu proyecto y te mostramos exactamente cómo BIM puede transformarlo.</p>
+    <p class="cta-sub en-t">30 minutes. No commitment. We analyze your project and show you exactly how BIM can transform it.</p>
+    <div class="cta-form">
+      <input class="cta-inp" type="email" placeholder="tu@empresa.com">
+      <button class="cta-btn"><span class="es-t">Agendar →</span><span class="en-t">Book now →</span></button>
+    </div>
+    <p class="cta-note es-t">Respondemos en menos de 24 horas · Sin spam</p>
+    <p class="cta-note en-t">We respond within 24 hours · No spam</p>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="ft-grid">
+    <div>
+      <div class="ft-logo"><span class="nex">NEX</span><span class="v">V</span><span class="um">UM</span></div>
+      <p class="ft-tag es-t">Conectamos el crecimiento vertical de las ciudades. BIM · Ingeniería · Arquitectura.</p>
+      <p class="ft-tag en-t">Connecting the vertical growth of cities. BIM · Engineering · Architecture.</p>
+    </div>
+    <div>
+      <p class="ft-col-h es-t">Servicios</p><p class="ft-col-h en-t">Services</p>
+      <div class="ft-links"><a href="#">BIM</a><a href="#"><span class="es-t">Ingeniería</span><span class="en-t">Engineering</span></a><a href="#"><span class="es-t">Arquitectura</span><span class="en-t">Architecture</span></a><a href="#"><span class="es-t">Capacitación</span><span class="en-t">Training</span></a></div>
+    </div>
+    <div>
+      <p class="ft-col-h es-t">Empresa</p><p class="ft-col-h en-t">Company</p>
+      <div class="ft-links"><a href="#"><span class="es-t">Nosotros</span><span class="en-t">About</span></a><a href="#"><span class="es-t">Proyectos</span><span class="en-t">Projects</span></a><a href="#">Blog</a><a href="#"><span class="es-t">Contacto</span><span class="en-t">Contact</span></a></div>
+    </div>
+    <div>
+      <p class="ft-col-h es-t">Contacto</p><p class="ft-col-h en-t">Contact</p>
+      <div class="ft-links"><a href="#">hola@nexvum.com</a><a href="#">WhatsApp</a><a href="#">LinkedIn</a><a href="#">Instagram</a></div>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p class="ft-copy es-t">© 2026 NEXVUM GROUP · Todos los derechos reservados</p>
+    <p class="ft-copy en-t">© 2026 NEXVUM GROUP · All rights reserved</p>
+    <div class="ft-soc"><div class="soc">in</div><div class="soc">ig</div><div class="soc">yt</div><div class="soc">tk</div></div>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function animR(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR);})();
+document.querySelectorAll('a,button,.srv-nav-item,.bim-card,.num-cell,.proc-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='44px';ring.style.height='44px';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='5px';cur.style.height='5px';ring.style.width='28px';ring.style.height='28px';});
+});
+
+// Nav scroll
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>50));
+
+// Reveal
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');}),{threshold:0.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// Services tabs
+function showSrv(i,el){
+  document.querySelectorAll('.sc-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.srv-nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.sc-panel')[i].classList.add('active');
+  el.classList.add('active');
+}
+
+// Counters
+const cobs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){
+    document.querySelectorAll('.stat-num[data-t]').forEach(el=>{
+      const t=+el.dataset.t,sf=el.dataset.suf||'+';
+      let v=0;const iv=setInterval(()=>{v+=t/120;if(v>=t){v=t;clearInterval(iv);}el.innerHTML=Math.floor(v)+'<sup>'+sf+'</sup>';},16);
+    });cobs.disconnect();}});},{threshold:0.5});
+const nb=document.querySelector('.numbers-inner');if(nb)cobs.observe(nb);
+
+// Language
+function setLang(l){
+  document.body.classList.toggle('en',l==='en');
+  document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&l==='es')||(i===1&&l==='en')));
+  document.documentElement.lang=l;
+}
+</script>
+</body>
+</html>
