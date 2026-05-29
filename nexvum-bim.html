@@ -9,53 +9,37 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --white:#FFFFFF; --light:#F5F7FA; --mid:#E2E8F0;
-  --ink:#1A1F2E; --ink2:#3D4457; --ink3:#6B7280;
-  --navy:#003366; --navy2:#004080; --navy3:#00264D;
-  --accent:#0066CC; --gold:#C4A35A;
+  --white:#FFFFFF;--light:#F5F7FA;--mid:#E2E8F0;
+  --ink:#1A1F2E;--ink2:#3D4457;--ink3:#6B7280;
+  --navy:#003366;--navy2:#004080;--navy3:#00264D;
+  --accent:#0066CC;--gold:#C4A35A;
 }
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);overflow-x:hidden}
-
-/* INTRO */
-#intro{
-  position:fixed;inset:0;z-index:9999;
-  background:var(--white);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;
-  transition:opacity .7s ease,visibility .7s ease;
-}
+body{font-family:"DM Sans",sans-serif;color:var(--ink);background:var(--white);overflow-x:hidden}
+#intro{position:fixed;inset:0;z-index:9999;background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .7s,visibility .7s}
 #intro.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.intro-svg{width:110px;height:auto}
-.intro-path{fill:none;stroke:var(--navy);stroke-width:2.5;stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1.2s cubic-bezier(.4,0,.2,1) .2s forwards}
-.intro-path-gold{fill:none;stroke:var(--gold);stroke-width:2.2;stroke-dasharray:200;stroke-dashoffset:200;animation:draw .9s cubic-bezier(.4,0,.2,1) .9s forwards}
+.intro-svg{width:110px}
+.ip{fill:none;stroke:var(--navy);stroke-width:2.5;stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1.2s cubic-bezier(.4,0,.2,1) .2s forwards}
+.ipg{fill:none;stroke:var(--gold);stroke-width:2.2;stroke-dasharray:200;stroke-dashoffset:200;animation:draw .9s cubic-bezier(.4,0,.2,1) .9s forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
-.intro-name{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;letter-spacing:.35em;color:var(--navy);text-transform:uppercase;opacity:0;animation:fadeUp .6s ease 1.5s forwards}
-.intro-sub{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.22em;color:var(--ink3);text-transform:uppercase;opacity:0;animation:fadeUp .5s ease 1.9s forwards}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
-/* NAV */
-#nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  background:var(--white);border-bottom:1px solid var(--mid);
-  height:68px;display:flex;align-items:center;padding:0 6%;
-  transition:box-shadow .3s;
-}
+.intro-name{font-family:"Cormorant Garamond",serif;font-size:30px;font-weight:300;letter-spacing:.35em;color:var(--navy);text-transform:uppercase;opacity:0;animation:fu .6s ease 1.5s forwards}
+.intro-sub{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.22em;color:var(--ink3);text-transform:uppercase;opacity:0;animation:fu .5s ease 1.9s forwards}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--white);border-bottom:1px solid var(--mid);height:68px;display:flex;align-items:center;padding:0 6%;transition:box-shadow .3s}
 #nav.scrolled{box-shadow:0 2px 20px rgba(0,51,102,.08)}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
 .nav-logo-mark{width:34px;height:34px}
-.nav-brand{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;letter-spacing:.12em;color:var(--navy);text-transform:uppercase}
+.nav-brand{font-family:"Cormorant Garamond",serif;font-size:20px;font-weight:600;letter-spacing:.12em;color:var(--navy);text-transform:uppercase}
 .nav-links{display:flex;align-items:center;gap:36px;margin:0 auto}
 .nav-links a{font-size:13px;font-weight:500;color:var(--ink2);text-decoration:none;letter-spacing:.04em;transition:color .2s}
 .nav-links a:hover{color:var(--navy)}
 .nav-cta{padding:10px 24px;background:var(--navy);color:var(--white);border:none;border-radius:4px;font-size:13px;font-weight:500;letter-spacing:.06em;cursor:pointer;text-decoration:none;transition:background .2s}
 .nav-cta:hover{background:var(--navy2)}
-
-/* HERO */
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:68px}
 .hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 6% 80px 8%;border-right:1px solid var(--mid)}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:28px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:28px}
 .hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
-.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,5.5vw,78px);font-weight:300;line-height:1.05;color:var(--navy);margin-bottom:24px}
+.hero-h1{font-family:"Cormorant Garamond",serif;font-size:clamp(48px,5.5vw,78px);font-weight:300;line-height:1.05;color:var(--navy);margin-bottom:24px}
 .hero-h1 em{font-style:italic;color:var(--gold)}
 .hero-desc{font-size:16px;line-height:1.72;color:var(--ink2);max-width:480px;margin-bottom:40px;font-weight:300}
 .hero-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
@@ -64,148 +48,99 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);o
 .btn-outline{padding:13px 28px;border:1.5px solid var(--navy);color:var(--navy);border-radius:4px;font-size:14px;font-weight:500;letter-spacing:.06em;cursor:pointer;text-decoration:none;transition:background .2s;display:inline-block}
 .btn-outline:hover{background:var(--light)}
 .hero-stats{display:flex;gap:40px;margin-top:56px;padding-top:32px;border-top:1px solid var(--mid)}
-.hero-stat-n{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600;color:var(--navy);line-height:1}
+.hero-stat-n{font-family:"Cormorant Garamond",serif;font-size:38px;font-weight:600;color:var(--navy);line-height:1}
 .hero-stat-l{font-size:12px;font-weight:400;color:var(--ink3);letter-spacing:.05em;margin-top:4px}
-
-/* HERO RIGHT - 3D VIEWER */
-.hero-right{background:#1A2030;display:flex;flex-direction:column;position:relative;overflow:hidden}
-.bim-topbar{
-  background:#0D1220;padding:10px 18px;
-  display:flex;align-items:center;gap:10px;
-  border-bottom:1px solid #2A3348;flex-shrink:0;
-}
+.hero-right{background:#151C28;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.bim-topbar{background:#0D1320;padding:9px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #2A3448;flex-shrink:0}
 .bim-dot{width:10px;height:10px;border-radius:50%}
-.bim-title{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.1em;margin-left:6px}
-.bim-tabs{display:flex;gap:0;margin-left:auto}
-.bim-tab{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;color:rgba(255,255,255,.35);padding:4px 12px;border:1px solid #2A3348;border-right:none;cursor:pointer;transition:all .2s}
-.bim-tab:last-child{border-right:1px solid #2A3348}
-.bim-tab.active{background:#003366;color:white;border-color:#003366}
+.bim-title{font-family:"Space Mono",monospace;font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.08em;margin-left:4px}
+.bim-tabs{display:flex;margin-left:auto}
+.bim-tab{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:.08em;color:rgba(255,255,255,.3);padding:4px 10px;border:1px solid #2A3448;border-right:none;cursor:pointer;transition:all .2s}
+.bim-tab:last-child{border-right:1px solid #2A3448}
+.bim-tab.active{background:var(--navy);color:white;border-color:var(--navy)}
 #canvas-container{flex:1;position:relative;min-height:0}
 #bim-canvas{display:block;width:100%;height:100%}
-.bim-overlay{
-  position:absolute;bottom:16px;left:16px;
-  display:flex;flex-direction:column;gap:6px;pointer-events:none;
-}
-.bim-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(0,0,0,.55);backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,.1);border-radius:4px;
-  padding:5px 10px;
-}
-.bim-badge-dot{width:6px;height:6px;border-radius:50%}
-.bim-badge span{font-family:'Space Mono',monospace;font-size:8px;color:rgba(255,255,255,.7);letter-spacing:.1em}
-.bim-hint{
-  position:absolute;bottom:16px;right:16px;
-  font-family:'Space Mono',monospace;font-size:8px;
-  color:rgba(255,255,255,.3);letter-spacing:.08em;pointer-events:none;
-}
-
-/* MARQUEE */
-.mq-wrap{overflow:hidden;border-top:1px solid var(--mid);border-bottom:1px solid var(--mid);background:var(--white)}
-.mq-track{display:flex;animation:mqScroll 28s linear infinite;width:max-content}
-@keyframes mqScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.mq-item{padding:18px 48px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);white-space:nowrap;border-right:1px solid var(--mid)}
+.bim-overlay{position:absolute;bottom:14px;left:14px;display:flex;flex-direction:column;gap:5px;pointer-events:none}
+.bim-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);border-radius:3px;padding:4px 9px}
+.bim-badge-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.bim-badge span{font-family:"Space Mono",monospace;font-size:7.5px;color:rgba(255,255,255,.65);letter-spacing:.1em}
+.bim-hint{position:absolute;bottom:14px;right:14px;font-family:"Space Mono",monospace;font-size:7.5px;color:rgba(255,255,255,.28);letter-spacing:.08em;pointer-events:none;text-align:right}
+.mq-wrap{overflow:hidden;border-top:1px solid var(--mid);border-bottom:1px solid var(--mid)}
+.mq-track{display:flex;animation:mqs 28s linear infinite;width:max-content}
+@keyframes mqs{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mq-item{padding:18px 48px;font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);white-space:nowrap;border-right:1px solid var(--mid)}
 .mq-item.accent{color:var(--navy);font-weight:700}
-
-/* SERVICES */
-#services{padding:100px 8%;background:var(--white)}
+#services{padding:100px 8%}
 .section-header{margin-bottom:64px}
-.section-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
-.section-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,56px);font-weight:300;color:var(--navy);line-height:1.1}
+.section-tag{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.section-h2{font-family:"Cormorant Garamond",serif;font-size:clamp(36px,4vw,56px);font-weight:300;color:var(--navy);line-height:1.1}
 .section-h2 em{font-style:italic;color:var(--gold)}
 .srv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--mid);border:1px solid var(--mid)}
-.srv-card{background:var(--white);padding:48px 32px;transition:background .25s;cursor:default}
+.srv-card{background:var(--white);padding:44px 30px;transition:background .25s;cursor:default}
 .srv-card:hover{background:var(--navy)}
-.srv-card:hover .srv-n{color:rgba(255,255,255,.2)}
-.srv-card:hover .srv-icon-path{stroke:#fff}
-.srv-card:hover .srv-title{color:var(--white)}
-.srv-card:hover .srv-desc{color:rgba(255,255,255,.65)}
-.srv-card:hover .srv-li{color:rgba(255,255,255,.6)}
+.srv-card:hover .srv-n,.srv-card:hover .srv-title,.srv-card:hover .srv-desc,.srv-card:hover .srv-li{color:rgba(255,255,255,.75)}
+.srv-card:hover .srv-title{color:#fff}
 .srv-card:hover .srv-li::before{background:var(--gold)}
-.srv-n{font-family:'Space Mono',monospace;font-size:11px;color:var(--mid);letter-spacing:.1em;margin-bottom:24px;transition:color .25s}
-.srv-icon{width:42px;height:42px;margin-bottom:24px}
+.srv-card:hover .srv-icon-path{stroke:#fff}
+.srv-n{font-family:"Space Mono",monospace;font-size:11px;color:var(--mid);letter-spacing:.1em;margin-bottom:22px;transition:color .25s}
+.srv-icon{width:40px;height:40px;margin-bottom:22px}
 .srv-icon-path{fill:none;stroke:var(--navy);stroke-width:1.4;transition:stroke .25s}
-.srv-title{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:600;color:var(--navy);margin-bottom:14px;transition:color .25s}
-.srv-desc{font-size:13.5px;line-height:1.65;color:var(--ink2);margin-bottom:18px;font-weight:300;transition:color .25s}
-.srv-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.srv-title{font-family:"Cormorant Garamond",serif;font-size:24px;font-weight:600;color:var(--navy);margin-bottom:12px;transition:color .25s}
+.srv-desc{font-size:13px;line-height:1.65;color:var(--ink2);margin-bottom:16px;font-weight:300;transition:color .25s}
+.srv-list{list-style:none;display:flex;flex-direction:column;gap:7px}
 .srv-li{font-size:12px;color:var(--ink3);padding-left:14px;position:relative;transition:color .25s}
-.srv-li::before{content:'';position:absolute;left:0;top:7px;width:4px;height:4px;border-radius:50%;background:var(--accent);transition:background .25s}
-
-/* NUMBERS */
+.srv-li::before{content:"";position:absolute;left:0;top:7px;width:4px;height:4px;border-radius:50%;background:var(--accent);transition:background .25s}
 .num-strip{background:var(--navy3);padding:72px 8%;display:grid;grid-template-columns:repeat(4,1fr)}
 .num-item{text-align:center;padding:0 20px;border-right:1px solid rgba(255,255,255,.08)}
 .num-item:last-child{border-right:none}
-.num-n{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;color:var(--white);line-height:1}
+.num-n{font-family:"Cormorant Garamond",serif;font-size:64px;font-weight:300;color:#fff;line-height:1}
 .num-suf{font-size:32px;color:var(--gold)}
-.num-l{font-size:13px;color:rgba(255,255,255,.5);letter-spacing:.06em;margin-top:10px;font-weight:300}
-
-/* PROCESS */
+.num-l{font-size:13px;color:rgba(255,255,255,.45);letter-spacing:.06em;margin-top:10px;font-weight:300}
 #process{padding:100px 8%;background:var(--light)}
 .proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:56px}
 .proc-card{background:var(--white);padding:40px 28px;border-top:3px solid var(--mid);transition:border-color .2s}
 .proc-card:hover{border-color:var(--navy)}
-.proc-step{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.15em;margin-bottom:20px}
-.proc-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--navy);margin-bottom:12px}
+.proc-step{font-family:"Space Mono",monospace;font-size:11px;color:var(--accent);letter-spacing:.15em;margin-bottom:20px}
+.proc-title{font-family:"Cormorant Garamond",serif;font-size:22px;font-weight:600;color:var(--navy);margin-bottom:12px}
 .proc-desc{font-size:13px;line-height:1.65;color:var(--ink2);font-weight:300}
-
-/* CTA */
 #contact{background:var(--navy);padding:96px 8%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.cta-h{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,52px);font-weight:300;color:var(--white);line-height:1.1;margin-bottom:20px}
+.cta-h{font-family:"Cormorant Garamond",serif;font-size:clamp(36px,4vw,52px);font-weight:300;color:#fff;line-height:1.1;margin-bottom:20px}
 .cta-h em{font-style:italic;color:var(--gold)}
 .cta-left p{font-size:15px;color:rgba(255,255,255,.6);line-height:1.65;font-weight:300}
 .cta-form{display:flex;flex-direction:column;gap:14px}
-.cta-form input,.cta-form textarea{width:100%;padding:14px 18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:4px;color:var(--white);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.cta-form input,.cta-form textarea{width:100%;padding:14px 18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:4px;color:#fff;font-size:14px;font-family:"DM Sans",sans-serif;outline:none;transition:border-color .2s}
 .cta-form input::placeholder,.cta-form textarea::placeholder{color:rgba(255,255,255,.3)}
 .cta-form input:focus,.cta-form textarea:focus{border-color:rgba(255,255,255,.55)}
 .cta-form textarea{height:100px;resize:vertical}
-.cta-submit{padding:14px;background:var(--gold);color:var(--white);border:none;border-radius:4px;font-size:14px;font-weight:600;letter-spacing:.1em;cursor:pointer;transition:opacity .2s;font-family:'DM Sans',sans-serif}
+.cta-submit{padding:14px;background:var(--gold);color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:600;letter-spacing:.1em;cursor:pointer;transition:opacity .2s;font-family:"DM Sans",sans-serif}
 .cta-submit:hover{opacity:.85}
-
-/* FOOTER */
 footer{background:#1A1F2E;padding:56px 8% 32px;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px}
-.ft-brand{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;letter-spacing:.12em;color:var(--white);text-transform:uppercase;margin-bottom:12px}
+.ft-brand{font-family:"Cormorant Garamond",serif;font-size:20px;font-weight:600;letter-spacing:.12em;color:#fff;text-transform:uppercase;margin-bottom:12px}
 .ft-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.65;font-weight:300}
-.ft-heading{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:20px;font-family:'Space Mono',monospace}
+.ft-heading{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:20px;font-family:"Space Mono",monospace}
 .ft-links{display:flex;flex-direction:column;gap:10px}
 .ft-links a{font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
-.ft-links a:hover{color:var(--white)}
+.ft-links a:hover{color:#fff}
 .ft-bottom{margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center;grid-column:1/-1}
 .ft-copy{font-size:12px;color:rgba(255,255,255,.28)}
 .ft-gold{color:var(--gold)}
-
-/* REVEAL */
-.rv{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .65s,transform .65s}
 .rv.in{opacity:1;transform:none}
-
-@media(max-width:1024px){
-  .hero{grid-template-columns:1fr}
-  .hero-right{min-height:70vh}
-  .srv-grid{grid-template-columns:repeat(2,1fr)}
-  .num-strip{grid-template-columns:repeat(2,1fr)}
-  .proc-grid{grid-template-columns:1fr 1fr}
-  #contact{grid-template-columns:1fr}
-  footer{grid-template-columns:1fr 1fr}
-}
-@media(max-width:640px){
-  .nav-links{display:none}
-  .srv-grid,.proc-grid{grid-template-columns:1fr}
-  footer{grid-template-columns:1fr}
-}
+@media(max-width:1024px){.hero{grid-template-columns:1fr}.hero-right{min-height:70vh}.srv-grid{grid-template-columns:repeat(2,1fr)}.num-strip{grid-template-columns:repeat(2,1fr)}.proc-grid{grid-template-columns:1fr 1fr}#contact{grid-template-columns:1fr}footer{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.nav-links{display:none}.srv-grid,.proc-grid{grid-template-columns:1fr}footer{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- INTRO -->
 <div id="intro">
-  <svg class="intro-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path class="intro-path" d="M50 6 L90 29 L90 74 L50 97 L10 74 L10 29 Z"/>
-    <path class="intro-path-gold" d="M30 70 L30 30 L52 60 L70 30 L70 70"/>
+  <svg class="intro-svg" viewBox="0 0 100 100" fill="none">
+    <path class="ip" d="M50 6 L90 29 L90 74 L50 97 L10 74 L10 29 Z"/>
+    <path class="ipg" d="M30 70 L30 30 L52 60 L70 30 L70 70"/>
   </svg>
   <div class="intro-name">NEXVUM GROUP</div>
   <div class="intro-sub">BIM · Ingeniería · Arquitectura</div>
 </div>
 
-<!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">
     <svg class="nav-logo-mark" viewBox="0 0 100 100" fill="none">
@@ -222,7 +157,6 @@ footer{background:#1A1F2E;padding:56px 8% 32px;display:grid;grid-template-column
   <a href="#contact" class="nav-cta">Consultoría gratuita</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-left">
     <div class="hero-tag"><span class="hero-tag-dot"></span>Consultoría BIM Especializada</div>
@@ -233,47 +167,38 @@ footer{background:#1A1F2E;padding:56px 8% 32px;display:grid;grid-template-column
       <a href="#services" class="btn-outline">Ver servicios</a>
     </div>
     <div class="hero-stats">
-      <div>
-        <div class="hero-stat-n"><span data-t="120">0</span>+</div>
-        <div class="hero-stat-l">Proyectos BIM entregados</div>
-      </div>
-      <div>
-        <div class="hero-stat-n"><span data-t="98">0</span>%</div>
-        <div class="hero-stat-l">Clientes satisfechos</div>
-      </div>
-      <div>
-        <div class="hero-stat-n"><span data-t="8">0</span></div>
-        <div class="hero-stat-l">Años de experiencia</div>
-      </div>
+      <div><div class="hero-stat-n"><span data-t="120">0</span>+</div><div class="hero-stat-l">Proyectos BIM entregados</div></div>
+      <div><div class="hero-stat-n"><span data-t="98">0</span>%</div><div class="hero-stat-l">Clientes satisfechos</div></div>
+      <div><div class="hero-stat-n"><span data-t="8">0</span></div><div class="hero-stat-l">Años de experiencia</div></div>
     </div>
   </div>
-
   <div class="hero-right">
     <div class="bim-topbar">
       <div class="bim-dot" style="background:#FF5F57"></div>
       <div class="bim-dot" style="background:#FFBD2E"></div>
       <div class="bim-dot" style="background:#28CA41"></div>
-      <span class="bim-title">NEXVUM_TORRE_CORPORATIVA_v3.rvt</span>
+      <span class="bim-title">NEXVUM_TORRE_CORPORATIVA_v3.rvt — Coordinado · 12 Pisos · Disciplinas MEP+EST+ARQ</span>
       <div class="bim-tabs">
-        <div class="bim-tab active" onclick="setView('3d')">3D</div>
-        <div class="bim-tab" onclick="setView('front')">Frontal</div>
-        <div class="bim-tab" onclick="setView('iso')">Isom.</div>
+        <div class="bim-tab active" onclick="setView('3d',this)">3D</div>
+        <div class="bim-tab" onclick="setView('front',this)">FRONTAL</div>
+        <div class="bim-tab" onclick="setView('iso',this)">ISOM.</div>
+        <div class="bim-tab" onclick="setView('top',this)">PLANTA</div>
       </div>
     </div>
     <div id="canvas-container">
       <canvas id="bim-canvas"></canvas>
       <div class="bim-overlay">
-        <div class="bim-badge"><div class="bim-badge-dot" style="background:#FF6B6B"></div><span>ESTRUCTURA</span></div>
-        <div class="bim-badge"><div class="bim-badge-dot" style="background:#4ECDC4"></div><span>MEP</span></div>
-        <div class="bim-badge"><div class="bim-badge-dot" style="background:#45B7D1"></div><span>ARQUITECTURA</span></div>
-        <div class="bim-badge"><div class="bim-badge-dot" style="background:#96CEB4"></div><span>LOD 300</span></div>
+        <div class="bim-badge"><div class="bim-badge-dot" style="background:#C8D0D8"></div><span>ESTRUCTURA — Concreto Armado LOD 300</span></div>
+        <div class="bim-badge"><div class="bim-badge-dot" style="background:#CC3322"></div><span>HVAC — Ductos + Equipos</span></div>
+        <div class="bim-badge"><div class="bim-badge-dot" style="background:#1A55AA"></div><span>HIDRÁULICO — Agua fría/caliente</span></div>
+        <div class="bim-badge"><div class="bim-badge-dot" style="background:#BB9900"></div><span>ELÉCTRICO — Bandejas + Conduits</span></div>
+        <div class="bim-badge"><div class="bim-badge-dot" style="background:#1A3A5C"></div><span>ARQUITECTURA — Fachada + Acabados</span></div>
       </div>
-      <div class="bim-hint">ARRASTRA PARA ROTAR · SCROLL PARA ZOOM</div>
+      <div class="bim-hint">ARRASTRA PARA ROTAR<br/>SCROLL PARA ZOOM</div>
     </div>
   </div>
 </section>
 
-<!-- MARQUEE -->
 <div class="mq-wrap">
   <div class="mq-track">
     <span class="mq-item accent">BIM Level 2 &amp; 3</span><span class="mq-item">Revit · Navisworks</span>
@@ -289,7 +214,6 @@ footer{background:#1A1F2E;padding:56px 8% 32px;display:grid;grid-template-column
   </div>
 </div>
 
-<!-- SERVICES -->
 <section id="services">
   <div class="section-header rv">
     <div class="section-tag">// Nuestros Servicios</div>
@@ -327,7 +251,6 @@ footer{background:#1A1F2E;padding:56px 8% 32px;display:grid;grid-template-column
   </div>
 </section>
 
-<!-- NUMBERS -->
 <div class="num-strip rv">
   <div class="num-item"><div class="num-n"><span data-t="120">0</span><span class="num-suf">+</span></div><div class="num-l">Proyectos entregados</div></div>
   <div class="num-item"><div class="num-n"><span data-t="40">0</span><span class="num-suf">%</span></div><div class="num-l">Reducción de re-trabajos</div></div>
@@ -335,7 +258,6 @@ footer{background:#1A1F2E;padding:56px 8% 32px;display:grid;grid-template-column
   <div class="num-item"><div class="num-n"><span data-t="8">0</span></div><div class="num-l">Años de experiencia BIM</div></div>
 </div>
 
-<!-- PROCESS -->
 <section id="process">
   <div class="section-header rv">
     <div class="section-tag">// Nuestro Proceso</div>
@@ -349,7 +271,6 @@ footer{background:#1A1F2E;padding:56px 8% 32px;display:grid;grid-template-column
   </div>
 </section>
 
-<!-- CTA -->
 <section id="contact">
   <div class="cta-left rv">
     <h2 class="cta-h">¿Listo para <em>digitalizar</em><br/>tu proyecto?</h2>
@@ -364,7 +285,6 @@ footer{background:#1A1F2E;padding:56px 8% 32px;display:grid;grid-template-column
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div>
     <div class="ft-brand">NEXVUM GROUP</div>
@@ -384,18 +304,16 @@ footer{background:#1A1F2E;padding:56px 8% 32px;display:grid;grid-template-column
   </div>
 </footer>
 
-<!-- THREE.JS BIM MODEL -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-// ── Three.js BIM Building ────────────────────────────────────────────────────
+
 (function() {
   var container = document.getElementById('canvas-container');
   var canvas = document.getElementById('bim-canvas');
-
   var W = container.clientWidth, H = container.clientHeight;
   canvas.width = W; canvas.height = H;
 
-  // Renderer
+  // ── RENDERER ──────────────────────────────────────────────────────────────
   var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
   renderer.setSize(W, H);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -403,362 +321,504 @@ footer{background:#1A1F2E;padding:56px 8% 32px;display:grid;grid-template-column
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.1;
+  renderer.toneMappingExposure = 1.15;
 
-  // Scene
+  // ── SCENE ─────────────────────────────────────────────────────────────────
   var scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x1A2030);
-  scene.fog = new THREE.Fog(0x1A2030, 60, 120);
+  scene.background = new THREE.Color(0x151C28);
+  scene.fog = new THREE.FogExp2(0x151C28, 0.012);
 
-  // Camera
-  var camera = new THREE.PerspectiveCamera(35, W / H, 0.1, 200);
-  camera.position.set(18, 14, 22);
-  camera.lookAt(0, 8, 0);
+  // ── CAMERA ────────────────────────────────────────────────────────────────
+  var camera = new THREE.PerspectiveCamera(32, W / H, 0.1, 300);
 
-  // ── LIGHTS ──────────────────────────────────────────────────────────────
-  var ambient = new THREE.AmbientLight(0xCCDDFF, 0.55);
-  scene.add(ambient);
+  // ── LIGHTS ────────────────────────────────────────────────────────────────
+  scene.add(new THREE.AmbientLight(0xB0C8FF, 0.50));
 
-  var sun = new THREE.DirectionalLight(0xFFF5E0, 1.8);
-  sun.position.set(12, 24, 14);
+  var sun = new THREE.DirectionalLight(0xFFFAE8, 2.2);
+  sun.position.set(15, 30, 18);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
-  sun.shadow.camera.near = 1;
-  sun.shadow.camera.far = 80;
-  sun.shadow.camera.left = -16;
-  sun.shadow.camera.right = 16;
-  sun.shadow.camera.top = 32;
-  sun.shadow.camera.bottom = -8;
-  sun.shadow.bias = -0.001;
+  sun.shadow.mapSize.set(4096, 4096);
+  sun.shadow.camera.near = 0.5; sun.shadow.camera.far = 120;
+  sun.shadow.camera.left = -30; sun.shadow.camera.right = 30;
+  sun.shadow.camera.top = 60;  sun.shadow.camera.bottom = -10;
+  sun.shadow.bias = -0.0005;
   scene.add(sun);
+  scene.add(new THREE.DirectionalLight(0x7799DD, 0.55).position.set(-10, 12, -8));
+  scene.add(new THREE.HemisphereLight(0x3355AA, 0x223344, 0.35));
 
-  var fill = new THREE.DirectionalLight(0x8899CC, 0.45);
-  fill.position.set(-8, 10, -6);
-  scene.add(fill);
-
-  var bounce = new THREE.HemisphereLight(0x4466AA, 0x334455, 0.3);
-  scene.add(bounce);
-
-  // ── MATERIALS ───────────────────────────────────────────────────────────
-  var matConcrete = new THREE.MeshStandardMaterial({
-    color: 0xB0B8C0,
-    roughness: 0.88,
-    metalness: 0.02,
-  });
-  var matConcreteShade = new THREE.MeshStandardMaterial({
-    color: 0x8C939A,
-    roughness: 0.9,
-    metalness: 0.0,
-  });
-  var matSlab = new THREE.MeshStandardMaterial({
-    color: 0x9AA2AA,
-    roughness: 0.85,
-    metalness: 0.02,
-  });
-  var matGlass = new THREE.MeshStandardMaterial({
-    color: 0x1E3A5A,
-    roughness: 0.05,
-    metalness: 0.95,
-    transparent: true,
-    opacity: 0.82,
-    envMapIntensity: 1.2,
-  });
-  var matGlassLight = new THREE.MeshStandardMaterial({
-    color: 0x2A4E72,
-    roughness: 0.04,
-    metalness: 0.95,
-    transparent: true,
-    opacity: 0.78,
-  });
-  var matFrame = new THREE.MeshStandardMaterial({
-    color: 0xD0D8E0,
-    roughness: 0.3,
-    metalness: 0.7,
-  });
-  var matGround = new THREE.MeshStandardMaterial({
-    color: 0x2A3240,
-    roughness: 0.95,
-    metalness: 0.0,
-  });
-  var matRoof = new THREE.MeshStandardMaterial({
-    color: 0xA0A8B0,
-    roughness: 0.8,
-    metalness: 0.05,
-  });
-  var matPipe = new THREE.MeshStandardMaterial({ color: 0xCC3333, roughness: 0.5, metalness: 0.4 });
-  var matPipeBlue = new THREE.MeshStandardMaterial({ color: 0x2266BB, roughness: 0.5, metalness: 0.4 });
-  var matPipeYellow = new THREE.MeshStandardMaterial({ color: 0xBB9900, roughness: 0.4, metalness: 0.5 });
-  var matColumn = new THREE.MeshStandardMaterial({ color: 0xC0C8D0, roughness: 0.8, metalness: 0.05 });
-
-  // ── GROUND ───────────────────────────────────────────────────────────────
-  var gnd = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), matGround);
-  gnd.rotation.x = -Math.PI / 2;
-  gnd.receiveShadow = true;
-  scene.add(gnd);
-
-  // Grid helper (like Revit viewport)
-  var grid = new THREE.GridHelper(40, 40, 0x3A4458, 0x2A3448);
-  grid.position.y = 0.01;
-  scene.add(grid);
-
-  // ── BUILDING PARAMETERS ─────────────────────────────────────────────────
-  var FLOORS = 12;
-  var FLOOR_H = 3.2;         // m per floor
-  var BW = 10;               // building width X
-  var BD = 7;                // building depth Z
-  var SLAB_T = 0.28;         // slab thickness
-  var COL_S = 0.45;          // column section
-  var BAYS_X = 4;            // bays in X
-  var BAYS_Z = 2;            // bays in Z
-  var BAY_W = BW / BAYS_X;
-  var BAY_D = BD / BAYS_Z;
-
-  var building = new THREE.Group();
-  scene.add(building);
-
-  function box(w, h, d, mat, x, y, z, shadow) {
-    var m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
-    m.position.set(x, y, z);
-    if (shadow !== false) { m.castShadow = true; m.receiveShadow = true; }
-    building.add(m);
-    return m;
-  }
-
-  // ── SLABS ────────────────────────────────────────────────────────────────
-  for (var f = 0; f <= FLOORS; f++) {
-    var sy = f * FLOOR_H;
-    box(BW + 0.1, SLAB_T, BD + 0.1, matSlab, 0, sy + SLAB_T/2, 0);
-  }
-
-  // ── COLUMNS ──────────────────────────────────────────────────────────────
-  var colH = FLOORS * FLOOR_H + SLAB_T;
-  for (var cx = 0; cx <= BAYS_X; cx++) {
-    for (var cz = 0; cz <= BAYS_Z; cz++) {
-      var colX = -BW/2 + cx * BAY_W;
-      var colZ = -BD/2 + cz * BAY_D;
-      box(COL_S, colH, COL_S, matColumn, colX, colH/2, colZ);
-    }
-  }
-
-  // ── FACADE PANELS (spandrel + glass windows) ─────────────────────────────
-  var WIN_W = BAY_W - COL_S - 0.15;
-  var WIN_H = FLOOR_H - SLAB_T - 0.55;
-  var SPAN_H = 0.55;
-  var WALL_T = 0.18;
-
-  // Front face (Z = BD/2)
-  for (var ff = 0; ff < FLOORS; ff++) {
-    var floorBase = ff * FLOOR_H + SLAB_T;
-    for (var bx = 0; bx < BAYS_X; bx++) {
-      var bxCenter = -BW/2 + (bx + 0.5) * BAY_W;
-      var fz = BD/2 + WALL_T/2;
-
-      // Spandrel (concrete panel below window)
-      box(WIN_W, SPAN_H, WALL_T, matConcrete, bxCenter, floorBase + SPAN_H/2, fz);
-      // Glass window
-      var wMat = (bx % 2 === 0) ? matGlass : matGlassLight;
-      box(WIN_W, WIN_H, 0.06, wMat, bxCenter, floorBase + SPAN_H + WIN_H/2, fz + WALL_T/2 - 0.02);
-      // Window frame top
-      box(WIN_W, 0.06, 0.06, matFrame, bxCenter, floorBase + SPAN_H + WIN_H + 0.03, fz + WALL_T/2);
-      // Window frame sides
-      box(0.06, WIN_H, 0.06, matFrame, bxCenter - WIN_W/2 + 0.03, floorBase + SPAN_H + WIN_H/2, fz + WALL_T/2);
-      box(0.06, WIN_H, 0.06, matFrame, bxCenter + WIN_W/2 - 0.03, floorBase + SPAN_H + WIN_H/2, fz + WALL_T/2);
-    }
-  }
-
-  // Back face (Z = -BD/2)
-  for (var bf = 0; bf < FLOORS; bf++) {
-    var floorBaseB = bf * FLOOR_H + SLAB_T;
-    for (var bxb = 0; bxb < BAYS_X; bxb++) {
-      var bxCenterB = -BW/2 + (bxb + 0.5) * BAY_W;
-      var bzB = -BD/2 - WALL_T/2;
-      box(WIN_W, SPAN_H, WALL_T, matConcreteShade, bxCenterB, floorBaseB + SPAN_H/2, bzB);
-      box(WIN_W, WIN_H, 0.06, matGlass, bxCenterB, floorBaseB + SPAN_H + WIN_H/2, bzB - WALL_T/2 + 0.02);
-      box(WIN_W, 0.06, 0.06, matFrame, bxCenterB, floorBaseB + SPAN_H + WIN_H + 0.03, bzB - WALL_T/2);
-    }
-  }
-
-  // Side faces (X = ±BW/2)
-  var WIN_WS = BAY_D - COL_S - 0.15;
-  for (var sf = 0; sf < FLOORS; sf++) {
-    var floorBaseS = sf * FLOOR_H + SLAB_T;
-    for (var bz2 = 0; bz2 < BAYS_Z; bz2++) {
-      var bzCenter = -BD/2 + (bz2 + 0.5) * BAY_D;
-
-      // Right side (X = BW/2)
-      var xR = BW/2 + WALL_T/2;
-      box(WALL_T, SPAN_H, WIN_WS, matConcreteShade, xR, floorBaseS + SPAN_H/2, bzCenter);
-      box(0.06, WIN_H, WIN_WS, matGlass, xR + WALL_T/2 - 0.02, floorBaseS + SPAN_H + WIN_H/2, bzCenter);
-      box(0.06, 0.06, WIN_WS, matFrame, xR + WALL_T/2, floorBaseS + SPAN_H + WIN_H + 0.03, bzCenter);
-
-      // Left side (X = -BW/2)
-      var xL = -BW/2 - WALL_T/2;
-      box(WALL_T, SPAN_H, WIN_WS, matConcreteShade, xL, floorBaseS + SPAN_H/2, bzCenter);
-      box(0.06, WIN_H, WIN_WS, matGlass, xL - WALL_T/2 + 0.02, floorBaseS + SPAN_H + WIN_H/2, bzCenter);
-    }
-  }
-
-  // ── ROOF ─────────────────────────────────────────────────────────────────
-  var roofY = FLOORS * FLOOR_H + SLAB_T;
-  // Parapet walls
-  var parpH = 1.0;
-  box(BW + 0.1, parpH, 0.2, matConcrete, 0, roofY + parpH/2, BD/2 + 0.1);
-  box(BW + 0.1, parpH, 0.2, matConcrete, 0, roofY + parpH/2, -BD/2 - 0.1);
-  box(0.2, parpH, BD - 0.2, matConcrete, BW/2 + 0.1, roofY + parpH/2, 0);
-  box(0.2, parpH, BD - 0.2, matConcrete, -BW/2 - 0.1, roofY + parpH/2, 0);
-
-  // Elevator shaft
-  box(2.2, 4.5, 2.2, matConcrete, -3, roofY + 2.25 + parpH, -1.5);
-  box(2.4, 0.15, 2.4, matRoof, -3, roofY + 4.5 + parpH + 0.075, -1.5);
-
-  // Stair/mechanical room
-  box(3.5, 2.8, 2.8, matConcreteShade, 2.5, roofY + 1.4 + parpH, 0);
-  box(3.7, 0.15, 3.0, matRoof, 2.5, roofY + 2.8 + parpH + 0.075, 0);
-
-  // ── MEP ON ROOF ──────────────────────────────────────────────────────────
-  var mepY = roofY + parpH + 0.3;
-
-  // HVAC duct (red)
-  var ductGeom = new THREE.CylinderGeometry(0.18, 0.18, 5, 8);
-  var duct1 = new THREE.Mesh(ductGeom, matPipe);
-  duct1.rotation.z = Math.PI/2;
-  duct1.position.set(-1, mepY + 0.18, 1);
-  duct1.castShadow = true;
-  building.add(duct1);
-
-  // Plumbing (blue)
-  var pipe1 = new THREE.Mesh(new THREE.CylinderGeometry(0.10, 0.10, 4, 8), matPipeBlue);
-  pipe1.rotation.z = Math.PI/2;
-  pipe1.position.set(0.5, mepY + 0.5, -1);
-  pipe1.castShadow = true;
-  building.add(pipe1);
-
-  // Electrical conduit (yellow)
-  var pipe2 = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 6, 8), matPipeYellow);
-  pipe2.rotation.z = Math.PI/2;
-  pipe2.position.set(0, mepY + 0.8, 1.5);
-  pipe2.castShadow = true;
-  building.add(pipe2);
-
-  // ── ORBIT CONTROLS (manual, no import needed) ────────────────────────────
-  var isDragging = false;
-  var prevMouse = { x: 0, y: 0 };
-  var spherical = { theta: 0.6, phi: 1.0, radius: 30 };
-
-  function updateCamera() {
-    camera.position.x = spherical.radius * Math.sin(spherical.phi) * Math.sin(spherical.theta);
-    camera.position.y = spherical.radius * Math.cos(spherical.phi) + 8;
-    camera.position.z = spherical.radius * Math.sin(spherical.phi) * Math.cos(spherical.theta);
-    camera.lookAt(0, 8, 0);
-  }
-  updateCamera();
-
-  canvas.addEventListener('mousedown', function(e) { isDragging = true; prevMouse = { x: e.clientX, y: e.clientY }; });
-  window.addEventListener('mouseup', function() { isDragging = false; });
-  window.addEventListener('mousemove', function(e) {
-    if (!isDragging) return;
-    var dx = (e.clientX - prevMouse.x) * 0.008;
-    var dy = (e.clientY - prevMouse.y) * 0.006;
-    spherical.theta -= dx;
-    spherical.phi = Math.max(0.15, Math.min(Math.PI * 0.48, spherical.phi + dy));
-    prevMouse = { x: e.clientX, y: e.clientY };
-    updateCamera();
-  });
-  canvas.addEventListener('wheel', function(e) {
-    spherical.radius = Math.max(12, Math.min(55, spherical.radius + e.deltaY * 0.04));
-    updateCamera();
-  });
-
-  // Touch support
-  var lastTouch = null;
-  canvas.addEventListener('touchstart', function(e) { lastTouch = e.touches[0]; });
-  canvas.addEventListener('touchmove', function(e) {
-    if (!lastTouch) return;
-    e.preventDefault();
-    var t = e.touches[0];
-    var dx = (t.clientX - lastTouch.clientX) * 0.01;
-    var dy = (t.clientY - lastTouch.clientY) * 0.008;
-    spherical.theta -= dx;
-    spherical.phi = Math.max(0.15, Math.min(Math.PI * 0.48, spherical.phi + dy));
-    lastTouch = t;
-    updateCamera();
-  }, { passive: false });
-
-  // View presets
-  window.setView = function(v) {
-    document.querySelectorAll('.bim-tab').forEach(function(t) { t.classList.remove('active'); });
-    event.target.classList.add('active');
-    if (v === '3d') { spherical.theta = 0.6; spherical.phi = 1.0; spherical.radius = 30; }
-    if (v === 'front') { spherical.theta = 0; spherical.phi = Math.PI/2; spherical.radius = 28; }
-    if (v === 'iso') { spherical.theta = Math.PI/4; spherical.phi = Math.PI/4; spherical.radius = 35; }
-    updateCamera();
+  // ── MATERIALS ─────────────────────────────────────────────────────────────
+  var M = {
+    concrete:    new THREE.MeshStandardMaterial({ color:0xB8BEC6, roughness:0.88, metalness:0.02 }),
+    concreteDk:  new THREE.MeshStandardMaterial({ color:0x8E949C, roughness:0.90, metalness:0.0  }),
+    concreteWht: new THREE.MeshStandardMaterial({ color:0xCDD2DA, roughness:0.85, metalness:0.02 }),
+    slab:        new THREE.MeshStandardMaterial({ color:0xA4AAB2, roughness:0.85, metalness:0.02 }),
+    column:      new THREE.MeshStandardMaterial({ color:0xC4CAD2, roughness:0.80, metalness:0.05 }),
+    beam:        new THREE.MeshStandardMaterial({ color:0xB0B6BE, roughness:0.82, metalness:0.04 }),
+    glass:       new THREE.MeshStandardMaterial({ color:0x1A3A5C, roughness:0.04, metalness:0.92, transparent:true, opacity:0.80 }),
+    glassLt:     new THREE.MeshStandardMaterial({ color:0x2A4E70, roughness:0.04, metalness:0.90, transparent:true, opacity:0.75 }),
+    glassGrn:    new THREE.MeshStandardMaterial({ color:0x1C3C2A, roughness:0.05, metalness:0.90, transparent:true, opacity:0.80 }),
+    frame:       new THREE.MeshStandardMaterial({ color:0xDDE4EC, roughness:0.25, metalness:0.75 }),
+    frameAnod:   new THREE.MeshStandardMaterial({ color:0xA0A8B0, roughness:0.30, metalness:0.70 }),
+    roof:        new THREE.MeshStandardMaterial({ color:0x7A8290, roughness:0.82, metalness:0.08 }),
+    roofMbr:     new THREE.MeshStandardMaterial({ color:0x4A5260, roughness:0.85, metalness:0.05 }),
+    ground:      new THREE.MeshStandardMaterial({ color:0x222A36, roughness:0.96, metalness:0.0  }),
+    paving:      new THREE.MeshStandardMaterial({ color:0x2E3844, roughness:0.90, metalness:0.0  }),
+    steel:       new THREE.MeshStandardMaterial({ color:0xC0C8D4, roughness:0.30, metalness:0.85 }),
+    steelRust:   new THREE.MeshStandardMaterial({ color:0x6B5040, roughness:0.70, metalness:0.50 }),
+    pipeRed:     new THREE.MeshStandardMaterial({ color:0xCC3322, roughness:0.45, metalness:0.50 }),
+    pipeBlu:     new THREE.MeshStandardMaterial({ color:0x1A55AA, roughness:0.45, metalness:0.50 }),
+    pipeYel:     new THREE.MeshStandardMaterial({ color:0xBB9900, roughness:0.40, metalness:0.55 }),
+    pipeGrn:     new THREE.MeshStandardMaterial({ color:0x226633, roughness:0.50, metalness:0.45 }),
+    pipeGry:     new THREE.MeshStandardMaterial({ color:0x7A8290, roughness:0.55, metalness:0.40 }),
+    insul:       new THREE.MeshStandardMaterial({ color:0xE8C060, roughness:0.95, metalness:0.0  }),
+    duct:        new THREE.MeshStandardMaterial({ color:0x9AA2AA, roughness:0.50, metalness:0.60 }),
+    hvacUnit:    new THREE.MeshStandardMaterial({ color:0x8A9098, roughness:0.55, metalness:0.45 }),
+    louvre:      new THREE.MeshStandardMaterial({ color:0xC8CED6, roughness:0.35, metalness:0.65 }),
+    sunshade:    new THREE.MeshStandardMaterial({ color:0xD0D6DE, roughness:0.40, metalness:0.60 }),
+    waterproof:  new THREE.MeshStandardMaterial({ color:0x3A4250, roughness:0.92, metalness:0.02 }),
+    grass:       new THREE.MeshStandardMaterial({ color:0x2A4028, roughness:0.95, metalness:0.0  }),
+    road:        new THREE.MeshStandardMaterial({ color:0x1E2430, roughness:0.94, metalness:0.0  }),
+    curbstone:   new THREE.MeshStandardMaterial({ color:0x606870, roughness:0.88, metalness:0.04 }),
+    window_sill: new THREE.MeshStandardMaterial({ color:0xB0B8C0, roughness:0.70, metalness:0.20 }),
+    core:        new THREE.MeshStandardMaterial({ color:0xA0A6AE, roughness:0.88, metalness:0.02 }),
+    stair:       new THREE.MeshStandardMaterial({ color:0xB8BEC6, roughness:0.85, metalness:0.05 }),
   };
 
-  // Resize
-  window.addEventListener('resize', function() {
-    W = container.clientWidth; H = container.clientHeight;
-    camera.aspect = W / H;
-    camera.updateProjectionMatrix();
-    renderer.setSize(W, H);
+  // ── HELPERS ───────────────────────────────────────────────────────────────
+  var building = new THREE.Group();
+  scene.add(building);
+  var site = new THREE.Group();
+  scene.add(site);
+
+  function B(w,h,d, mat, x,y,z, rx,ry,rz) {
+    var m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat);
+    m.position.set(x||0, y||0, z||0);
+    if(rx) m.rotation.x=rx; if(ry) m.rotation.y=ry; if(rz) m.rotation.z=rz;
+    m.castShadow = true; m.receiveShadow = true;
+    building.add(m); return m;
+  }
+  function C(r,h, mat, x,y,z) {
+    var m = new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,12), mat);
+    m.position.set(x||0,y||0,z||0);
+    m.castShadow=true; m.receiveShadow=true;
+    building.add(m); return m;
+  }
+  function Cs(r,h, mat, x,y,z, rx,ry,rz) {
+    var m = new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,10), mat);
+    m.position.set(x||0,y||0,z||0);
+    if(rx) m.rotation.x=rx; if(ry) m.rotation.y=ry; if(rz) m.rotation.z=rz;
+    m.castShadow=true; m.receiveShadow=true;
+    building.add(m); return m;
+  }
+  function Bsite(w,h,d, mat, x,y,z) {
+    var m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat);
+    m.position.set(x||0,y||0,z||0);
+    m.receiveShadow=true; m.castShadow=true;
+    site.add(m); return m;
+  }
+
+  // ── BUILDING PARAMETERS ───────────────────────────────────────────────────
+  var FH    = 3.20;  // floor height
+  var FL    = 12;    // total floors
+  var BW    = 12;    // building width (X)
+  var BD    = 8;     // building depth (Z)
+  var SLAB  = 0.28;  // slab thickness
+  var COLS  = 0.45;  // column section
+  var WALL  = 0.20;  // facade wall thickness
+  var BAYS_X = 4;
+  var BAYS_Z = 2;
+  var BAY_W = BW / BAYS_X;   // 3.0
+  var BAY_D = BD / BAYS_Z;   // 4.0
+
+  // ── GROUND SLAB ───────────────────────────────────────────────────────────
+  B(BW+0.5, 0.40, BD+0.5, M.slab, 0, -0.20, 0);
+
+  // ── FLOOR SLABS (all floors) ──────────────────────────────────────────────
+  for(var f=0; f<=FL; f++) {
+    var sy = f*FH;
+    B(BW+0.05, SLAB, BD+0.05, M.slab, 0, sy+SLAB/2, 0);
+    // Slab edge reveal (darker strip)
+    B(BW+0.05, 0.08, BD+0.05, M.concreteDk, 0, sy+SLAB, 0);
+  }
+
+  // ── STRUCTURAL COLUMNS ────────────────────────────────────────────────────
+  var colH = FL*FH + SLAB;
+  for(var cx=0; cx<=BAYS_X; cx++) {
+    for(var cz=0; cz<=BAYS_Z; cz++) {
+      var px = -BW/2 + cx*BAY_W;
+      var pz = -BD/2 + cz*BAY_D;
+      B(COLS, colH, COLS, M.column, px, colH/2, pz);
+    }
+  }
+
+  // ── STRUCTURAL BEAMS (perimeter & interior, every floor) ─────────────────
+  var BM_W = 0.30, BM_H = 0.55;
+  for(var bf=1; bf<=FL; bf++) {
+    var by = bf*FH - BM_H/2;
+    // Perimeter beams X direction
+    for(var bz=0; bz<=BAYS_Z; bz++) {
+      var bpz = -BD/2 + bz*BAY_D;
+      B(BW, BM_H, BM_W, M.beam, 0, by, bpz);
+    }
+    // Perimeter beams Z direction
+    for(var bx=0; bx<=BAYS_X; bx++) {
+      var bpx = -BW/2 + bx*BAY_W;
+      B(BM_W, BM_H, BD, M.beam, bpx, by, 0);
+    }
+  }
+
+  // ── CORE / SHEAR WALLS (elevator + stairs) ────────────────────────────────
+  var coreW=3.0, coreD=2.4;
+  var coreX = BW/2 - coreW/2 - 0.4;
+  var coreZ = 0;
+  B(coreW, colH, WALL, M.core, coreX, colH/2,  coreD/2);
+  B(coreW, colH, WALL, M.core, coreX, colH/2, -coreD/2);
+  B(WALL,  colH, coreD-WALL*2, M.core, coreX-coreW/2+WALL/2, colH/2, 0);
+  B(WALL,  colH, coreD-WALL*2, M.core, coreX+coreW/2-WALL/2, colH/2, 0);
+  // Elevator doors (dark recess) every 3 floors
+  for(var ef=0; ef<FL; ef++) {
+    B(0.9, 2.1, 0.05, M.glass, coreX, ef*FH+1.05+SLAB, -coreD/2-0.01);
+  }
+
+  // ── STAIR CORE ────────────────────────────────────────────────────────────
+  var scX = -BW/2 + 1.6, scZ = BD/2 - 1.8;
+  B(2.8, colH, 3.0, M.stair, scX, colH/2, scZ);
+
+  // ── FACADE: FRONT (Z = +BD/2+WALL/2) ─────────────────────────────────────
+  var WIN_W = BAY_W - COLS - 0.10;
+  var WIN_H = FH - SLAB - 0.55;
+  var SPAN_H = 0.55 - 0.05;
+
+  function addFacadeBay(bxIdx, floor, fz, isFront) {
+    var bxC = -BW/2 + (bxIdx+0.5)*BAY_W;
+    var flBase = floor*FH + SLAB;
+    var mat = isFront ? M.concrete : M.concreteDk;
+    var wMat = [M.glass, M.glassLt, M.glassGrn, M.glass][bxIdx % 4];
+
+    // Spandrel panel
+    B(WIN_W, SPAN_H, WALL, mat, bxC, flBase+SPAN_H/2, fz);
+
+    // Window sill
+    B(WIN_W+0.10, 0.06, WALL+0.06, M.window_sill, bxC, flBase+SPAN_H-0.03, fz);
+
+    // Glass unit
+    B(WIN_W-0.06, WIN_H-0.06, 0.06, wMat, bxC, flBase+SPAN_H+WIN_H/2, fz+(isFront?1:-1)*0.04);
+
+    // Outer frame (4 sides)
+    var sign = isFront ? 1 : -1;
+    B(WIN_W, 0.06, 0.04, M.frame, bxC, flBase+SPAN_H+WIN_H+0.03,     fz+sign*0.04);
+    B(WIN_W, 0.06, 0.04, M.frame, bxC, flBase+SPAN_H-0.03,            fz+sign*0.04);
+    B(0.06, WIN_H, 0.04, M.frame, bxC-WIN_W/2+0.03, flBase+SPAN_H+WIN_H/2, fz+sign*0.04);
+    B(0.06, WIN_H, 0.04, M.frame, bxC+WIN_W/2-0.03, flBase+SPAN_H+WIN_H/2, fz+sign*0.04);
+
+    // Mullion (horizontal mid-window)
+    B(WIN_W-0.06, 0.04, 0.04, M.frameAnod, bxC, flBase+SPAN_H+WIN_H*0.5, fz+sign*0.04);
+
+    // Sunshade/louvre (front face only, horizontal fins)
+    if(isFront) {
+      for(var fin=0; fin<3; fin++) {
+        var fy = flBase+SPAN_H+0.3+fin*(WIN_H-0.3)/3;
+        B(WIN_W, 0.04, 0.28, M.sunshade, bxC, fy, fz+WALL/2+0.14);
+      }
+    }
+  }
+
+  for(var fl=0; fl<FL; fl++) {
+    for(var bx=0; bx<BAYS_X; bx++) {
+      // Front face
+      addFacadeBay(bx, fl, BD/2+WALL/2, true);
+      // Back face
+      addFacadeBay(bx, fl, -BD/2-WALL/2, false);
+    }
+  }
+
+  // ── SIDE FACADES ──────────────────────────────────────────────────────────
+  var WIN_WS = BAY_D - COLS - 0.14;
+  for(var sf=0; sf<FL; sf++) {
+    for(var bz=0; bz<BAYS_Z; bz++) {
+      var bzC = -BD/2 + (bz+0.5)*BAY_D;
+      var flBase = sf*FH + SLAB;
+
+      // Right side (X = +BW/2)
+      var xR = BW/2+WALL/2;
+      B(WALL, SPAN_H, WIN_WS, M.concreteDk, xR, flBase+SPAN_H/2, bzC);
+      B(0.06, WIN_H-0.06, WIN_WS-0.06, M.glass, xR+0.04, flBase+SPAN_H+WIN_H/2, bzC);
+      B(0.04, WIN_H, WIN_WS, M.frame, xR+0.04, flBase+SPAN_H+WIN_H/2, bzC-WIN_WS/2+0.03);
+      B(0.04, WIN_H, WIN_WS, M.frame, xR+0.04, flBase+SPAN_H+WIN_H/2, bzC+WIN_WS/2-0.03);
+      B(0.04, 0.06, WIN_WS, M.frame, xR+0.04, flBase+SPAN_H+WIN_H+0.03, bzC);
+      B(0.06, 0.06, WIN_WS, M.window_sill, xR, flBase+SPAN_H-0.03, bzC);
+
+      // Left side (X = -BW/2)
+      var xL = -BW/2-WALL/2;
+      B(WALL, SPAN_H, WIN_WS, M.concreteDk, xL, flBase+SPAN_H/2, bzC);
+      B(0.06, WIN_H-0.06, WIN_WS-0.06, M.glassLt, xL-0.04, flBase+SPAN_H+WIN_H/2, bzC);
+      B(0.04, WIN_H, WIN_WS, M.frame, xL-0.04, flBase+SPAN_H+WIN_H/2, bzC-WIN_WS/2+0.03);
+      B(0.04, WIN_H, WIN_WS, M.frame, xL-0.04, flBase+SPAN_H+WIN_H/2, bzC+WIN_WS/2-0.03);
+      B(0.04, 0.06, WIN_WS, M.frame, xL-0.04, flBase+SPAN_H+WIN_H+0.03, bzC);
+    }
+  }
+
+  // ── GROUND FLOOR LOBBY ────────────────────────────────────────────────────
+  // Tall glazed entrance (double-height)
+  B(4.0, FH*2-SLAB, 0.05, M.glass,  0, FH+SLAB/2, BD/2+0.06);
+  B(4.2, 0.08, 0.08, M.frame, 0, FH*2+SLAB, BD/2+0.06);
+  B(0.08, FH*2-SLAB, 0.08, M.frame, -2.0, FH+SLAB/2, BD/2+0.06);
+  B(0.08, FH*2-SLAB, 0.08, M.frame,  2.0, FH+SLAB/2, BD/2+0.06);
+  B(0.08, FH*2-SLAB, 0.08, M.frame,  0.0, FH+SLAB/2, BD/2+0.06);
+  // Canopy above entrance
+  B(5.0, 0.12, 1.6, M.steel,  0, FH*2+SLAB+0.06, BD/2+0.8);
+  // Canopy supports
+  B(0.08, FH*2, 0.08, M.steel,  2.2, FH, BD/2+1.5);
+  B(0.08, FH*2, 0.08, M.steel, -2.2, FH, BD/2+1.5);
+
+  // ── PARAPET ───────────────────────────────────────────────────────────────
+  var roofY = FL*FH + SLAB;
+  var PARP = 1.10;
+  B(BW+0.05, PARP, WALL, M.concreteWht, 0,  roofY+PARP/2,  BD/2+WALL/2);
+  B(BW+0.05, PARP, WALL, M.concreteWht, 0,  roofY+PARP/2, -BD/2-WALL/2);
+  B(WALL, PARP, BD,      M.concreteWht,  BW/2+WALL/2, roofY+PARP/2, 0);
+  B(WALL, PARP, BD,      M.concreteWht, -BW/2-WALL/2, roofY+PARP/2, 0);
+  // Parapet coping
+  B(BW+0.4, 0.10, 0.35, M.frame, 0,  roofY+PARP+0.05,  BD/2+WALL/2);
+  B(BW+0.4, 0.10, 0.35, M.frame, 0,  roofY+PARP+0.05, -BD/2-WALL/2);
+  B(0.35, 0.10, BD+0.4,  M.frame,  BW/2+WALL/2, roofY+PARP+0.05, 0);
+  B(0.35, 0.10, BD+0.4,  M.frame, -BW/2+WALL/2, roofY+PARP+0.05, 0);
+
+  // Waterproofing membrane on roof
+  B(BW-0.1, 0.06, BD-0.1, M.waterproof, 0, roofY+0.03, 0);
+
+  // ── PENTHOUSE / MECHANICAL ROOM ───────────────────────────────────────────
+  var phY = roofY+PARP;
+  // Main penthouse block
+  B(4.0, 3.8, 3.2, M.concrete, -3.0, phY+1.9, 0);
+  B(4.2, 0.14, 3.4, M.roof,    -3.0, phY+3.87, 0);
+  // Penthouse glazing
+  B(2.8, 2.2, 0.05, M.glass, -3.0, phY+1.1, 3.2/2+0.03);
+  // Stair access hatch
+  B(2.0, 2.4, 2.0, M.concreteDk, 3.5, phY+1.2, -1.0);
+  B(2.2, 0.14, 2.2, M.roof, 3.5, phY+2.47, -1.0);
+
+  // ── HVAC & MEP ON ROOF ────────────────────────────────────────────────────
+  // Cooling towers (2x)
+  function coolingTower(x,z) {
+    // Basin
+    B(2.0, 0.35, 2.0, M.concreteDk, x, phY+0.18, z);
+    // Shell
+    var geo = new THREE.CylinderGeometry(0.9, 1.0, 2.0, 16);
+    var m = new THREE.Mesh(geo, M.hvacUnit); m.position.set(x, phY+1.35, z);
+    m.castShadow=true; building.add(m);
+    // Fan grill top
+    var fanGeo = new THREE.CylinderGeometry(0.88, 0.88, 0.06, 16);
+    var fan = new THREE.Mesh(fanGeo, M.duct); fan.position.set(x, phY+2.38, z);
+    building.add(fan);
+    // Louvres around tower
+    for(var i=0;i<8;i++){
+      var ang = i*Math.PI/4;
+      B(0.02, 1.4, 0.45, M.louvre, x+Math.cos(ang)*0.95, phY+1.05, z+Math.sin(ang)*0.95, 0, ang, 0);
+    }
+  }
+  coolingTower(-4.5, 2.0);
+  coolingTower(-4.5,-2.0);
+
+  // Air Handling Unit (AHU)
+  B(3.5, 1.2, 1.8, M.hvacUnit, 2.0, phY+0.6, 2.5);
+  B(3.7, 0.08, 2.0, M.duct,    2.0, phY+1.24, 2.5);
+  // AHU intake grille
+  B(1.2, 0.8, 0.04, M.louvre, 0.2, phY+0.6, 3.52);
+  B(1.2, 0.8, 0.04, M.louvre, 3.8, phY+0.6, 3.52);
+
+  // Rooftop ductwork (HVAC main duct)
+  B(8.0, 0.55, 0.55, M.duct,     0.0, phY+0.55, 0.5);  // main E-W duct
+  B(0.55, 0.55, 6.0, M.duct,     0.0, phY+0.55, 0.5);  // branch N-S
+  B(0.55, 0.55, 4.0, M.duct,    -4.0, phY+0.55, 0.5);
+  // Duct insulation jacket
+  B(8.2, 0.65, 0.65, M.insul,    0.0, phY+0.55, -0.5, 0, 0, 0);
+
+  // Chilled water pipes (blue) - horizontal runs
+  Cs(0.10, 9.0, M.pipeBlu,  0, phY+1.30, 1.5, Math.PI/2, 0, 0);
+  Cs(0.10, 9.0, M.pipeBlu,  0, phY+1.50, 1.5, Math.PI/2, 0, 0);
+  // Hot water pipes (red)
+  Cs(0.08, 7.0, M.pipeRed,  0, phY+1.30,-1.5, Math.PI/2, 0, 0);
+  Cs(0.08, 7.0, M.pipeRed,  0, phY+1.50,-1.5, Math.PI/2, 0, 0);
+  // Pipe supports every 2m
+  for(var ps=-4;ps<=4;ps+=2) {
+    B(0.06, 0.35, 0.06, M.steel, ps, phY+1.12, 1.5);
+    B(0.06, 0.35, 0.06, M.steel, ps, phY+1.12,-1.5);
+  }
+
+  // Condenser water lines (grey)
+  Cs(0.12, 6.0, M.pipeGry, -3.0, phY+0.55, 0, 0, 0, Math.PI/2);
+  Cs(0.12, 6.0, M.pipeGry, -3.0, phY+0.80, 0, 0, 0, Math.PI/2);
+
+  // Electrical cable trays
+  B(7.0, 0.10, 0.40, M.steel,    0, phY+1.80, -2.0);
+  B(7.0, 0.10, 0.40, M.pipeYel,  0, phY+1.90, -2.0);
+  for(var et=-3;et<=3;et+=1.5) {
+    B(0.04, 0.20, 0.40, M.steel, et, phY+1.70, -2.0);
+  }
+
+  // Fire sprinkler main (red, smaller)
+  Cs(0.06, 10.0, M.pipeRed, 0, phY+2.0, -0.5, Math.PI/2, 0, 0);
+  // Gas pipe (yellow, smaller)
+  Cs(0.05, 8.0, M.pipeYel,  0, phY+2.0,  0.0, Math.PI/2, 0, 0);
+
+  // Solar panels (6 units)
+  for(var sp=0; sp<3; sp++) {
+    for(var sr=0; sr<2; sr++) {
+      var spX = -5.5 + sp*1.9, spZ = -3.0 + sr*2.2;
+      B(1.7, 0.06, 1.8, M.glassGrn, spX, phY+0.5+spX*0.04, spZ, -0.18, 0, 0);
+    }
+  }
+
+  // Lightning rods
+  B(0.04, 1.5, 0.04, M.steel,  BW/2+0.10, roofY+PARP+0.75,  BD/2+0.10);
+  B(0.04, 1.5, 0.04, M.steel, -BW/2-0.10, roofY+PARP+0.75,  BD/2+0.10);
+  B(0.04, 1.5, 0.04, M.steel,  BW/2+0.10, roofY+PARP+0.75, -BD/2-0.10);
+  B(0.04, 1.5, 0.04, M.steel, -BW/2-0.10, roofY+PARP+0.75, -BD/2-0.10);
+
+  // ── MEP VERTICAL RISERS (visible on cutaway side) ─────────────────────────
+  // Show risers on the right side (X = BW/2 - 0.3) outside core
+  var riserX = BW/2 - 1.2, riserH = colH+PARP+4;
+  Cs(0.09, riserH, M.pipeBlu,  riserX,      riserH/2, -BD/2+0.5);
+  Cs(0.09, riserH, M.pipeRed,  riserX+0.25, riserH/2, -BD/2+0.5);
+  Cs(0.06, riserH, M.pipeYel,  riserX+0.45, riserH/2, -BD/2+0.5);
+  Cs(0.06, riserH, M.pipeGrn,  riserX+0.62, riserH/2, -BD/2+0.5);
+
+  // ── SITE ELEMENTS ──────────────────────────────────────────────────────────
+  // Ground
+  Bsite(80, 0.15, 80, M.ground, 0, -0.075, 0);
+
+  // Plaza paving around building
+  Bsite(BW+12, 0.12, BD+12, M.paving, 0, 0.06, 0);
+
+  // Sidewalk edge
+  Bsite(BW+16, 0.18, 0.35, M.curbstone, 0, 0.09,  BD/2+8);
+  Bsite(BW+16, 0.18, 0.35, M.curbstone, 0, 0.09, -BD/2-8);
+  Bsite(0.35, 0.18, BD+16, M.curbstone, BW/2+8, 0.09, 0);
+  Bsite(0.35, 0.18, BD+16, M.curbstone,-BW/2-8, 0.09, 0);
+
+  // Road
+  Bsite(50, 0.10, 7.0, M.road, 0, 0.05,  BD/2+11.5);
+  Bsite(50, 0.10, 7.0, M.road, 0, 0.05, -BD/2-11.5);
+
+  // Grass areas
+  Bsite(BW+10, 0.10, 3.5, M.grass, 0, 0.05,  BD/2+5.5);
+  Bsite(BW+10, 0.10, 3.5, M.grass, 0, 0.05, -BD/2-5.5);
+
+  // Trees (simplified cylinders)
+  function tree(x,z) {
+    var trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.20,2.5,8), M.concreteDk);
+    trunk.position.set(x,1.25,z); trunk.castShadow=true; site.add(trunk);
+    var crown = new THREE.Mesh(new THREE.SphereGeometry(1.2,10,8), M.grass);
+    crown.position.set(x,3.2,z); crown.castShadow=true; site.add(crown);
+  }
+  tree(-9,  BD/2+4); tree(-6, BD/2+4); tree(6, BD/2+4); tree(9, BD/2+4);
+  tree(-9, -BD/2-4); tree(-6,-BD/2-4); tree(6,-BD/2-4); tree(9,-BD/2-4);
+
+  // Parking lot lines
+  for(var pl=-6;pl<=6;pl+=2.5) {
+    Bsite(0.05, 0.02, 5.0, M.frame, pl, 0.14, -BD/2-10);
+  }
+
+  // ── GRID ──────────────────────────────────────────────────────────────────
+  var grid = new THREE.GridHelper(60, 60, 0x2A3448, 0x1E2838);
+  grid.position.y = 0.16;
+  scene.add(grid);
+
+  // ── ORBIT CONTROLS ────────────────────────────────────────────────────────
+  var isDragging=false, prevMouse={x:0,y:0};
+  var sph = { theta: 0.55, phi: 0.90, radius: 38 };
+  var targetSph = { theta: 0.55, phi: 0.90, radius: 38 };
+  var lookY = 10;
+
+  function camPos() {
+    camera.position.x = sph.radius*Math.sin(sph.phi)*Math.sin(sph.theta);
+    camera.position.y = sph.radius*Math.cos(sph.phi) + lookY;
+    camera.position.z = sph.radius*Math.sin(sph.phi)*Math.cos(sph.theta);
+    camera.lookAt(0, lookY, 0);
+  }
+  camPos();
+
+  canvas.addEventListener('mousedown', function(e){ isDragging=true; prevMouse={x:e.clientX,y:e.clientY}; });
+  window.addEventListener('mouseup',   function(){ isDragging=false; });
+  window.addEventListener('mousemove', function(e){
+    if(!isDragging) return;
+    var dx=(e.clientX-prevMouse.x)*0.007, dy=(e.clientY-prevMouse.y)*0.005;
+    targetSph.theta -= dx;
+    targetSph.phi = Math.max(0.12, Math.min(Math.PI*0.46, targetSph.phi+dy));
+    prevMouse={x:e.clientX,y:e.clientY};
+  });
+  canvas.addEventListener('wheel', function(e){
+    targetSph.radius = Math.max(10, Math.min(70, targetSph.radius+e.deltaY*0.05));
+  });
+  var lastTouch=null;
+  canvas.addEventListener('touchstart', function(e){ lastTouch=e.touches[0]; });
+  canvas.addEventListener('touchmove', function(e){
+    if(!lastTouch) return; e.preventDefault();
+    var t=e.touches[0];
+    targetSph.theta  -= (t.clientX-lastTouch.clientX)*0.009;
+    targetSph.phi = Math.max(0.12, Math.min(Math.PI*0.46, targetSph.phi+(t.clientY-lastTouch.clientY)*0.007));
+    lastTouch=t;
+  },{passive:false});
+
+  window.setView = function(v, el) {
+    document.querySelectorAll('.bim-tab').forEach(function(t){t.classList.remove('active')});
+    el.classList.add('active');
+    if(v==='3d')    { targetSph.theta=0.55; targetSph.phi=0.90; targetSph.radius=38; lookY=10; }
+    if(v==='front') { targetSph.theta=0;    targetSph.phi=Math.PI/2*0.95; targetSph.radius=32; lookY=10; }
+    if(v==='iso')   { targetSph.theta=Math.PI*0.22; targetSph.phi=Math.PI*0.28; targetSph.radius=42; lookY=12; }
+    if(v==='top')   { targetSph.theta=0.55; targetSph.phi=0.08; targetSph.radius=40; lookY=20; }
+  };
+
+  window.addEventListener('resize', function(){
+    W=container.clientWidth; H=container.clientHeight;
+    camera.aspect=W/H; camera.updateProjectionMatrix();
+    renderer.setSize(W,H);
   });
 
-  // ── ANIMATE ──────────────────────────────────────────────────────────────
-  var clock = new THREE.Clock();
-  function animate() {
+  // ── RENDER LOOP ───────────────────────────────────────────────────────────
+  var autoRotate = true;
+  canvas.addEventListener('mousedown', function(){ autoRotate=false; });
+  canvas.addEventListener('touchstart', function(){ autoRotate=false; });
+
+  function lerp(a,b,t){ return a+(b-a)*t; }
+
+  function animate(){
     requestAnimationFrame(animate);
-    var t = clock.getElapsedTime();
-    // Subtle auto-rotate when not interacting
-    if (!isDragging) { spherical.theta += 0.0015; updateCamera(); }
+    if(autoRotate) targetSph.theta += 0.0015;
+    // Smooth interpolation
+    sph.theta  = lerp(sph.theta,  targetSph.theta,  0.10);
+    sph.phi    = lerp(sph.phi,    targetSph.phi,    0.10);
+    sph.radius = lerp(sph.radius, targetSph.radius, 0.10);
+    camPos();
     renderer.render(scene, camera);
   }
   animate();
 })();
 
-// ── Page JS ──────────────────────────────────────────────────────────────────
-(function() {
-  // Intro
-  var intro = document.getElementById('intro');
-  var timer = setTimeout(function() { intro.classList.add('hidden'); }, 2800);
-  intro.addEventListener('click', function() { clearTimeout(timer); intro.classList.add('hidden'); });
 
-  // Nav scroll
-  window.addEventListener('scroll', function() {
-    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+// Page JS
+(function(){
+  var intro=document.getElementById('intro');
+  var t=setTimeout(function(){intro.classList.add('hidden')},2800);
+  intro.addEventListener('click',function(){clearTimeout(t);intro.classList.add('hidden')});
+  window.addEventListener('scroll',function(){
+    document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);
   });
-
-  // Scroll reveal
-  var obs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.07 });
-  document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
-
-  // Number counters
-  function animNum(el, target) {
-    var steps = 60, i = 0;
-    var iv = setInterval(function() {
-      i++; el.textContent = Math.round(target * i / steps);
-      if (i >= steps) { el.textContent = target; clearInterval(iv); }
-    }, 22);
+  var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('in')})},{threshold:0.07});
+  document.querySelectorAll('.rv').forEach(function(el){obs.observe(el)});
+  function animNum(el,target){
+    var steps=60,i=0,iv=setInterval(function(){i++;el.textContent=Math.round(target*i/steps);if(i>=steps){el.textContent=target;clearInterval(iv)}},22);
   }
-  var nobs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        animNum(e.target, parseInt(e.target.getAttribute('data-t')));
-        nobs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.3 });
-  document.querySelectorAll('[data-t]').forEach(function(el) { nobs.observe(el); });
+  var nobs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){animNum(x.target,parseInt(x.target.getAttribute('data-t')));nobs.unobserve(x.target)}})},{threshold:0.3});
+  document.querySelectorAll('[data-t]').forEach(function(el){nobs.observe(el)});
 })();
-
-function handleCTA() {
-  var name = document.getElementById('cta-name').value.trim();
-  var email = document.getElementById('cta-email').value.trim();
-  if (!name || !email) { alert('Por favor completa nombre y correo.'); return; }
-  alert('¡Gracias ' + name + '! Nos pondremos en contacto pronto a ' + email);
-  ['cta-name','cta-email','cta-project','cta-msg'].forEach(function(id) {
-    document.getElementById(id).value = '';
-  });
+function handleCTA(){
+  var name=document.getElementById('cta-name').value.trim();
+  var email=document.getElementById('cta-email').value.trim();
+  if(!name||!email){alert('Por favor completa nombre y correo.');return;}
+  alert('¡Gracias '+name+'! Nos pondremos en contacto pronto a '+email);
+  ['cta-name','cta-email','cta-project','cta-msg'].forEach(function(id){document.getElementById(id).value='';});
 }
 </script>
 </body>
