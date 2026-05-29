@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexvum — Construcción & Gestión BIM</title>
+  <meta name="description" content="Nexvum: empresa líder en gestión BIM, construcción, ingeniería y arquitectura. Transformamos proyectos en realidades con tecnología de vanguardia." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="#inicio" class="navbar__logo">NEX<span>VUM</span></a>
+      <nav class="navbar__menu" id="navMenu">
+        <a href="#servicios">Servicios</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#portafolio">Portafolio</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="inicio">
+    <div class="hero__bg">
+      <div class="hero__orb hero__orb--1"></div>
+      <div class="hero__orb hero__orb--2"></div>
+      <div class="hero__orb hero__orb--3"></div>
+    </div>
+    <div class="container hero__content">
+      <p class="hero__label">Gestión BIM · Construcción · Ingeniería · Arquitectura</p>
+      <h1 class="hero__title">Construimos el Futuro,<br><span>Digitalizamos</span> la Excelencia</h1>
+      <p class="hero__subtitle">Transformamos proyectos en realidades con metodología BIM de vanguardia y más de una década de experiencia en el sector.</p>
+      <div class="hero__cta">
+        <a href="#contacto" class="btn btn--primary">Inicia tu Proyecto</a>
+        <a href="#servicios" class="btn btn--ghost">Nuestros Servicios</a>
+      </div>
+    </div>
+    <a href="#servicios" class="hero__scroll" aria-label="Scroll">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </a>
+  </section>
+
+  <!-- ========== SERVICIOS ========== -->
+  <section class="section" id="servicios">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">Lo que hacemos</p>
+        <h2 class="section__title">Nuestros Servicios</h2>
+        <p class="section__desc">Ofrecemos soluciones integrales para el ciclo de vida completo de cada proyecto, desde el diseño digital hasta la entrega final.</p>
+      </div>
+      <div class="services__grid">
+
+        <article class="card reveal">
+          <div class="card__icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="8" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2.5"/>
+              <rect x="36" y="8" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2.5"/>
+              <rect x="8" y="36" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2.5"/>
+              <rect x="36" y="36" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="28" y1="18" x2="36" y2="18" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="18" y1="28" x2="18" y2="36" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="28" y1="46" x2="36" y2="46" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="46" y1="28" x2="46" y2="36" stroke="currentColor" stroke-width="2.5"/>
+            </svg>
+          </div>
+          <h3 class="card__title">Gestión BIM</h3>
+          <p class="card__text">Implementamos la metodología Building Information Modeling para optimizar el ciclo de vida completo de tus proyectos, reduciendo costos y tiempos de entrega.</p>
+          <ul class="card__list">
+            <li>Modelado 3D y 4D/5D</li>
+            <li>Coordinación multidisciplinaria</li>
+            <li>Clash detection automatizada</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="30" width="44" height="24" rx="2" stroke="currentColor" stroke-width="2.5"/>
+              <polyline points="10,30 32,10 54,30" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+              <rect x="26" y="42" width="12" height="12" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="20" y1="38" x2="20" y2="44" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="44" y1="38" x2="44" y2="44" stroke="currentColor" stroke-width="2.5"/>
+            </svg>
+          </div>
+          <h3 class="card__title">Construcción</h3>
+          <p class="card__text">Edificamos con precisión, calidad y los más altos estándares de seguridad. Cada obra es ejecutada con personal calificado y materiales de primera.</p>
+          <ul class="card__list">
+            <li>Construcción residencial y comercial</li>
+            <li>Gestión y supervisión de obra</li>
+            <li>Control de calidad y costos</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="14" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="32" y1="8" x2="32" y2="18" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="32" y1="46" x2="32" y2="56" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="8" y1="32" x2="18" y2="32" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="46" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5"/>
+              <circle cx="32" cy="32" r="4" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="card__title">Ingeniería</h3>
+          <p class="card__text">Desarrollamos soluciones estructurales, de instalaciones y de infraestructura innovadoras, combinando rigor técnico con eficiencia energética.</p>
+          <ul class="card__list">
+            <li>Ingeniería estructural</li>
+            <li>Instalaciones MEP</li>
+            <li>Estudios geotécnicos</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="12" width="48" height="40" rx="2" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="8" y1="22" x2="56" y2="22" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="30" y1="30" x2="48" y2="30" stroke="currentColor" stroke-width="2"/>
+              <line x1="30" y1="38" x2="48" y2="38" stroke="currentColor" stroke-width="2"/>
+              <line x1="30" y1="46" x2="48" y2="46" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3 class="card__title">Arquitectura</h3>
+          <p class="card__text">Diseñamos espacios que inspiran, funcionan y perduran en el tiempo. Fusionamos estética contemporánea con funcionalidad y sostenibilidad.</p>
+          <ul class="card__list">
+            <li>Diseño arquitectónico</li>
+            <li>Renderizado y visualización</li>
+            <li>Arquitectura sostenible</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== NOSOTROS ========== -->
+  <section class="section section--alt" id="nosotros">
+    <div class="container">
+      <div class="about__grid">
+        <div class="about__text reveal">
+          <p class="section__label">Quiénes somos</p>
+          <h2 class="section__title">Nexvum: Donde la Ingeniería Encuentra el Futuro</h2>
+          <p>Somos una empresa integrada de construcción y gestión BIM con más de una década de experiencia transformando el sector de la construcción en Latinoamérica. Nacimos con la convicción de que la tecnología y la ingeniería pueden trabajar juntas para crear proyectos más eficientes, más sostenibles y de mayor calidad.</p>
+          <p>Nuestro equipo multidisciplinario de arquitectos, ingenieros y especialistas BIM trabaja de forma colaborativa para entregar proyectos que superan las expectativas, siempre dentro del presupuesto y los plazos acordados.</p>
+          <div class="about__values">
+            <div class="value">
+              <div class="value__icon">⚙</div>
+              <div>
+                <strong>Innovación Constante</strong>
+                <p>Adoptamos las últimas tecnologías del sector para optimizar cada proceso.</p>
+              </div>
+            </div>
+            <div class="value">
+              <div class="value__icon">◈</div>
+              <div>
+                <strong>Calidad Sin Compromiso</strong>
+                <p>Cada detalle importa. Nuestros estándares de calidad son innegociables.</p>
+              </div>
+            </div>
+            <div class="value">
+              <div class="value__icon">◉</div>
+              <div>
+                <strong>Compromiso Sostenible</strong>
+                <p>Construimos pensando en las generaciones presentes y futuras.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about__stats reveal">
+          <div class="stat">
+            <span class="stat__number" data-target="12">0</span>
+            <span class="stat__suffix">+</span>
+            <p class="stat__label">Años de experiencia</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-target="180">0</span>
+            <span class="stat__suffix">+</span>
+            <p class="stat__label">Proyectos completados</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-target="95">0</span>
+            <span class="stat__suffix">+</span>
+            <p class="stat__label">Clientes satisfechos</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-target="8">0</span>
+            <span class="stat__suffix"></span>
+            <p class="stat__label">Países de operación</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PORTAFOLIO ========== -->
+  <section class="section" id="portafolio">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">Nuestro trabajo</p>
+        <h2 class="section__title">Portafolio de Proyectos</h2>
+        <p class="section__desc">Cada proyecto refleja nuestra pasión por la excelencia y nuestro compromiso con resultados que transforman comunidades.</p>
+      </div>
+
+      <div class="portfolio__filters reveal">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="bim">BIM</button>
+        <button class="filter-btn" data-filter="construccion">Construcción</button>
+        <button class="filter-btn" data-filter="ingenieria">Ingeniería</button>
+        <button class="filter-btn" data-filter="arquitectura">Arquitectura</button>
+      </div>
+
+      <div class="portfolio__grid">
+
+        <article class="project-card reveal" data-category="bim">
+          <div class="project-card__img" style="background: linear-gradient(135deg, #1a1a3e 0%, #2d1b69 100%);">
+            <div class="project-card__overlay">
+              <span class="project-card__tag">BIM</span>
+            </div>
+            <svg class="project-card__icon" viewBox="0 0 80 80" fill="none"><rect x="10" y="10" width="25" height="25" rx="3" stroke="#d4af37" stroke-width="2"/><rect x="45" y="10" width="25" height="25" rx="3" stroke="#d4af37" stroke-width="2"/><rect x="10" y="45" width="25" height="25" rx="3" stroke="#d4af37" stroke-width="2"/><rect x="45" y="45" width="25" height="25" rx="3" stroke="#d4af37" stroke-width="2"/><line x1="35" y1="22" x2="45" y2="22" stroke="#d4af37" stroke-width="2"/><line x1="22" y1="35" x2="22" y2="45" stroke="#d4af37" stroke-width="2"/><line x1="35" y1="58" x2="45" y2="58" stroke="#d4af37" stroke-width="2"/><line x1="58" y1="35" x2="58" y2="45" stroke="#d4af37" stroke-width="2"/></svg>
+          </div>
+          <div class="project-card__body">
+            <h3>Torre Nexvum Office Park</h3>
+            <p>Modelado BIM integral de torre corporativa de 24 pisos con coordinación multidisciplinaria completa.</p>
+            <span class="project-card__year">2024</span>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="construccion">
+          <div class="project-card__img" style="background: linear-gradient(135deg, #1a2e1a 0%, #2d5a2d 100%);">
+            <div class="project-card__overlay">
+              <span class="project-card__tag">Construcción</span>
+            </div>
+            <svg class="project-card__icon" viewBox="0 0 80 80" fill="none"><rect x="12" y="38" width="56" height="30" rx="2" stroke="#d4af37" stroke-width="2"/><polyline points="12,38 40,14 68,38" stroke="#d4af37" stroke-width="2" stroke-linejoin="round"/><rect x="32" y="52" width="16" height="16" stroke="#d4af37" stroke-width="2"/></svg>
+          </div>
+          <div class="project-card__body">
+            <h3>Complejo Industrial Norte</h3>
+            <p>Construcción de parque industrial de 50,000 m² con naves, oficinas y áreas de logística.</p>
+            <span class="project-card__year">2023</span>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="ingenieria">
+          <div class="project-card__img" style="background: linear-gradient(135deg, #1a1e2e 0%, #1b3069 100%);">
+            <div class="project-card__overlay">
+              <span class="project-card__tag">Ingeniería</span>
+            </div>
+            <svg class="project-card__icon" viewBox="0 0 80 80" fill="none"><line x1="10" y1="50" x2="70" y2="50" stroke="#d4af37" stroke-width="2"/><path d="M10,50 Q25,20 40,50 Q55,20 70,50" stroke="#d4af37" stroke-width="2" fill="none"/><line x1="40" y1="50" x2="40" y2="62" stroke="#d4af37" stroke-width="2"/><rect x="34" y="62" width="12" height="6" stroke="#d4af37" stroke-width="2"/></svg>
+          </div>
+          <div class="project-card__body">
+            <h3>Puente Viaducto Sur</h3>
+            <p>Diseño estructural e ingeniería de viaducto urbano de 380 metros sobre autopista principal.</p>
+            <span class="project-card__year">2023</span>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="arquitectura">
+          <div class="project-card__img" style="background: linear-gradient(135deg, #2e1a1a 0%, #691b1b 100%);">
+            <div class="project-card__overlay">
+              <span class="project-card__tag">Arquitectura</span>
+            </div>
+            <svg class="project-card__icon" viewBox="0 0 80 80" fill="none"><rect x="10" y="16" width="60" height="50" rx="2" stroke="#d4af37" stroke-width="2"/><line x1="10" y1="28" x2="70" y2="28" stroke="#d4af37" stroke-width="2"/><line x1="28" y1="16" x2="28" y2="66" stroke="#d4af37" stroke-width="2"/><line x1="38" y1="38" x2="60" y2="38" stroke="#d4af37" stroke-width="1.5"/><line x1="38" y1="48" x2="60" y2="48" stroke="#d4af37" stroke-width="1.5"/></svg>
+          </div>
+          <div class="project-card__body">
+            <h3>Centro Comercial Lumina</h3>
+            <p>Diseño arquitectónico de centro comercial premium de 35,000 m² con enfoque en experiencia del usuario.</p>
+            <span class="project-card__year">2022</span>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="bim">
+          <div class="project-card__img" style="background: linear-gradient(135deg, #1a1a3e 0%, #3b2d69 100%);">
+            <div class="project-card__overlay">
+              <span class="project-card__tag">BIM</span>
+            </div>
+            <svg class="project-card__icon" viewBox="0 0 80 80" fill="none"><rect x="20" y="10" width="40" height="60" rx="3" stroke="#d4af37" stroke-width="2"/><line x1="28" y1="24" x2="52" y2="24" stroke="#d4af37" stroke-width="1.5"/><line x1="28" y1="34" x2="52" y2="34" stroke="#d4af37" stroke-width="1.5"/><line x1="28" y1="44" x2="52" y2="44" stroke="#d4af37" stroke-width="1.5"/><rect x="34" y="56" width="12" height="10" stroke="#d4af37" stroke-width="2"/></svg>
+          </div>
+          <div class="project-card__body">
+            <h3>Hub Tecnológico Nexvum</h3>
+            <p>Gestión BIM completa de campus tecnológico con 6 edificios coordinados en entorno colaborativo.</p>
+            <span class="project-card__year">2024</span>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="construccion">
+          <div class="project-card__img" style="background: linear-gradient(135deg, #1e2e1a 0%, #3a5a1b 100%);">
+            <div class="project-card__overlay">
+              <span class="project-card__tag">Construcción</span>
+            </div>
+            <svg class="project-card__icon" viewBox="0 0 80 80" fill="none"><rect x="8" y="30" width="64" height="38" rx="2" stroke="#d4af37" stroke-width="2"/><polyline points="8,30 24,14 40,22 56,10 72,30" stroke="#d4af37" stroke-width="2" stroke-linejoin="round"/><rect x="30" y="48" width="20" height="20" stroke="#d4af37" stroke-width="2"/></svg>
+          </div>
+          <div class="project-card__body">
+            <h3>Residencial Altos del Valle</h3>
+            <p>Desarrollo residencial de 320 unidades habitacionales con áreas verdes y amenidades de alto estándar.</p>
+            <span class="project-card__year">2022</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACTO ========== -->
+  <section class="section section--alt" id="contacto">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">Hablemos</p>
+        <h2 class="section__title">Inicia tu Proyecto con Nexvum</h2>
+        <p class="section__desc">Cuéntanos sobre tu proyecto y nuestro equipo se pondrá en contacto contigo en menos de 24 horas.</p>
+      </div>
+
+      <div class="contact__grid">
+        <div class="contact__info reveal">
+          <div class="contact__item">
+            <div class="contact__item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012 .99h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <strong>Teléfono</strong>
+              <p>+1 (555) 000-0000</p>
+            </div>
+          </div>
+          <div class="contact__item">
+            <div class="contact__item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <strong>Correo</strong>
+              <p>contacto@nexvum.com</p>
+            </div>
+          </div>
+          <div class="contact__item">
+            <div class="contact__item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <strong>Oficina Principal</strong>
+              <p>Av. de la Construcción 1200,<br>Ciudad de México, México</p>
+            </div>
+          </div>
+          <div class="contact__social">
+            <a href="#" aria-label="LinkedIn" class="social-link">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram" class="social-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube" class="social-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <form class="contact__form reveal" id="contactForm" novalidate>
+          <div class="form__row">
+            <div class="form__group">
+              <label for="nombre">Nombre completo *</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Juan García" required />
+              <span class="form__error" id="errorNombre"></span>
+            </div>
+            <div class="form__group">
+              <label for="email">Correo electrónico *</label>
+              <input type="email" id="email" name="email" placeholder="juan@empresa.com" required />
+              <span class="form__error" id="errorEmail"></span>
+            </div>
+          </div>
+          <div class="form__group">
+            <label for="empresa">Empresa</label>
+            <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa" />
+          </div>
+          <div class="form__group">
+            <label for="servicio">Servicio de interés</label>
+            <select id="servicio" name="servicio">
+              <option value="">Selecciona un servicio</option>
+              <option value="bim">Gestión BIM</option>
+              <option value="construccion">Construcción</option>
+              <option value="ingenieria">Ingeniería</option>
+              <option value="arquitectura">Arquitectura</option>
+              <option value="integral">Servicio integral</option>
+            </select>
+          </div>
+          <div class="form__group">
+            <label for="mensaje">Mensaje *</label>
+            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Cuéntanos sobre tu proyecto: tipo, ubicación, superficie, plazo..." required></textarea>
+            <span class="form__error" id="errorMensaje"></span>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full" id="submitBtn">
+            <span class="btn__text">Enviar Mensaje</span>
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+          <div class="form__success" id="formSuccess">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <p>Mensaje enviado con éxito. Te contactaremos pronto.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#inicio" class="navbar__logo">NEX<span>VUM</span></a>
+        <p>Construimos el futuro digitalizando la excelencia en cada proyecto.</p>
+      </div>
+      <nav class="footer__nav">
+        <strong>Servicios</strong>
+        <a href="#servicios">Gestión BIM</a>
+        <a href="#servicios">Construcción</a>
+        <a href="#servicios">Ingeniería</a>
+        <a href="#servicios">Arquitectura</a>
+      </nav>
+      <nav class="footer__nav">
+        <strong>Empresa</strong>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#portafolio">Portafolio</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; <span id="year"></span> Nexvum. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
