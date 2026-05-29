@@ -5,379 +5,210 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>NEXVUM GROUP — BIM · Ingeniería · Arquitectura</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --white:#FFFFFF;
-  --light:#F5F7FA;
-  --mid:#E2E8F0;
-  --ink:#1A1F2E;
-  --ink2:#3D4457;
-  --ink3:#6B7280;
-  --navy:#003366;
-  --navy2:#004080;
-  --navy3:#00264D;
-  --accent:#0066CC;
-  --gold:#C4A35A;
-  --red-mep:#CC4444;
-  --blue-mep:#2255AA;
+  --white:#FFFFFF; --light:#F5F7FA; --mid:#E2E8F0;
+  --ink:#1A1F2E; --ink2:#3D4457; --ink3:#6B7280;
+  --navy:#003366; --navy2:#004080; --navy3:#00264D;
+  --accent:#0066CC; --gold:#C4A35A;
 }
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);overflow-x:hidden}
 
-/* ── INTRO ─────────────────────────────────────────────────────────────── */
+/* INTRO */
 #intro{
   position:fixed;inset:0;z-index:9999;
   background:var(--white);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:24px;
-  transition:opacity .6s ease, visibility .6s ease;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;
+  transition:opacity .7s ease,visibility .7s ease;
 }
 #intro.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.intro-svg{width:120px;height:auto}
-.intro-path{
-  fill:none;stroke:var(--navy);stroke-width:2.5;
-  stroke-dasharray:400;stroke-dashoffset:400;
-  animation:draw 1.2s cubic-bezier(.4,0,.2,1) .2s forwards;
-}
-.intro-path-gold{
-  fill:none;stroke:var(--gold);stroke-width:2;
-  stroke-dasharray:200;stroke-dashoffset:200;
-  animation:draw .9s cubic-bezier(.4,0,.2,1) .8s forwards;
-}
+.intro-svg{width:110px;height:auto}
+.intro-path{fill:none;stroke:var(--navy);stroke-width:2.5;stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1.2s cubic-bezier(.4,0,.2,1) .2s forwards}
+.intro-path-gold{fill:none;stroke:var(--gold);stroke-width:2.2;stroke-dasharray:200;stroke-dashoffset:200;animation:draw .9s cubic-bezier(.4,0,.2,1) .9s forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
-.intro-name{
-  font-family:'Cormorant Garamond',serif;
-  font-size:32px;font-weight:300;letter-spacing:0.3em;
-  color:var(--navy);text-transform:uppercase;
-  opacity:0;animation:fadeUp .6s ease 1.4s forwards;
-}
-.intro-sub{
-  font-family:'Space Mono',monospace;font-size:10px;
-  letter-spacing:0.25em;color:var(--ink3);text-transform:uppercase;
-  opacity:0;animation:fadeUp .5s ease 1.8s forwards;
-}
+.intro-name{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;letter-spacing:.35em;color:var(--navy);text-transform:uppercase;opacity:0;animation:fadeUp .6s ease 1.5s forwards}
+.intro-sub{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.22em;color:var(--ink3);text-transform:uppercase;opacity:0;animation:fadeUp .5s ease 1.9s forwards}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-/* ── NAV ───────────────────────────────────────────────────────────────── */
+/* NAV */
 #nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   background:var(--white);border-bottom:1px solid var(--mid);
-  height:68px;display:flex;align-items:center;
-  padding:0 5%;transition:box-shadow .3s;
+  height:68px;display:flex;align-items:center;padding:0 6%;
+  transition:box-shadow .3s;
 }
 #nav.scrolled{box-shadow:0 2px 20px rgba(0,51,102,.08)}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.nav-logo-mark{width:36px;height:36px}
-.nav-brand{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;
-  letter-spacing:.12em;color:var(--navy);text-transform:uppercase}
+.nav-logo-mark{width:34px;height:34px}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;letter-spacing:.12em;color:var(--navy);text-transform:uppercase}
 .nav-links{display:flex;align-items:center;gap:36px;margin:0 auto}
-.nav-links a{
-  font-size:13px;font-weight:500;color:var(--ink2);
-  text-decoration:none;letter-spacing:.04em;
-  transition:color .2s;
-}
+.nav-links a{font-size:13px;font-weight:500;color:var(--ink2);text-decoration:none;letter-spacing:.04em;transition:color .2s}
 .nav-links a:hover{color:var(--navy)}
-.nav-cta{
-  padding:10px 24px;background:var(--navy);color:var(--white);
-  border:none;border-radius:4px;font-size:13px;font-weight:500;
-  letter-spacing:.06em;cursor:pointer;text-decoration:none;
-  transition:background .2s;
-}
+.nav-cta{padding:10px 24px;background:var(--navy);color:var(--white);border:none;border-radius:4px;font-size:13px;font-weight:500;letter-spacing:.06em;cursor:pointer;text-decoration:none;transition:background .2s}
 .nav-cta:hover{background:var(--navy2)}
 
-/* ── HERO ──────────────────────────────────────────────────────────────── */
-.hero{
-  min-height:100vh;display:grid;grid-template-columns:1fr 1fr;
-  padding-top:68px;
-}
-.hero-left{
-  display:flex;flex-direction:column;justify-content:center;
-  padding:80px 8% 80px 8%;
-  border-right:1px solid var(--mid);
-}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:'Space Mono',monospace;font-size:10px;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--accent);
-  margin-bottom:28px;
-}
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:68px}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 6% 80px 8%;border-right:1px solid var(--mid)}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:28px}
 .hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
-.hero-h1{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(52px,6vw,82px);font-weight:300;line-height:1.05;
-  color:var(--navy);margin-bottom:24px;
-}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,5.5vw,78px);font-weight:300;line-height:1.05;color:var(--navy);margin-bottom:24px}
 .hero-h1 em{font-style:italic;color:var(--gold)}
-.hero-desc{
-  font-size:16px;line-height:1.7;color:var(--ink2);
-  max-width:480px;margin-bottom:40px;font-weight:300;
-}
+.hero-desc{font-size:16px;line-height:1.72;color:var(--ink2);max-width:480px;margin-bottom:40px;font-weight:300}
 .hero-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.btn-primary{
-  padding:14px 32px;background:var(--navy);color:var(--white);
-  border:none;border-radius:4px;font-size:14px;font-weight:500;
-  letter-spacing:.08em;cursor:pointer;text-decoration:none;
-  transition:background .2s,transform .15s;display:inline-block;
-}
+.btn-primary{padding:14px 32px;background:var(--navy);color:var(--white);border:none;border-radius:4px;font-size:14px;font-weight:500;letter-spacing:.08em;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s;display:inline-block}
 .btn-primary:hover{background:var(--navy2);transform:translateY(-1px)}
-.btn-outline{
-  padding:13px 28px;border:1.5px solid var(--navy);color:var(--navy);
-  border-radius:4px;font-size:14px;font-weight:500;letter-spacing:.06em;
-  cursor:pointer;text-decoration:none;transition:background .2s;
-  display:inline-block;
-}
+.btn-outline{padding:13px 28px;border:1.5px solid var(--navy);color:var(--navy);border-radius:4px;font-size:14px;font-weight:500;letter-spacing:.06em;cursor:pointer;text-decoration:none;transition:background .2s;display:inline-block}
 .btn-outline:hover{background:var(--light)}
-.hero-stats{
-  display:flex;gap:40px;margin-top:56px;
-  padding-top:32px;border-top:1px solid var(--mid);
-}
-.hero-stat-n{
-  font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600;
-  color:var(--navy);line-height:1;
-}
-.hero-stat-l{
-  font-size:12px;font-weight:400;color:var(--ink3);
-  letter-spacing:.05em;margin-top:4px;
-}
+.hero-stats{display:flex;gap:40px;margin-top:56px;padding-top:32px;border-top:1px solid var(--mid)}
+.hero-stat-n{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600;color:var(--navy);line-height:1}
+.hero-stat-l{font-size:12px;font-weight:400;color:var(--ink3);letter-spacing:.05em;margin-top:4px}
 
-/* ── HERO RIGHT (BIM model) ────────────────────────────────────────────── */
-.hero-right{
-  background:var(--light);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:40px 5%;position:relative;overflow:hidden;
+/* HERO RIGHT - 3D VIEWER */
+.hero-right{background:#1A2030;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.bim-topbar{
+  background:#0D1220;padding:10px 18px;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid #2A3348;flex-shrink:0;
 }
-.bim-frame{
-  width:100%;max-width:420px;aspect-ratio:3/4;
-  position:relative;
-}
-.bim-frame svg{display:block}
-.bim-label{
-  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
-  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;
-  color:var(--ink3);text-transform:uppercase;white-space:nowrap;
+.bim-dot{width:10px;height:10px;border-radius:50%}
+.bim-title{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.1em;margin-left:6px}
+.bim-tabs{display:flex;gap:0;margin-left:auto}
+.bim-tab{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;color:rgba(255,255,255,.35);padding:4px 12px;border:1px solid #2A3348;border-right:none;cursor:pointer;transition:all .2s}
+.bim-tab:last-child{border-right:1px solid #2A3348}
+.bim-tab.active{background:#003366;color:white;border-color:#003366}
+#canvas-container{flex:1;position:relative;min-height:0}
+#bim-canvas{display:block;width:100%;height:100%}
+.bim-overlay{
+  position:absolute;bottom:16px;left:16px;
+  display:flex;flex-direction:column;gap:6px;pointer-events:none;
 }
 .bim-badge{
-  position:absolute;top:20px;right:20px;
-  background:var(--navy);color:var(--white);
-  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.12em;
-  padding:6px 12px;border-radius:3px;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.1);border-radius:4px;
+  padding:5px 10px;
 }
-.bim-revit-bar{
-  width:100%;max-width:420px;
-  background:var(--navy);border-radius:4px 4px 0 0;
-  padding:8px 16px;display:flex;align-items:center;gap:10px;
-}
-.bim-revit-dot{width:8px;height:8px;border-radius:50%;}
-.bim-revit-title{
-  font-family:'Space Mono',monospace;font-size:9px;
-  color:rgba(255,255,255,.7);letter-spacing:.1em;margin-left:4px;
+.bim-badge-dot{width:6px;height:6px;border-radius:50%}
+.bim-badge span{font-family:'Space Mono',monospace;font-size:8px;color:rgba(255,255,255,.7);letter-spacing:.1em}
+.bim-hint{
+  position:absolute;bottom:16px;right:16px;
+  font-family:'Space Mono',monospace;font-size:8px;
+  color:rgba(255,255,255,.3);letter-spacing:.08em;pointer-events:none;
 }
 
-/* ── MARQUEE ───────────────────────────────────────────────────────────── */
-.mq-wrap{
-  overflow:hidden;border-top:1px solid var(--mid);border-bottom:1px solid var(--mid);
-  background:var(--white);padding:0;
-}
-.mq-track{
-  display:flex;gap:0;
-  animation:mqScroll 28s linear infinite;
-  width:max-content;
-}
+/* MARQUEE */
+.mq-wrap{overflow:hidden;border-top:1px solid var(--mid);border-bottom:1px solid var(--mid);background:var(--white)}
+.mq-track{display:flex;animation:mqScroll 28s linear infinite;width:max-content}
 @keyframes mqScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.mq-item{
-  padding:18px 48px;font-family:'Space Mono',monospace;font-size:11px;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);
-  white-space:nowrap;border-right:1px solid var(--mid);
-}
+.mq-item{padding:18px 48px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);white-space:nowrap;border-right:1px solid var(--mid)}
 .mq-item.accent{color:var(--navy);font-weight:700}
 
-/* ── SERVICES ──────────────────────────────────────────────────────────── */
+/* SERVICES */
 #services{padding:100px 8%;background:var(--white)}
 .section-header{margin-bottom:64px}
-.section-tag{
-  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--accent);margin-bottom:16px;
-}
-.section-h2{
-  font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,56px);
-  font-weight:300;color:var(--navy);line-height:1.1;
-}
+.section-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.section-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,56px);font-weight:300;color:var(--navy);line-height:1.1}
 .section-h2 em{font-style:italic;color:var(--gold)}
-.srv-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
-  background:var(--mid);border:1px solid var(--mid);
-}
-.srv-card{
-  background:var(--white);padding:48px 36px;
-  transition:background .25s,transform .2s;
-  cursor:default;
-}
-.srv-card:hover{background:var(--navy);}
-.srv-card:hover .srv-icon path{stroke:#fff;fill:none}
-.srv-card:hover .srv-icon rect,.srv-card:hover .srv-icon circle{stroke:#fff;fill:none}
-.srv-card:hover .srv-n{color:rgba(255,255,255,.25)}
+.srv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--mid);border:1px solid var(--mid)}
+.srv-card{background:var(--white);padding:48px 32px;transition:background .25s;cursor:default}
+.srv-card:hover{background:var(--navy)}
+.srv-card:hover .srv-n{color:rgba(255,255,255,.2)}
+.srv-card:hover .srv-icon-path{stroke:#fff}
 .srv-card:hover .srv-title{color:var(--white)}
-.srv-card:hover .srv-desc{color:rgba(255,255,255,.7)}
-.srv-card:hover .srv-list li{color:rgba(255,255,255,.65)}
-.srv-card:hover .srv-list li::before{background:var(--gold)}
-.srv-n{
-  font-family:'Space Mono',monospace;font-size:11px;color:var(--mid);
-  letter-spacing:.1em;margin-bottom:24px;transition:color .25s;
-}
-.srv-icon{width:44px;height:44px;margin-bottom:24px}
-.srv-title{
-  font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;
-  color:var(--navy);margin-bottom:16px;transition:color .25s;
-}
-.srv-desc{
-  font-size:14px;line-height:1.65;color:var(--ink2);
-  margin-bottom:20px;font-weight:300;transition:color .25s;
-}
+.srv-card:hover .srv-desc{color:rgba(255,255,255,.65)}
+.srv-card:hover .srv-li{color:rgba(255,255,255,.6)}
+.srv-card:hover .srv-li::before{background:var(--gold)}
+.srv-n{font-family:'Space Mono',monospace;font-size:11px;color:var(--mid);letter-spacing:.1em;margin-bottom:24px;transition:color .25s}
+.srv-icon{width:42px;height:42px;margin-bottom:24px}
+.srv-icon-path{fill:none;stroke:var(--navy);stroke-width:1.4;transition:stroke .25s}
+.srv-title{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:600;color:var(--navy);margin-bottom:14px;transition:color .25s}
+.srv-desc{font-size:13.5px;line-height:1.65;color:var(--ink2);margin-bottom:18px;font-weight:300;transition:color .25s}
 .srv-list{list-style:none;display:flex;flex-direction:column;gap:8px}
-.srv-list li{
-  font-size:12px;color:var(--ink3);padding-left:14px;position:relative;
-  transition:color .25s;
-}
-.srv-list li::before{
-  content:'';position:absolute;left:0;top:7px;
-  width:4px;height:4px;border-radius:50%;background:var(--accent);
-  transition:background .25s;
-}
+.srv-li{font-size:12px;color:var(--ink3);padding-left:14px;position:relative;transition:color .25s}
+.srv-li::before{content:'';position:absolute;left:0;top:7px;width:4px;height:4px;border-radius:50%;background:var(--accent);transition:background .25s}
 
-/* ── NUMBERS STRIP ──────────────────────────────────────────────────────── */
-.num-strip{
-  background:var(--navy3);padding:72px 8%;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
-}
-.num-item{
-  text-align:center;padding:0 20px;
-  border-right:1px solid rgba(255,255,255,.1);
-}
+/* NUMBERS */
+.num-strip{background:var(--navy3);padding:72px 8%;display:grid;grid-template-columns:repeat(4,1fr)}
+.num-item{text-align:center;padding:0 20px;border-right:1px solid rgba(255,255,255,.08)}
 .num-item:last-child{border-right:none}
-.num-n{
-  font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;
-  color:var(--white);line-height:1;
-}
-.num-suffix{font-size:32px;color:var(--gold)}
-.num-l{
-  font-size:13px;color:rgba(255,255,255,.55);
-  letter-spacing:.08em;margin-top:10px;font-weight:300;
-}
+.num-n{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;color:var(--white);line-height:1}
+.num-suf{font-size:32px;color:var(--gold)}
+.num-l{font-size:13px;color:rgba(255,255,255,.5);letter-spacing:.06em;margin-top:10px;font-weight:300}
 
-/* ── PROCESS ───────────────────────────────────────────────────────────── */
+/* PROCESS */
 #process{padding:100px 8%;background:var(--light)}
-.proc-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
-  margin-top:56px;
-}
-.proc-card{
-  background:var(--white);padding:40px 28px;
-  border-top:3px solid var(--mid);transition:border-color .2s;
-}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:56px}
+.proc-card{background:var(--white);padding:40px 28px;border-top:3px solid var(--mid);transition:border-color .2s}
 .proc-card:hover{border-color:var(--navy)}
-.proc-step{
-  font-family:'Space Mono',monospace;font-size:11px;
-  color:var(--accent);letter-spacing:.15em;margin-bottom:20px;
-}
-.proc-title{
-  font-family:'Cormorant Garamond',serif;font-size:22px;
-  font-weight:600;color:var(--navy);margin-bottom:12px;
-}
+.proc-step{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.15em;margin-bottom:20px}
+.proc-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--navy);margin-bottom:12px}
 .proc-desc{font-size:13px;line-height:1.65;color:var(--ink2);font-weight:300}
 
-/* ── CTA ────────────────────────────────────────────────────────────────── */
-#contact{
-  background:var(--navy);padding:96px 8%;
-  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
-}
-.cta-left .cta-h{
-  font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,52px);
-  font-weight:300;color:var(--white);line-height:1.1;margin-bottom:20px;
-}
-.cta-left .cta-h em{font-style:italic;color:var(--gold)}
-.cta-left p{font-size:15px;color:rgba(255,255,255,.65);line-height:1.65;font-weight:300}
-.cta-form{display:flex;flex-direction:column;gap:16px}
-.cta-form input,.cta-form textarea{
-  width:100%;padding:14px 18px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);
-  border-radius:4px;color:var(--white);font-size:14px;font-family:'DM Sans',sans-serif;
-  outline:none;transition:border-color .2s;
-}
-.cta-form input::placeholder,.cta-form textarea::placeholder{color:rgba(255,255,255,.35)}
-.cta-form input:focus,.cta-form textarea:focus{border-color:rgba(255,255,255,.6)}
+/* CTA */
+#contact{background:var(--navy);padding:96px 8%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.cta-h{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,52px);font-weight:300;color:var(--white);line-height:1.1;margin-bottom:20px}
+.cta-h em{font-style:italic;color:var(--gold)}
+.cta-left p{font-size:15px;color:rgba(255,255,255,.6);line-height:1.65;font-weight:300}
+.cta-form{display:flex;flex-direction:column;gap:14px}
+.cta-form input,.cta-form textarea{width:100%;padding:14px 18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:4px;color:var(--white);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.cta-form input::placeholder,.cta-form textarea::placeholder{color:rgba(255,255,255,.3)}
+.cta-form input:focus,.cta-form textarea:focus{border-color:rgba(255,255,255,.55)}
 .cta-form textarea{height:100px;resize:vertical}
-.cta-submit{
-  padding:14px;background:var(--gold);color:var(--white);
-  border:none;border-radius:4px;font-size:14px;font-weight:600;
-  letter-spacing:.1em;cursor:pointer;transition:opacity .2s;
-  font-family:'DM Sans',sans-serif;
-}
+.cta-submit{padding:14px;background:var(--gold);color:var(--white);border:none;border-radius:4px;font-size:14px;font-weight:600;letter-spacing:.1em;cursor:pointer;transition:opacity .2s;font-family:'DM Sans',sans-serif}
 .cta-submit:hover{opacity:.85}
 
-/* ── FOOTER ─────────────────────────────────────────────────────────────── */
-footer{
-  background:#1A1F2E;padding:56px 8% 32px;
-  display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;
-}
-.ft-brand{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;
-  letter-spacing:.12em;color:var(--white);text-transform:uppercase;margin-bottom:12px}
-.ft-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6;font-weight:300}
-.ft-heading{font-size:11px;letter-spacing:.15em;text-transform:uppercase;
-  color:rgba(255,255,255,.35);margin-bottom:20px;font-family:'Space Mono',monospace}
+/* FOOTER */
+footer{background:#1A1F2E;padding:56px 8% 32px;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px}
+.ft-brand{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;letter-spacing:.12em;color:var(--white);text-transform:uppercase;margin-bottom:12px}
+.ft-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.65;font-weight:300}
+.ft-heading{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:20px;font-family:'Space Mono',monospace}
 .ft-links{display:flex;flex-direction:column;gap:10px}
-.ft-links a{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.ft-links a{font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
 .ft-links a:hover{color:var(--white)}
-.ft-bottom{
-  margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);
-  display:flex;justify-content:space-between;align-items:center;
-  grid-column:1/-1;
-}
-.ft-copy{font-size:12px;color:rgba(255,255,255,.3)}
+.ft-bottom{margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center;grid-column:1/-1}
+.ft-copy{font-size:12px;color:rgba(255,255,255,.28)}
 .ft-gold{color:var(--gold)}
 
-/* ── REVEAL ANIMATIONS ───────────────────────────────────────────────────── */
+/* REVEAL */
 .rv{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
 .rv.in{opacity:1;transform:none}
 
-/* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
 @media(max-width:1024px){
   .hero{grid-template-columns:1fr}
-  .hero-right{min-height:60vh;border-right:none;border-top:1px solid var(--mid)}
+  .hero-right{min-height:70vh}
   .srv-grid{grid-template-columns:repeat(2,1fr)}
-  .num-strip{grid-template-columns:repeat(2,1fr);gap:1px;background:var(--mid)}
-  .num-item{background:var(--navy3);padding:40px 20px}
+  .num-strip{grid-template-columns:repeat(2,1fr)}
   .proc-grid{grid-template-columns:1fr 1fr}
   #contact{grid-template-columns:1fr}
   footer{grid-template-columns:1fr 1fr}
 }
 @media(max-width:640px){
-  .hero-left{padding:60px 6%}
-  .srv-grid,.num-strip,.proc-grid{grid-template-columns:1fr}
-  footer{grid-template-columns:1fr}
   .nav-links{display:none}
+  .srv-grid,.proc-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<!-- ── INTRO ────────────────────────────────────────────────────────────── -->
+<!-- INTRO -->
 <div id="intro">
   <svg class="intro-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- N hexagon mark -->
-    <path class="intro-path" d="M50 8 L88 30 L88 74 L50 96 L12 74 L12 30 Z"/>
-    <path class="intro-path-gold" d="M32 68 L32 32 L52 62 L68 32 L68 68"/>
+    <path class="intro-path" d="M50 6 L90 29 L90 74 L50 97 L10 74 L10 29 Z"/>
+    <path class="intro-path-gold" d="M30 70 L30 30 L52 60 L70 30 L70 70"/>
   </svg>
   <div class="intro-name">NEXVUM GROUP</div>
   <div class="intro-sub">BIM · Ingeniería · Arquitectura</div>
 </div>
 
-<!-- ── NAV ──────────────────────────────────────────────────────────────── -->
+<!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">
-    <svg class="nav-logo-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="nav-logo-mark" viewBox="0 0 100 100" fill="none">
       <path d="M50 6 L90 29 L90 74 L50 97 L10 74 L10 29 Z" fill="#003366"/>
       <path d="M30 70 L30 30 L52 60 L70 30 L70 70" stroke="#C4A35A" stroke-width="5" fill="none" stroke-linejoin="round"/>
     </svg>
@@ -391,7 +222,7 @@ footer{
   <a href="#contact" class="nav-cta">Consultoría gratuita</a>
 </nav>
 
-<!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-left">
     <div class="hero-tag"><span class="hero-tag-dot"></span>Consultoría BIM Especializada</div>
@@ -403,897 +234,137 @@ footer{
     </div>
     <div class="hero-stats">
       <div>
-        <div class="hero-stat-n" data-t="120">0</div>
+        <div class="hero-stat-n"><span data-t="120">0</span>+</div>
         <div class="hero-stat-l">Proyectos BIM entregados</div>
       </div>
       <div>
-        <div class="hero-stat-n" data-t="98">0</div>
-        <div class="hero-stat-l">% satisfacción de clientes</div>
+        <div class="hero-stat-n"><span data-t="98">0</span>%</div>
+        <div class="hero-stat-l">Clientes satisfechos</div>
       </div>
       <div>
-        <div class="hero-stat-n" data-t="8">0</div>
+        <div class="hero-stat-n"><span data-t="8">0</span></div>
         <div class="hero-stat-l">Años de experiencia</div>
       </div>
     </div>
   </div>
 
   <div class="hero-right">
-    <div class="bim-revit-bar">
-      <div class="bim-revit-dot" style="background:#FF5F57"></div>
-      <div class="bim-revit-dot" style="background:#FFBD2E"></div>
-      <div class="bim-revit-dot" style="background:#28CA41"></div>
-      <span class="bim-revit-title">NEXVUM_TORRE_CORPORATIVA.rvt — Revit Architecture 2025</span>
+    <div class="bim-topbar">
+      <div class="bim-dot" style="background:#FF5F57"></div>
+      <div class="bim-dot" style="background:#FFBD2E"></div>
+      <div class="bim-dot" style="background:#28CA41"></div>
+      <span class="bim-title">NEXVUM_TORRE_CORPORATIVA_v3.rvt</span>
+      <div class="bim-tabs">
+        <div class="bim-tab active" onclick="setView('3d')">3D</div>
+        <div class="bim-tab" onclick="setView('front')">Frontal</div>
+        <div class="bim-tab" onclick="setView('iso')">Isom.</div>
+      </div>
     </div>
-    <div class="bim-frame">
-      <svg viewBox="60 30 330 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><defs>
-  <filter id="softshadow" x="-20%" y="-20%" width="140%" height="140%">
-    <feDropShadow dx="4" dy="8" stdDeviation="6" flood-color="#00336620"/>
-  </filter>
-  <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-    <feGaussianBlur stdDeviation="2.5" result="blur"/>
-    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-  <linearGradient id="facadeGrad" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="#C8CDD8"/>
-    <stop offset="100%" stop-color="#A8AEBB"/>
-  </linearGradient>
-  <linearGradient id="sideGrad" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="#7A8090"/>
-    <stop offset="100%" stop-color="#606672"/>
-  </linearGradient>
-  <linearGradient id="roofGrad" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#D0D5E0"/>
-    <stop offset="100%" stop-color="#B0B8C8"/>
-  </linearGradient>
-  <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#E8ECF4"/>
-    <stop offset="100%" stop-color="#C8D0DC"/>
-  </linearGradient>
-  <radialGradient id="aoGrad" cx="50%" cy="50%" r="50%">
-    <stop offset="0%" stop-color="#003366" stop-opacity="0.18"/>
-    <stop offset="100%" stop-color="#003366" stop-opacity="0"/>
-  </radialGradient>
-  <style>
-    @keyframes mepFlow { from{stroke-dashoffset:0} to{stroke-dashoffset:-40} }
-    @keyframes mepFlowRev { from{stroke-dashoffset:0} to{stroke-dashoffset:40} }
-    .mep-hvac{animation:mepFlow 2.8s linear infinite;}
-    .mep-plmb{animation:mepFlow 3.5s linear infinite;}
-    .mep-elec{animation:mepFlowRev 2s linear infinite;}
-    @keyframes tagFloat {0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-    .dim-tag{animation:tagFloat 3s ease-in-out infinite;}
-    .dim-tag:nth-child(2){animation-delay:.5s;}
-    .dim-tag:nth-child(3){animation-delay:1s;}
-  </style>
-</defs><rect width="100%" height="100%" fill="#F5F7FA"/>
-<line x1="60" y1="0" x2="380" y2="0" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="20" x2="380" y2="20" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="40" x2="380" y2="40" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="60" x2="380" y2="60" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="80" x2="380" y2="80" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="100" x2="380" y2="100" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="120" x2="380" y2="120" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="140" x2="380" y2="140" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="160" x2="380" y2="160" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="180" x2="380" y2="180" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="200" x2="380" y2="200" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="220" x2="380" y2="220" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="240" x2="380" y2="240" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="260" x2="380" y2="260" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="280" x2="380" y2="280" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="300" x2="380" y2="300" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="320" x2="380" y2="320" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="340" x2="380" y2="340" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="360" x2="380" y2="360" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="380" x2="380" y2="380" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="400" x2="380" y2="400" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="420" x2="380" y2="420" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="440" x2="380" y2="440" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="60" y1="0" x2="60" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="80" y1="0" x2="80" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="100" y1="0" x2="100" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="120" y1="0" x2="120" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="140" y1="0" x2="140" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="160" y1="0" x2="160" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="180" y1="0" x2="180" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="200" y1="0" x2="200" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="220" y1="0" x2="220" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="240" y1="0" x2="240" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="260" y1="0" x2="260" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="280" y1="0" x2="280" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="300" y1="0" x2="300" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="320" y1="0" x2="320" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="340" y1="0" x2="340" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="360" y1="0" x2="360" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<line x1="380" y1="0" x2="380" y2="460" stroke="#E0E4EC" stroke-width="0.4"/>
-<polygon points="90,430 280,318 364,367 280,318" fill="url(#groundGrad)" stroke="#B0B8C8" stroke-width="0.6"/>
-<ellipse cx="210" cy="432" rx="105" ry="14" fill="url(#aoGrad)"/>
-<ellipse cx="210" cy="432" rx="75" ry="8" fill="url(#aoGrad)"/>
-<polygon points="280,318 364,367 364,103 280,54" fill="url(#sideGrad)" stroke="#606672" stroke-width="0.8" filter="url(#softshadow)"/>
-<polygon points="293.4,322.8 308.6,331.6 308.6,317.1 293.4,308.2" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="327.0,342.4 342.2,351.2 342.2,336.7 327.0,327.8" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="293.4,300.8 308.6,309.6 308.6,295.1 293.4,286.2" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="327.0,320.4 342.2,329.2 342.2,314.7 327.0,305.8" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="293.4,278.8 308.6,287.6 308.6,273.1 293.4,264.2" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="327.0,298.4 342.2,307.2 342.2,292.7 327.0,283.8" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="293.4,256.8 308.6,265.6 308.6,251.1 293.4,242.2" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="327.0,276.4 342.2,285.2 342.2,270.7 327.0,261.8" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="293.4,234.8 308.6,243.6 308.6,229.1 293.4,220.2" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="327.0,254.4 342.2,263.2 342.2,248.7 327.0,239.8" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="293.4,212.8 308.6,221.6 308.6,207.1 293.4,198.2" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="327.0,232.4 342.2,241.2 342.2,226.7 327.0,217.8" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="293.4,190.8 308.6,199.6 308.6,185.1 293.4,176.2" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="327.0,210.4 342.2,219.2 342.2,204.7 327.0,195.8" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="293.4,168.8 308.6,177.6 308.6,163.1 293.4,154.2" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="327.0,188.4 342.2,197.2 342.2,182.7 327.0,173.8" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="293.4,146.8 308.6,155.6 308.6,141.1 293.4,132.2" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="327.0,166.4 342.2,175.2 342.2,160.7 327.0,151.8" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="293.4,124.8 308.6,133.6 308.6,119.1 293.4,110.2" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="327.0,144.4 342.2,153.2 342.2,138.7 327.0,129.8" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="293.4,102.8 308.6,111.6 308.6,97.1 293.4,88.2" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="327.0,122.4 342.2,131.2 342.2,116.7 327.0,107.8" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="293.4,80.8 308.6,89.6 308.6,75.1 293.4,66.2" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="327.0,100.4 342.2,109.2 342.2,94.7 327.0,85.8" fill="#4A6080" stroke="#2A4060" stroke-width="0.5"/>
-<polygon points="90,430 280,318 280,54 90,166" fill="url(#facadeGrad)" stroke="#9098A8" stroke-width="0.8"/>
-<line x1="90" y1="408" x2="280" y2="296" stroke="#7A8090" stroke-width="1.2"/>
-<line x1="90" y1="428.7" x2="280" y2="316.7" stroke="rgba(0,0,0,0.12)" stroke-width="2.5"/>
-<polygon points="90.0,412.8 137.5,384.8 137.5,380.0 90.0,408.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="101.4,406.6 126.1,392.0 126.1,393.3 101.4,407.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="101.4,419.8 105.2,417.5 105.2,404.3 101.4,406.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="101.4,419.8 126.1,405.2 126.1,392.0 101.4,406.6" fill="#2E4A6A" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="101.4,406.6 116.6,397.6 101.4,410.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="101.4" y1="419.8" x2="126.1" y2="392.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="101.4" y1="419.8" x2="101.4" y2="406.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="126.1" y1="405.2" x2="126.1" y2="392.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="419.8" x2="126.1" y2="405.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="406.6" x2="126.1" y2="392.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="137.5,384.8 185.0,356.8 185.0,352.0 137.5,380.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="148.9,378.6 173.6,364.0 173.6,365.3 148.9,379.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="148.9,391.8 152.7,389.5 152.7,376.3 148.9,378.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="148.9,391.8 173.6,377.2 173.6,364.0 148.9,378.6" fill="#263D58" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="148.9,378.6 164.1,369.6 148.9,382.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="148.9" y1="391.8" x2="173.6" y2="364.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="148.9" y1="391.8" x2="148.9" y2="378.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="173.6" y1="377.2" x2="173.6" y2="364.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="391.8" x2="173.6" y2="377.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="378.6" x2="173.6" y2="364.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="185.0,356.8 232.5,328.8 232.5,324.0 185.0,352.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="196.4,350.6 221.1,336.0 221.1,337.3 196.4,351.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="196.4,363.8 200.2,361.5 200.2,348.3 196.4,350.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="196.4,363.8 221.1,349.2 221.1,336.0 196.4,350.6" fill="#304A6E" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="196.4,350.6 211.6,341.6 196.4,354.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="196.4" y1="363.8" x2="221.1" y2="336.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="196.4" y1="363.8" x2="196.4" y2="350.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="221.1" y1="349.2" x2="221.1" y2="336.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="363.8" x2="221.1" y2="349.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="350.6" x2="221.1" y2="336.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="232.5,328.8 280.0,300.8 280.0,296.0 232.5,324.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="243.9,322.6 268.6,308.0 268.6,309.3 243.9,323.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="243.9,335.8 247.7,333.5 247.7,320.3 243.9,322.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="243.9,335.8 268.6,321.2 268.6,308.0 243.9,322.6" fill="#2A4260" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="243.9,322.6 259.1,313.6 243.9,326.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="243.9" y1="335.8" x2="268.6" y2="308.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="243.9" y1="335.8" x2="243.9" y2="322.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="268.6" y1="321.2" x2="268.6" y2="308.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="335.8" x2="268.6" y2="321.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="322.6" x2="268.6" y2="308.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="90" y1="386" x2="280" y2="274" stroke="#7A8090" stroke-width="1.2"/>
-<line x1="90" y1="406.7" x2="280" y2="294.7" stroke="rgba(0,0,0,0.12)" stroke-width="2.5"/>
-<polygon points="90.0,390.8 137.5,362.8 137.5,358.0 90.0,386.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="101.4,384.6 126.1,370.0 126.1,371.3 101.4,385.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="101.4,397.8 105.2,395.5 105.2,382.3 101.4,384.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="101.4,397.8 126.1,383.2 126.1,370.0 101.4,384.6" fill="#2E4A6A" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="101.4,384.6 116.6,375.6 101.4,388.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="101.4" y1="397.8" x2="126.1" y2="370.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="101.4" y1="397.8" x2="101.4" y2="384.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="126.1" y1="383.2" x2="126.1" y2="370.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="397.8" x2="126.1" y2="383.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="384.6" x2="126.1" y2="370.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="137.5,362.8 185.0,334.8 185.0,330.0 137.5,358.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="148.9,356.6 173.6,342.0 173.6,343.3 148.9,357.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="148.9,369.8 152.7,367.5 152.7,354.3 148.9,356.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="148.9,369.8 173.6,355.2 173.6,342.0 148.9,356.6" fill="#263D58" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="148.9,356.6 164.1,347.6 148.9,360.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="148.9" y1="369.8" x2="173.6" y2="342.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="148.9" y1="369.8" x2="148.9" y2="356.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="173.6" y1="355.2" x2="173.6" y2="342.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="369.8" x2="173.6" y2="355.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="356.6" x2="173.6" y2="342.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="185.0,334.8 232.5,306.8 232.5,302.0 185.0,330.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="196.4,328.6 221.1,314.0 221.1,315.3 196.4,329.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="196.4,341.8 200.2,339.5 200.2,326.3 196.4,328.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="196.4,341.8 221.1,327.2 221.1,314.0 196.4,328.6" fill="#304A6E" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="196.4,328.6 211.6,319.6 196.4,332.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="196.4" y1="341.8" x2="221.1" y2="314.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="196.4" y1="341.8" x2="196.4" y2="328.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="221.1" y1="327.2" x2="221.1" y2="314.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="341.8" x2="221.1" y2="327.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="328.6" x2="221.1" y2="314.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="232.5,306.8 280.0,278.8 280.0,274.0 232.5,302.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="243.9,300.6 268.6,286.0 268.6,287.3 243.9,301.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="243.9,313.8 247.7,311.5 247.7,298.3 243.9,300.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="243.9,313.8 268.6,299.2 268.6,286.0 243.9,300.6" fill="#2A4260" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="243.9,300.6 259.1,291.6 243.9,304.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="243.9" y1="313.8" x2="268.6" y2="286.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="243.9" y1="313.8" x2="243.9" y2="300.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="268.6" y1="299.2" x2="268.6" y2="286.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="313.8" x2="268.6" y2="299.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="300.6" x2="268.6" y2="286.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="90" y1="364" x2="280" y2="252" stroke="#7A8090" stroke-width="1.2"/>
-<line x1="90" y1="384.7" x2="280" y2="272.7" stroke="rgba(0,0,0,0.12)" stroke-width="2.5"/>
-<polygon points="90.0,368.8 137.5,340.8 137.5,336.0 90.0,364.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="101.4,362.6 126.1,348.0 126.1,349.3 101.4,363.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="101.4,375.8 105.2,373.5 105.2,360.3 101.4,362.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="101.4,375.8 126.1,361.2 126.1,348.0 101.4,362.6" fill="#2E4A6A" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="101.4,362.6 116.6,353.6 101.4,366.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="101.4" y1="375.8" x2="126.1" y2="348.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="101.4" y1="375.8" x2="101.4" y2="362.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="126.1" y1="361.2" x2="126.1" y2="348.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="375.8" x2="126.1" y2="361.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="362.6" x2="126.1" y2="348.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="137.5,340.8 185.0,312.8 185.0,308.0 137.5,336.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="148.9,334.6 173.6,320.0 173.6,321.3 148.9,335.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="148.9,347.8 152.7,345.5 152.7,332.3 148.9,334.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="148.9,347.8 173.6,333.2 173.6,320.0 148.9,334.6" fill="#263D58" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="148.9,334.6 164.1,325.6 148.9,338.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="148.9" y1="347.8" x2="173.6" y2="320.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="148.9" y1="347.8" x2="148.9" y2="334.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="173.6" y1="333.2" x2="173.6" y2="320.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="347.8" x2="173.6" y2="333.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="334.6" x2="173.6" y2="320.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="185.0,312.8 232.5,284.8 232.5,280.0 185.0,308.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="196.4,306.6 221.1,292.0 221.1,293.3 196.4,307.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="196.4,319.8 200.2,317.5 200.2,304.3 196.4,306.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="196.4,319.8 221.1,305.2 221.1,292.0 196.4,306.6" fill="#304A6E" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="196.4,306.6 211.6,297.6 196.4,310.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="196.4" y1="319.8" x2="221.1" y2="292.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="196.4" y1="319.8" x2="196.4" y2="306.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="221.1" y1="305.2" x2="221.1" y2="292.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="319.8" x2="221.1" y2="305.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="306.6" x2="221.1" y2="292.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="232.5,284.8 280.0,256.8 280.0,252.0 232.5,280.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="243.9,278.6 268.6,264.0 268.6,265.3 243.9,279.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="243.9,291.8 247.7,289.5 247.7,276.3 243.9,278.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="243.9,291.8 268.6,277.2 268.6,264.0 243.9,278.6" fill="#2A4260" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="243.9,278.6 259.1,269.6 243.9,282.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="243.9" y1="291.8" x2="268.6" y2="264.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="243.9" y1="291.8" x2="243.9" y2="278.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="268.6" y1="277.2" x2="268.6" y2="264.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="291.8" x2="268.6" y2="277.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="278.6" x2="268.6" y2="264.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="90" y1="342" x2="280" y2="230" stroke="#7A8090" stroke-width="1.2"/>
-<line x1="90" y1="362.7" x2="280" y2="250.7" stroke="rgba(0,0,0,0.12)" stroke-width="2.5"/>
-<polygon points="90.0,346.8 137.5,318.8 137.5,314.0 90.0,342.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="101.4,340.6 126.1,326.0 126.1,327.3 101.4,341.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="101.4,353.8 105.2,351.5 105.2,338.3 101.4,340.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="101.4,353.8 126.1,339.2 126.1,326.0 101.4,340.6" fill="#2E4A6A" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="101.4,340.6 116.6,331.6 101.4,344.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="101.4" y1="353.8" x2="126.1" y2="326.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="101.4" y1="353.8" x2="101.4" y2="340.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="126.1" y1="339.2" x2="126.1" y2="326.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="353.8" x2="126.1" y2="339.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="340.6" x2="126.1" y2="326.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="137.5,318.8 185.0,290.8 185.0,286.0 137.5,314.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="148.9,312.6 173.6,298.0 173.6,299.3 148.9,313.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="148.9,325.8 152.7,323.5 152.7,310.3 148.9,312.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="148.9,325.8 173.6,311.2 173.6,298.0 148.9,312.6" fill="#263D58" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="148.9,312.6 164.1,303.6 148.9,316.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="148.9" y1="325.8" x2="173.6" y2="298.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="148.9" y1="325.8" x2="148.9" y2="312.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="173.6" y1="311.2" x2="173.6" y2="298.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="325.8" x2="173.6" y2="311.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="312.6" x2="173.6" y2="298.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="185.0,290.8 232.5,262.8 232.5,258.0 185.0,286.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="196.4,284.6 221.1,270.0 221.1,271.3 196.4,285.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="196.4,297.8 200.2,295.5 200.2,282.3 196.4,284.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="196.4,297.8 221.1,283.2 221.1,270.0 196.4,284.6" fill="#304A6E" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="196.4,284.6 211.6,275.6 196.4,288.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="196.4" y1="297.8" x2="221.1" y2="270.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="196.4" y1="297.8" x2="196.4" y2="284.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="221.1" y1="283.2" x2="221.1" y2="270.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="297.8" x2="221.1" y2="283.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="284.6" x2="221.1" y2="270.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="232.5,262.8 280.0,234.8 280.0,230.0 232.5,258.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="243.9,256.6 268.6,242.0 268.6,243.3 243.9,257.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="243.9,269.8 247.7,267.5 247.7,254.3 243.9,256.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="243.9,269.8 268.6,255.2 268.6,242.0 243.9,256.6" fill="#2A4260" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="243.9,256.6 259.1,247.6 243.9,260.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="243.9" y1="269.8" x2="268.6" y2="242.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="243.9" y1="269.8" x2="243.9" y2="256.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="268.6" y1="255.2" x2="268.6" y2="242.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="269.8" x2="268.6" y2="255.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="256.6" x2="268.6" y2="242.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="90" y1="320" x2="280" y2="208" stroke="#7A8090" stroke-width="1.2"/>
-<line x1="90" y1="340.7" x2="280" y2="228.7" stroke="rgba(0,0,0,0.12)" stroke-width="2.5"/>
-<polygon points="90.0,324.8 137.5,296.8 137.5,292.0 90.0,320.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="101.4,318.6 126.1,304.0 126.1,305.3 101.4,319.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="101.4,331.8 105.2,329.5 105.2,316.3 101.4,318.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="101.4,331.8 126.1,317.2 126.1,304.0 101.4,318.6" fill="#2E4A6A" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="101.4,318.6 116.6,309.6 101.4,322.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="101.4" y1="331.8" x2="126.1" y2="304.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="101.4" y1="331.8" x2="101.4" y2="318.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="126.1" y1="317.2" x2="126.1" y2="304.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="331.8" x2="126.1" y2="317.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="318.6" x2="126.1" y2="304.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="137.5,296.8 185.0,268.8 185.0,264.0 137.5,292.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="148.9,290.6 173.6,276.0 173.6,277.3 148.9,291.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="148.9,303.8 152.7,301.5 152.7,288.3 148.9,290.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="148.9,303.8 173.6,289.2 173.6,276.0 148.9,290.6" fill="#263D58" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="148.9,290.6 164.1,281.6 148.9,294.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="148.9" y1="303.8" x2="173.6" y2="276.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="148.9" y1="303.8" x2="148.9" y2="290.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="173.6" y1="289.2" x2="173.6" y2="276.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="303.8" x2="173.6" y2="289.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="290.6" x2="173.6" y2="276.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="185.0,268.8 232.5,240.8 232.5,236.0 185.0,264.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="196.4,262.6 221.1,248.0 221.1,249.3 196.4,263.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="196.4,275.8 200.2,273.5 200.2,260.3 196.4,262.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="196.4,275.8 221.1,261.2 221.1,248.0 196.4,262.6" fill="#304A6E" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="196.4,262.6 211.6,253.6 196.4,266.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="196.4" y1="275.8" x2="221.1" y2="248.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="196.4" y1="275.8" x2="196.4" y2="262.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="221.1" y1="261.2" x2="221.1" y2="248.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="275.8" x2="221.1" y2="261.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="262.6" x2="221.1" y2="248.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="232.5,240.8 280.0,212.8 280.0,208.0 232.5,236.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="243.9,234.6 268.6,220.0 268.6,221.3 243.9,235.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="243.9,247.8 247.7,245.5 247.7,232.3 243.9,234.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="243.9,247.8 268.6,233.2 268.6,220.0 243.9,234.6" fill="#2A4260" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="243.9,234.6 259.1,225.6 243.9,238.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="243.9" y1="247.8" x2="268.6" y2="220.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="243.9" y1="247.8" x2="243.9" y2="234.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="268.6" y1="233.2" x2="268.6" y2="220.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="247.8" x2="268.6" y2="233.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="234.6" x2="268.6" y2="220.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="90" y1="298" x2="280" y2="186" stroke="#7A8090" stroke-width="1.2"/>
-<line x1="90" y1="318.7" x2="280" y2="206.7" stroke="rgba(0,0,0,0.12)" stroke-width="2.5"/>
-<polygon points="90.0,302.8 137.5,274.8 137.5,270.0 90.0,298.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="101.4,296.6 126.1,282.0 126.1,283.3 101.4,297.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="101.4,309.8 105.2,307.5 105.2,294.3 101.4,296.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="101.4,309.8 126.1,295.2 126.1,282.0 101.4,296.6" fill="#2E4A6A" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="101.4,296.6 116.6,287.6 101.4,300.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="101.4" y1="309.8" x2="126.1" y2="282.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="101.4" y1="309.8" x2="101.4" y2="296.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="126.1" y1="295.2" x2="126.1" y2="282.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="309.8" x2="126.1" y2="295.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="296.6" x2="126.1" y2="282.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="137.5,274.8 185.0,246.8 185.0,242.0 137.5,270.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="148.9,268.6 173.6,254.0 173.6,255.3 148.9,269.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="148.9,281.8 152.7,279.5 152.7,266.3 148.9,268.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="148.9,281.8 173.6,267.2 173.6,254.0 148.9,268.6" fill="#263D58" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="148.9,268.6 164.1,259.6 148.9,272.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="148.9" y1="281.8" x2="173.6" y2="254.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="148.9" y1="281.8" x2="148.9" y2="268.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="173.6" y1="267.2" x2="173.6" y2="254.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="281.8" x2="173.6" y2="267.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="268.6" x2="173.6" y2="254.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="185.0,246.8 232.5,218.8 232.5,214.0 185.0,242.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="196.4,240.6 221.1,226.0 221.1,227.3 196.4,241.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="196.4,253.8 200.2,251.5 200.2,238.3 196.4,240.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="196.4,253.8 221.1,239.2 221.1,226.0 196.4,240.6" fill="#304A6E" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="196.4,240.6 211.6,231.6 196.4,244.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="196.4" y1="253.8" x2="221.1" y2="226.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="196.4" y1="253.8" x2="196.4" y2="240.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="221.1" y1="239.2" x2="221.1" y2="226.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="253.8" x2="221.1" y2="239.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="240.6" x2="221.1" y2="226.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="232.5,218.8 280.0,190.8 280.0,186.0 232.5,214.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="243.9,212.6 268.6,198.0 268.6,199.3 243.9,213.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="243.9,225.8 247.7,223.5 247.7,210.3 243.9,212.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="243.9,225.8 268.6,211.2 268.6,198.0 243.9,212.6" fill="#2A4260" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="243.9,212.6 259.1,203.6 243.9,216.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="243.9" y1="225.8" x2="268.6" y2="198.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="243.9" y1="225.8" x2="243.9" y2="212.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="268.6" y1="211.2" x2="268.6" y2="198.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="225.8" x2="268.6" y2="211.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="212.6" x2="268.6" y2="198.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="90" y1="276" x2="280" y2="164" stroke="#7A8090" stroke-width="1.2"/>
-<line x1="90" y1="296.7" x2="280" y2="184.7" stroke="rgba(0,0,0,0.12)" stroke-width="2.5"/>
-<polygon points="90.0,280.8 137.5,252.8 137.5,248.0 90.0,276.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="101.4,274.6 126.1,260.0 126.1,261.3 101.4,275.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="101.4,287.8 105.2,285.5 105.2,272.3 101.4,274.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="101.4,287.8 126.1,273.2 126.1,260.0 101.4,274.6" fill="#2E4A6A" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="101.4,274.6 116.6,265.6 101.4,278.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="101.4" y1="287.8" x2="126.1" y2="260.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="101.4" y1="287.8" x2="101.4" y2="274.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="126.1" y1="273.2" x2="126.1" y2="260.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="287.8" x2="126.1" y2="273.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="274.6" x2="126.1" y2="260.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="137.5,252.8 185.0,224.8 185.0,220.0 137.5,248.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="148.9,246.6 173.6,232.0 173.6,233.3 148.9,247.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="148.9,259.8 152.7,257.5 152.7,244.3 148.9,246.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="148.9,259.8 173.6,245.2 173.6,232.0 148.9,246.6" fill="#263D58" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="148.9,246.6 164.1,237.6 148.9,250.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="148.9" y1="259.8" x2="173.6" y2="232.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="148.9" y1="259.8" x2="148.9" y2="246.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="173.6" y1="245.2" x2="173.6" y2="232.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="259.8" x2="173.6" y2="245.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="246.6" x2="173.6" y2="232.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="185.0,224.8 232.5,196.8 232.5,192.0 185.0,220.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="196.4,218.6 221.1,204.0 221.1,205.3 196.4,219.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="196.4,231.8 200.2,229.5 200.2,216.3 196.4,218.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="196.4,231.8 221.1,217.2 221.1,204.0 196.4,218.6" fill="#304A6E" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="196.4,218.6 211.6,209.6 196.4,222.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="196.4" y1="231.8" x2="221.1" y2="204.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="196.4" y1="231.8" x2="196.4" y2="218.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="221.1" y1="217.2" x2="221.1" y2="204.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="231.8" x2="221.1" y2="217.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="218.6" x2="221.1" y2="204.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="232.5,196.8 280.0,168.8 280.0,164.0 232.5,192.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="243.9,190.6 268.6,176.0 268.6,177.3 243.9,191.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="243.9,203.8 247.7,201.5 247.7,188.3 243.9,190.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="243.9,203.8 268.6,189.2 268.6,176.0 243.9,190.6" fill="#2A4260" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="243.9,190.6 259.1,181.6 243.9,194.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="243.9" y1="203.8" x2="268.6" y2="176.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="243.9" y1="203.8" x2="243.9" y2="190.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="268.6" y1="189.2" x2="268.6" y2="176.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="203.8" x2="268.6" y2="189.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="190.6" x2="268.6" y2="176.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="90" y1="254" x2="280" y2="142" stroke="#7A8090" stroke-width="1.2"/>
-<line x1="90" y1="274.7" x2="280" y2="162.7" stroke="rgba(0,0,0,0.12)" stroke-width="2.5"/>
-<polygon points="90.0,258.8 137.5,230.8 137.5,226.0 90.0,254.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="101.4,252.6 126.1,238.0 126.1,239.3 101.4,253.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="101.4,265.8 105.2,263.5 105.2,250.3 101.4,252.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="101.4,265.8 126.1,251.2 126.1,238.0 101.4,252.6" fill="#2E4A6A" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="101.4,252.6 116.6,243.6 101.4,256.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="101.4" y1="265.8" x2="126.1" y2="238.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="101.4" y1="265.8" x2="101.4" y2="252.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="126.1" y1="251.2" x2="126.1" y2="238.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="265.8" x2="126.1" y2="251.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="252.6" x2="126.1" y2="238.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="137.5,230.8 185.0,202.8 185.0,198.0 137.5,226.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="148.9,224.6 173.6,210.0 173.6,211.3 148.9,225.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="148.9,237.8 152.7,235.5 152.7,222.3 148.9,224.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="148.9,237.8 173.6,223.2 173.6,210.0 148.9,224.6" fill="#263D58" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="148.9,224.6 164.1,215.6 148.9,228.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="148.9" y1="237.8" x2="173.6" y2="210.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="148.9" y1="237.8" x2="148.9" y2="224.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="173.6" y1="223.2" x2="173.6" y2="210.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="237.8" x2="173.6" y2="223.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="224.6" x2="173.6" y2="210.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="185.0,202.8 232.5,174.8 232.5,170.0 185.0,198.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="196.4,196.6 221.1,182.0 221.1,183.3 196.4,197.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="196.4,209.8 200.2,207.5 200.2,194.3 196.4,196.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="196.4,209.8 221.1,195.2 221.1,182.0 196.4,196.6" fill="#304A6E" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="196.4,196.6 211.6,187.6 196.4,200.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="196.4" y1="209.8" x2="221.1" y2="182.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="196.4" y1="209.8" x2="196.4" y2="196.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="221.1" y1="195.2" x2="221.1" y2="182.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="209.8" x2="221.1" y2="195.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="196.6" x2="221.1" y2="182.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="232.5,174.8 280.0,146.8 280.0,142.0 232.5,170.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="243.9,168.6 268.6,154.0 268.6,155.3 243.9,169.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="243.9,181.8 247.7,179.5 247.7,166.3 243.9,168.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="243.9,181.8 268.6,167.2 268.6,154.0 243.9,168.6" fill="#2A4260" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="243.9,168.6 259.1,159.6 243.9,172.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="243.9" y1="181.8" x2="268.6" y2="154.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="243.9" y1="181.8" x2="243.9" y2="168.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="268.6" y1="167.2" x2="268.6" y2="154.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="181.8" x2="268.6" y2="167.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="168.6" x2="268.6" y2="154.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="90" y1="232" x2="280" y2="120" stroke="#7A8090" stroke-width="1.2"/>
-<line x1="90" y1="252.7" x2="280" y2="140.7" stroke="rgba(0,0,0,0.12)" stroke-width="2.5"/>
-<polygon points="90.0,236.8 137.5,208.8 137.5,204.0 90.0,232.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="101.4,230.6 126.1,216.0 126.1,217.3 101.4,231.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="101.4,243.8 105.2,241.5 105.2,228.3 101.4,230.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="101.4,243.8 126.1,229.2 126.1,216.0 101.4,230.6" fill="#2E4A6A" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="101.4,230.6 116.6,221.6 101.4,234.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="101.4" y1="243.8" x2="126.1" y2="216.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="101.4" y1="243.8" x2="101.4" y2="230.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="126.1" y1="229.2" x2="126.1" y2="216.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="243.8" x2="126.1" y2="229.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="230.6" x2="126.1" y2="216.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="137.5,208.8 185.0,180.8 185.0,176.0 137.5,204.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="148.9,202.6 173.6,188.0 173.6,189.3 148.9,203.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="148.9,215.8 152.7,213.5 152.7,200.3 148.9,202.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="148.9,215.8 173.6,201.2 173.6,188.0 148.9,202.6" fill="#263D58" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="148.9,202.6 164.1,193.6 148.9,206.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="148.9" y1="215.8" x2="173.6" y2="188.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="148.9" y1="215.8" x2="148.9" y2="202.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="173.6" y1="201.2" x2="173.6" y2="188.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="215.8" x2="173.6" y2="201.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="202.6" x2="173.6" y2="188.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="185.0,180.8 232.5,152.8 232.5,148.0 185.0,176.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="196.4,174.6 221.1,160.0 221.1,161.3 196.4,175.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="196.4,187.8 200.2,185.5 200.2,172.3 196.4,174.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="196.4,187.8 221.1,173.2 221.1,160.0 196.4,174.6" fill="#304A6E" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="196.4,174.6 211.6,165.6 196.4,178.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="196.4" y1="187.8" x2="221.1" y2="160.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="196.4" y1="187.8" x2="196.4" y2="174.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="221.1" y1="173.2" x2="221.1" y2="160.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="187.8" x2="221.1" y2="173.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="174.6" x2="221.1" y2="160.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="232.5,152.8 280.0,124.8 280.0,120.0 232.5,148.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="243.9,146.6 268.6,132.0 268.6,133.3 243.9,147.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="243.9,159.8 247.7,157.5 247.7,144.3 243.9,146.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="243.9,159.8 268.6,145.2 268.6,132.0 243.9,146.6" fill="#2A4260" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="243.9,146.6 259.1,137.6 243.9,150.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="243.9" y1="159.8" x2="268.6" y2="132.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="243.9" y1="159.8" x2="243.9" y2="146.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="268.6" y1="145.2" x2="268.6" y2="132.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="159.8" x2="268.6" y2="145.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="146.6" x2="268.6" y2="132.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="90" y1="210" x2="280" y2="98" stroke="#7A8090" stroke-width="1.2"/>
-<line x1="90" y1="230.7" x2="280" y2="118.7" stroke="rgba(0,0,0,0.12)" stroke-width="2.5"/>
-<polygon points="90.0,214.8 137.5,186.8 137.5,182.0 90.0,210.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="101.4,208.6 126.1,194.0 126.1,195.3 101.4,209.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="101.4,221.8 105.2,219.5 105.2,206.3 101.4,208.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="101.4,221.8 126.1,207.2 126.1,194.0 101.4,208.6" fill="#2E4A6A" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="101.4,208.6 116.6,199.6 101.4,212.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="101.4" y1="221.8" x2="126.1" y2="194.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="101.4" y1="221.8" x2="101.4" y2="208.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="126.1" y1="207.2" x2="126.1" y2="194.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="221.8" x2="126.1" y2="207.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="208.6" x2="126.1" y2="194.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="137.5,186.8 185.0,158.8 185.0,154.0 137.5,182.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="148.9,180.6 173.6,166.0 173.6,167.3 148.9,181.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="148.9,193.8 152.7,191.5 152.7,178.3 148.9,180.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="148.9,193.8 173.6,179.2 173.6,166.0 148.9,180.6" fill="#263D58" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="148.9,180.6 164.1,171.6 148.9,184.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="148.9" y1="193.8" x2="173.6" y2="166.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="148.9" y1="193.8" x2="148.9" y2="180.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="173.6" y1="179.2" x2="173.6" y2="166.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="193.8" x2="173.6" y2="179.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="180.6" x2="173.6" y2="166.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="185.0,158.8 232.5,130.8 232.5,126.0 185.0,154.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="196.4,152.6 221.1,138.0 221.1,139.3 196.4,153.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="196.4,165.8 200.2,163.5 200.2,150.3 196.4,152.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="196.4,165.8 221.1,151.2 221.1,138.0 196.4,152.6" fill="#304A6E" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="196.4,152.6 211.6,143.6 196.4,156.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="196.4" y1="165.8" x2="221.1" y2="138.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="196.4" y1="165.8" x2="196.4" y2="152.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="221.1" y1="151.2" x2="221.1" y2="138.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="165.8" x2="221.1" y2="151.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="152.6" x2="221.1" y2="138.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="232.5,130.8 280.0,102.8 280.0,98.0 232.5,126.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="243.9,124.6 268.6,110.0 268.6,111.3 243.9,125.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="243.9,137.8 247.7,135.5 247.7,122.3 243.9,124.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="243.9,137.8 268.6,123.2 268.6,110.0 243.9,124.6" fill="#2A4260" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="243.9,124.6 259.1,115.6 243.9,128.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="243.9" y1="137.8" x2="268.6" y2="110.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="243.9" y1="137.8" x2="243.9" y2="124.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="268.6" y1="123.2" x2="268.6" y2="110.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="137.8" x2="268.6" y2="123.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="124.6" x2="268.6" y2="110.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="90" y1="188" x2="280" y2="76" stroke="#7A8090" stroke-width="1.2"/>
-<line x1="90" y1="208.7" x2="280" y2="96.7" stroke="rgba(0,0,0,0.12)" stroke-width="2.5"/>
-<polygon points="90.0,192.8 137.5,164.8 137.5,160.0 90.0,188.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="101.4,186.6 126.1,172.0 126.1,173.3 101.4,187.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="101.4,199.8 105.2,197.5 105.2,184.3 101.4,186.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="101.4,199.8 126.1,185.2 126.1,172.0 101.4,186.6" fill="#2E4A6A" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="101.4,186.6 116.6,177.6 101.4,190.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="101.4" y1="199.8" x2="126.1" y2="172.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="101.4" y1="199.8" x2="101.4" y2="186.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="126.1" y1="185.2" x2="126.1" y2="172.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="199.8" x2="126.1" y2="185.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="186.6" x2="126.1" y2="172.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="137.5,164.8 185.0,136.8 185.0,132.0 137.5,160.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="148.9,158.6 173.6,144.0 173.6,145.3 148.9,159.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="148.9,171.8 152.7,169.5 152.7,156.3 148.9,158.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="148.9,171.8 173.6,157.2 173.6,144.0 148.9,158.6" fill="#263D58" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="148.9,158.6 164.1,149.6 148.9,162.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="148.9" y1="171.8" x2="173.6" y2="144.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="148.9" y1="171.8" x2="148.9" y2="158.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="173.6" y1="157.2" x2="173.6" y2="144.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="171.8" x2="173.6" y2="157.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="158.6" x2="173.6" y2="144.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="185.0,136.8 232.5,108.8 232.5,104.0 185.0,132.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="196.4,130.6 221.1,116.0 221.1,117.3 196.4,131.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="196.4,143.8 200.2,141.5 200.2,128.3 196.4,130.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="196.4,143.8 221.1,129.2 221.1,116.0 196.4,130.6" fill="#304A6E" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="196.4,130.6 211.6,121.6 196.4,134.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="196.4" y1="143.8" x2="221.1" y2="116.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="196.4" y1="143.8" x2="196.4" y2="130.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="221.1" y1="129.2" x2="221.1" y2="116.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="143.8" x2="221.1" y2="129.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="130.6" x2="221.1" y2="116.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="232.5,108.8 280.0,80.8 280.0,76.0 232.5,104.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="243.9,102.6 268.6,88.0 268.6,89.3 243.9,103.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="243.9,115.8 247.7,113.5 247.7,100.3 243.9,102.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="243.9,115.8 268.6,101.2 268.6,88.0 243.9,102.6" fill="#2A4260" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="243.9,102.6 259.1,93.6 243.9,106.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="243.9" y1="115.8" x2="268.6" y2="88.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="243.9" y1="115.8" x2="243.9" y2="102.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="268.6" y1="101.2" x2="268.6" y2="88.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="115.8" x2="268.6" y2="101.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="102.6" x2="268.6" y2="88.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="90" y1="166" x2="280" y2="54" stroke="#7A8090" stroke-width="1.2"/>
-<line x1="90" y1="186.7" x2="280" y2="74.7" stroke="rgba(0,0,0,0.12)" stroke-width="2.5"/>
-<polygon points="90.0,170.8 137.5,142.8 137.5,138.0 90.0,166.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="101.4,164.6 126.1,150.0 126.1,151.3 101.4,165.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="101.4,177.8 105.2,175.5 105.2,162.3 101.4,164.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="101.4,177.8 126.1,163.2 126.1,150.0 101.4,164.6" fill="#2E4A6A" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="101.4,164.6 116.6,155.6 101.4,168.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="101.4" y1="177.8" x2="126.1" y2="150.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="101.4" y1="177.8" x2="101.4" y2="164.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="126.1" y1="163.2" x2="126.1" y2="150.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="177.8" x2="126.1" y2="163.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="101.4" y1="164.6" x2="126.1" y2="150.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="137.5,142.8 185.0,114.8 185.0,110.0 137.5,138.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="148.9,136.6 173.6,122.0 173.6,123.3 148.9,137.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="148.9,149.8 152.7,147.5 152.7,134.3 148.9,136.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="148.9,149.8 173.6,135.2 173.6,122.0 148.9,136.6" fill="#263D58" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="148.9,136.6 164.1,127.6 148.9,140.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="148.9" y1="149.8" x2="173.6" y2="122.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="148.9" y1="149.8" x2="148.9" y2="136.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="173.6" y1="135.2" x2="173.6" y2="122.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="149.8" x2="173.6" y2="135.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="148.9" y1="136.6" x2="173.6" y2="122.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="185.0,114.8 232.5,86.8 232.5,82.0 185.0,110.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="196.4,108.6 221.1,94.0 221.1,95.3 196.4,109.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="196.4,121.8 200.2,119.5 200.2,106.3 196.4,108.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="196.4,121.8 221.1,107.2 221.1,94.0 196.4,108.6" fill="#304A6E" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="196.4,108.6 211.6,99.6 196.4,112.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="196.4" y1="121.8" x2="221.1" y2="94.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="196.4" y1="121.8" x2="196.4" y2="108.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="221.1" y1="107.2" x2="221.1" y2="94.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="121.8" x2="221.1" y2="107.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="196.4" y1="108.6" x2="221.1" y2="94.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="232.5,86.8 280.0,58.8 280.0,54.0 232.5,82.0" fill="#BCC2CC" stroke="#9098A8" stroke-width="0.4"/>
-<polygon points="243.9,80.6 268.6,66.0 268.6,67.3 243.9,81.9" fill="rgba(0,0,0,0.28)"/>
-<polygon points="243.9,93.8 247.7,91.5 247.7,78.3 243.9,80.6" fill="rgba(0,0,0,0.18)"/>
-<polygon points="243.9,93.8 268.6,79.2 268.6,66.0 243.9,80.6" fill="#2A4260" stroke="#1A2D40" stroke-width="0.6"/>
-<polygon points="243.9,80.6 259.1,71.6 243.9,84.5" fill="rgba(255,255,255,0.12)"/>
-<line x1="243.9" y1="93.8" x2="268.6" y2="66.0" stroke="rgba(255,255,255,0.0)" stroke-width="0"/>
-<line x1="243.9" y1="93.8" x2="243.9" y2="80.6" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="268.6" y1="79.2" x2="268.6" y2="66.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="93.8" x2="268.6" y2="79.2" stroke="#D0D8E4" stroke-width="0.5"/>
-<line x1="243.9" y1="80.6" x2="268.6" y2="66.0" stroke="#D0D8E4" stroke-width="0.5"/>
-<polygon points="90,430 93.0,428.2 93.0,164.2 90,166" fill="#9AA0AE" stroke="#7A8090" stroke-width="0.6"/>
-<polygon points="90,430 91.9,428.9 91.9,164.9 90,166" fill="rgba(255,255,255,0.4)"/>
-<polygon points="91.1,429.3 93.0,428.2 93.0,164.2 91.1,165.3" fill="rgba(0,0,0,0.18)"/>
-<polygon points="134.5,403.8 140.5,400.2 140.5,136.2 134.5,139.8" fill="#9AA0AE" stroke="#7A8090" stroke-width="0.6"/>
-<polygon points="134.5,403.8 136.4,402.7 136.4,138.7 134.5,139.8" fill="rgba(255,255,255,0.4)"/>
-<polygon points="138.6,401.3 140.5,400.2 140.5,136.2 138.6,137.3" fill="rgba(0,0,0,0.18)"/>
-<polygon points="182.0,375.8 188.0,372.2 188.0,108.2 182.0,111.8" fill="#9AA0AE" stroke="#7A8090" stroke-width="0.6"/>
-<polygon points="182.0,375.8 183.9,374.7 183.9,110.7 182.0,111.8" fill="rgba(255,255,255,0.4)"/>
-<polygon points="186.1,373.3 188.0,372.2 188.0,108.2 186.1,109.3" fill="rgba(0,0,0,0.18)"/>
-<polygon points="229.5,347.8 235.5,344.2 235.5,80.2 229.5,83.8" fill="#9AA0AE" stroke="#7A8090" stroke-width="0.6"/>
-<polygon points="229.5,347.8 231.4,346.7 231.4,82.7 229.5,83.8" fill="rgba(255,255,255,0.4)"/>
-<polygon points="233.6,345.3 235.5,344.2 235.5,80.2 233.6,81.3" fill="rgba(0,0,0,0.18)"/>
-<polygon points="277.0,319.8 280,318 280,54 277.0,55.8" fill="#9AA0AE" stroke="#7A8090" stroke-width="0.6"/>
-<polygon points="277.0,319.8 278.9,318.7 278.9,54.7 277.0,55.8" fill="rgba(255,255,255,0.4)"/>
-<polygon points="278.1,319.1 280,318 280,54 278.1,55.1" fill="rgba(0,0,0,0.18)"/>
-<polygon points="90,166 280,54 280,54" fill="url(#roofGrad)" stroke="#9098A8" stroke-width="0.8"/>
-<polygon points="90,166 280,54 280,45.2 90,157.2" fill="#C4C9D4" stroke="#9098A8" stroke-width="0.6"/>
-<polygon points="280,54 280,54 280,46 280,46" fill="#A8B0BE" stroke="#9098A8" stroke-width="0.6"/>
-<polygon points="99.5,151.6 131.8,132.6 131.8,93.0 99.5,112.0" fill="#B0B8C6" stroke="#9098A8" stroke-width="0.7"/>
-<polygon points="219.2,81.0 264.8,54.2 264.8,27.8 219.2,54.6" fill="#B0B8C6" stroke="#9098A8" stroke-width="0.7"/>
-<line x1="137.5" y1="126.0" x2="213.5" y2="81.2" stroke="#CC4444" stroke-width="3.5" opacity="0.85" filter="url(#glow)"/>
-<line x1="137.5" y1="126.0" x2="213.5" y2="81.2" stroke="#FF6666" stroke-width="1.5" stroke-dasharray="6,4" class="mep-hvac"/>
-<line x1="143.2" y1="126.6" x2="207.8" y2="88.6" stroke="#2255AA" stroke-width="2.5" opacity="0.85" filter="url(#glow)"/>
-<line x1="143.2" y1="126.6" x2="207.8" y2="88.6" stroke="#4499FF" stroke-width="1" stroke-dasharray="5,4" class="mep-plmb"/>
-<line x1="147.0" y1="127.4" x2="204.0" y2="93.8" stroke="#AA8800" stroke-width="2" opacity="0.85"/>
-<line x1="147.0" y1="127.4" x2="204.0" y2="93.8" stroke="#FFCC00" stroke-width="0.8" stroke-dasharray="3,3" class="mep-elec"/>
-<line x1="90" y1="430" x2="308.5" y2="301.2" stroke="#0066CC" stroke-width="1.2" opacity="0.7"/>
-<text x="312.5" y="305.2" fill="#0066CC" font-size="8" font-family="Space Mono, monospace" opacity="0.7">X</text>
-<line x1="90" y1="430" x2="90" y2="410" stroke="#CC3333" stroke-width="1.2" opacity="0.7"/>
-<text x="80" y="407" fill="#CC3333" font-size="8" font-family="Space Mono, monospace" opacity="0.7">Z</text>
-<line x1="90" y1="430" x2="372.4" y2="371.9" stroke="#228833" stroke-width="1.2" opacity="0.7"/>
-<text x="376.4" y="375.9" fill="#228833" font-size="8" font-family="Space Mono, monospace" opacity="0.7">Y</text>
-<g class="dim-tag">
-  <rect x="70" y="51" width="22" height="12" rx="3" fill="#003366" opacity="0.88"/>
-  <text x="81" y="60.5" fill="white" font-size="7.5" font-family="Space Mono,monospace" text-anchor="middle" font-weight="700">3D</text>
-  <line x1="92" y1="57" x2="108" y2="57" stroke="#003366" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.6"/>
-</g>
-<g class="dim-tag">
-  <rect x="70" y="73" width="22" height="12" rx="3" fill="#004499" opacity="0.88"/>
-  <text x="81" y="82.5" fill="white" font-size="7.5" font-family="Space Mono,monospace" text-anchor="middle" font-weight="700">4D</text>
-  <line x1="92" y1="79" x2="108" y2="79" stroke="#004499" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.6"/>
-</g>
-<g class="dim-tag">
-  <rect x="70" y="95" width="22" height="12" rx="3" fill="#0055BB" opacity="0.88"/>
-  <text x="81" y="104.5" fill="white" font-size="7.5" font-family="Space Mono,monospace" text-anchor="middle" font-weight="700">5D</text>
-  <line x1="92" y1="101" x2="108" y2="101" stroke="#0055BB" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.6"/>
-</g>
-<g class="dim-tag">
-  <rect x="70" y="117" width="22" height="12" rx="3" fill="#006633" opacity="0.88"/>
-  <text x="81" y="126.5" fill="white" font-size="7.5" font-family="Space Mono,monospace" text-anchor="middle" font-weight="700">6D</text>
-  <line x1="92" y1="123" x2="108" y2="123" stroke="#006633" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.6"/>
-</g>
-<g class="dim-tag">
-  <rect x="70" y="139" width="22" height="12" rx="3" fill="#004422" opacity="0.88"/>
-  <text x="81" y="148.5" fill="white" font-size="7.5" font-family="Space Mono,monospace" text-anchor="middle" font-weight="700">7D</text>
-  <line x1="92" y1="145" x2="108" y2="145" stroke="#004422" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.6"/>
-</g>
-<circle cx="289" cy="395" r="3" fill="#9098A8" opacity="0.9"/>
-<text x="295" y="399" fill="#3D4457" font-size="7" font-family="DM Sans,sans-serif">Estructura</text>
-<circle cx="289" cy="407" r="3" fill="#CC4444" opacity="0.9"/>
-<text x="295" y="411" fill="#3D4457" font-size="7" font-family="DM Sans,sans-serif">MEP</text>
-<circle cx="289" cy="419" r="3" fill="#FFCC00" opacity="0.9"/>
-<text x="295" y="423" fill="#3D4457" font-size="7" font-family="DM Sans,sans-serif">Eléctrico</text>
-<circle cx="289" cy="431" r="3" fill="#4499FF" opacity="0.9"/>
-<text x="295" y="435" fill="#3D4457" font-size="7" font-family="DM Sans,sans-serif">Hidráulico</text></svg>
-      <div class="bim-label">Modelo BIM Coordinado · Disciplinas 3D–7D</div>
+    <div id="canvas-container">
+      <canvas id="bim-canvas"></canvas>
+      <div class="bim-overlay">
+        <div class="bim-badge"><div class="bim-badge-dot" style="background:#FF6B6B"></div><span>ESTRUCTURA</span></div>
+        <div class="bim-badge"><div class="bim-badge-dot" style="background:#4ECDC4"></div><span>MEP</span></div>
+        <div class="bim-badge"><div class="bim-badge-dot" style="background:#45B7D1"></div><span>ARQUITECTURA</span></div>
+        <div class="bim-badge"><div class="bim-badge-dot" style="background:#96CEB4"></div><span>LOD 300</span></div>
+      </div>
+      <div class="bim-hint">ARRASTRA PARA ROTAR · SCROLL PARA ZOOM</div>
     </div>
   </div>
 </section>
 
-<!-- ── MARQUEE ───────────────────────────────────────────────────────────── -->
+<!-- MARQUEE -->
 <div class="mq-wrap">
   <div class="mq-track">
-    <span class="mq-item accent">BIM Level 2 &amp; 3</span>
-    <span class="mq-item">Revit · Navisworks</span>
-    <span class="mq-item accent">Coordinación 3D</span>
-    <span class="mq-item">Estructura · MEP</span>
-    <span class="mq-item accent">LOD 100 → 500</span>
-    <span class="mq-item">4D Cronograma</span>
-    <span class="mq-item accent">5D Costos</span>
-    <span class="mq-item">Clash Detection</span>
-    <span class="mq-item accent">Entregables BIM</span>
-    <span class="mq-item">ArchiCAD · Civil 3D</span>
-    <!-- repeat for seamless loop -->
-    <span class="mq-item accent">BIM Level 2 &amp; 3</span>
-    <span class="mq-item">Revit · Navisworks</span>
-    <span class="mq-item accent">Coordinación 3D</span>
-    <span class="mq-item">Estructura · MEP</span>
-    <span class="mq-item accent">LOD 100 → 500</span>
-    <span class="mq-item">4D Cronograma</span>
-    <span class="mq-item accent">5D Costos</span>
-    <span class="mq-item">Clash Detection</span>
-    <span class="mq-item accent">Entregables BIM</span>
-    <span class="mq-item">ArchiCAD · Civil 3D</span>
+    <span class="mq-item accent">BIM Level 2 &amp; 3</span><span class="mq-item">Revit · Navisworks</span>
+    <span class="mq-item accent">Coordinación 3D</span><span class="mq-item">Estructura · MEP</span>
+    <span class="mq-item accent">LOD 100 → 500</span><span class="mq-item">4D Cronograma</span>
+    <span class="mq-item accent">5D Costos</span><span class="mq-item">Clash Detection</span>
+    <span class="mq-item accent">Entregables BIM</span><span class="mq-item">ArchiCAD · Civil 3D</span>
+    <span class="mq-item accent">BIM Level 2 &amp; 3</span><span class="mq-item">Revit · Navisworks</span>
+    <span class="mq-item accent">Coordinación 3D</span><span class="mq-item">Estructura · MEP</span>
+    <span class="mq-item accent">LOD 100 → 500</span><span class="mq-item">4D Cronograma</span>
+    <span class="mq-item accent">5D Costos</span><span class="mq-item">Clash Detection</span>
+    <span class="mq-item accent">Entregables BIM</span><span class="mq-item">ArchiCAD · Civil 3D</span>
   </div>
 </div>
 
-<!-- ── SERVICES ─────────────────────────────────────────────────────────── -->
+<!-- SERVICES -->
 <section id="services">
   <div class="section-header rv">
     <div class="section-tag">// Nuestros Servicios</div>
     <h2 class="section-h2">Disciplinas integradas<br/>en un <em>solo modelo</em></h2>
   </div>
   <div class="srv-grid rv">
-
-    <!-- 01 Modelado BIM -->
     <div class="srv-card">
       <div class="srv-n">01</div>
-      <svg class="srv-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="4" width="36" height="36" rx="3" stroke="#003366" stroke-width="1.5"/>
-        <path d="M4 20 H40 M20 4 V40" stroke="#003366" stroke-width="1"/>
-        <rect x="12" y="12" width="10" height="10" fill="#003366" opacity=".2" stroke="#003366"/>
-        <rect x="22" y="22" width="10" height="10" fill="#003366" opacity=".15" stroke="#003366"/>
-      </svg>
+      <svg class="srv-icon" viewBox="0 0 44 44" fill="none"><rect class="srv-icon-path" x="4" y="4" width="36" height="36" rx="2"/><path class="srv-icon-path" d="M4 20h36M20 4v36"/><rect class="srv-icon-path" x="12" y="12" width="8" height="8"/></svg>
       <div class="srv-title">Modelado BIM</div>
-      <div class="srv-desc">Creación de modelos federados de alta precisión en Revit para todas las disciplinas del proyecto.</div>
-      <ul class="srv-list">
-        <li>Arquitectura, estructura, MEP</li>
-        <li>LOD 100 hasta LOD 500</li>
-        <li>Familias personalizadas</li>
-        <li>Entregables IFC / RVT</li>
-      </ul>
+      <div class="srv-desc">Modelos federados de alta precisión en Revit para todas las disciplinas del proyecto.</div>
+      <ul class="srv-list"><li class="srv-li">Arquitectura, estructura, MEP</li><li class="srv-li">LOD 100 hasta LOD 500</li><li class="srv-li">Familias personalizadas Revit</li><li class="srv-li">Entregables IFC / RVT / NWD</li></ul>
     </div>
-
-    <!-- 02 Coordinación BIM -->
     <div class="srv-card">
       <div class="srv-n">02</div>
-      <svg class="srv-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="22" cy="22" r="16" stroke="#003366" stroke-width="1.5"/>
-        <circle cx="14" cy="16" r="5" stroke="#003366" stroke-width="1.2"/>
-        <circle cx="30" cy="16" r="5" stroke="#003366" stroke-width="1.2"/>
-        <circle cx="22" cy="30" r="5" stroke="#003366" stroke-width="1.2"/>
-        <line x1="19" y1="16" x2="25" y2="16" stroke="#003366" stroke-width="1"/>
-        <line x1="15" y1="20" x2="20" y2="27" stroke="#003366" stroke-width="1"/>
-        <line x1="29" y1="20" x2="24" y2="27" stroke="#003366" stroke-width="1"/>
-      </svg>
+      <svg class="srv-icon" viewBox="0 0 44 44" fill="none"><circle class="srv-icon-path" cx="22" cy="22" r="16"/><circle class="srv-icon-path" cx="14" cy="16" r="5"/><circle class="srv-icon-path" cx="30" cy="16" r="5"/><circle class="srv-icon-path" cx="22" cy="30" r="5"/><line class="srv-icon-path" x1="19" y1="16" x2="25" y2="16"/><line class="srv-icon-path" x1="15" y1="20" x2="20" y2="27"/><line class="srv-icon-path" x1="29" y1="20" x2="24" y2="27"/></svg>
       <div class="srv-title">Coordinación BIM</div>
       <div class="srv-desc">Detección de interferencias y resolución de conflictos entre disciplinas antes de construcción.</div>
-      <ul class="srv-list">
-        <li>Clash detection automatizada</li>
-        <li>ICE Sessions multidisciplinarias</li>
-        <li>Navisworks / BIM 360</li>
-        <li>Reportes de interferencias</li>
-      </ul>
+      <ul class="srv-list"><li class="srv-li">Clash detection automatizada</li><li class="srv-li">ICE Sessions multidisciplinarias</li><li class="srv-li">Navisworks / BIM 360</li><li class="srv-li">Reportes de interferencias</li></ul>
     </div>
-
-    <!-- 03 Ingeniería -->
     <div class="srv-card">
       <div class="srv-n">03</div>
-      <svg class="srv-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 36 L22 8 L36 36 Z" stroke="#003366" stroke-width="1.5" fill="none"/>
-        <line x1="14" y1="26" x2="30" y2="26" stroke="#003366" stroke-width="1"/>
-        <line x1="22" y1="8" x2="22" y2="36" stroke="#003366" stroke-width="0.8" stroke-dasharray="2,2"/>
-        <circle cx="22" cy="8" r="2" fill="#003366"/>
-        <circle cx="8" cy="36" r="2" fill="#003366"/>
-        <circle cx="36" cy="36" r="2" fill="#003366"/>
-      </svg>
+      <svg class="srv-icon" viewBox="0 0 44 44" fill="none"><path class="srv-icon-path" d="M8 36L22 8l14 28z"/><line class="srv-icon-path" x1="14" y1="26" x2="30" y2="26"/><line class="srv-icon-path" x1="22" y1="8" x2="22" y2="36" stroke-dasharray="2,2"/></svg>
       <div class="srv-title">Ingeniería</div>
       <div class="srv-desc">Cálculo y diseño de sistemas estructurales, hidráulicos, eléctricos y mecánicos integrados al modelo.</div>
-      <ul class="srv-list">
-        <li>Diseño estructural (concreto/acero)</li>
-        <li>Sistemas MEP completos</li>
-        <li>Memorias de cálculo</li>
-        <li>Especificaciones técnicas</li>
-      </ul>
+      <ul class="srv-list"><li class="srv-li">Diseño estructural concreto/acero</li><li class="srv-li">Sistemas MEP completos</li><li class="srv-li">Memorias de cálculo</li><li class="srv-li">Especificaciones técnicas</li></ul>
     </div>
-
-    <!-- 04 Arquitectura -->
     <div class="srv-card">
       <div class="srv-n">04</div>
-      <svg class="srv-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="6" y="26" width="32" height="12" stroke="#003366" stroke-width="1.5" fill="none"/>
-        <path d="M6 26 L22 10 L38 26" stroke="#003366" stroke-width="1.5" fill="none"/>
-        <rect x="18" y="26" width="8" height="12" stroke="#003366" stroke-width="1" fill="none"/>
-        <rect x="10" y="28" width="5" height="5" stroke="#003366" stroke-width="0.8" fill="none"/>
-        <rect x="29" y="28" width="5" height="5" stroke="#003366" stroke-width="0.8" fill="none"/>
-      </svg>
+      <svg class="srv-icon" viewBox="0 0 44 44" fill="none"><rect class="srv-icon-path" x="6" y="26" width="32" height="12"/><path class="srv-icon-path" d="M6 26L22 10l16 16"/><rect class="srv-icon-path" x="18" y="26" width="8" height="12"/><rect class="srv-icon-path" x="10" y="28" width="5" height="5"/><rect class="srv-icon-path" x="29" y="28" width="5" height="5"/></svg>
       <div class="srv-title">Arquitectura</div>
-      <div class="srv-desc">Diseño conceptual y ejecutivo con documentación paramétrica, renders de calidad y gestión de proyecto.</div>
-      <ul class="srv-list">
-        <li>Diseño conceptual y esquemático</li>
-        <li>Planos ejecutivos en BIM</li>
-        <li>Renders fotorrealistas</li>
-        <li>Gestión de permisos</li>
-      </ul>
+      <div class="srv-desc">Diseño conceptual y ejecutivo con documentación paramétrica, renders y gestión de proyecto.</div>
+      <ul class="srv-list"><li class="srv-li">Diseño conceptual y esquemático</li><li class="srv-li">Planos ejecutivos en BIM</li><li class="srv-li">Renders fotorrealistas</li><li class="srv-li">Gestión de permisos</li></ul>
     </div>
-
   </div>
 </section>
 
-<!-- ── NUMBERS ───────────────────────────────────────────────────────────── -->
+<!-- NUMBERS -->
 <div class="num-strip rv">
-  <div class="num-item">
-    <div class="num-n"><span data-t="120">0</span><span class="num-suffix">+</span></div>
-    <div class="num-l">Proyectos entregados</div>
-  </div>
-  <div class="num-item">
-    <div class="num-n"><span data-t="40">0</span><span class="num-suffix">%</span></div>
-    <div class="num-l">Reducción de re-trabajos</div>
-  </div>
-  <div class="num-item">
-    <div class="num-n"><span data-t="98">0</span><span class="num-suffix">%</span></div>
-    <div class="num-l">Clientes satisfechos</div>
-  </div>
-  <div class="num-item">
-    <div class="num-n"><span data-t="8">0</span><span class="num-suffix"></span></div>
-    <div class="num-l">Años de experiencia BIM</div>
-  </div>
+  <div class="num-item"><div class="num-n"><span data-t="120">0</span><span class="num-suf">+</span></div><div class="num-l">Proyectos entregados</div></div>
+  <div class="num-item"><div class="num-n"><span data-t="40">0</span><span class="num-suf">%</span></div><div class="num-l">Reducción de re-trabajos</div></div>
+  <div class="num-item"><div class="num-n"><span data-t="98">0</span><span class="num-suf">%</span></div><div class="num-l">Clientes satisfechos</div></div>
+  <div class="num-item"><div class="num-n"><span data-t="8">0</span></div><div class="num-l">Años de experiencia BIM</div></div>
 </div>
 
-<!-- ── PROCESS ───────────────────────────────────────────────────────────── -->
+<!-- PROCESS -->
 <section id="process">
   <div class="section-header rv">
     <div class="section-tag">// Nuestro Proceso</div>
     <h2 class="section-h2">De la <em>idea</em> al<br/>modelo coordinado</h2>
   </div>
   <div class="proc-grid rv">
-    <div class="proc-card">
-      <div class="proc-step">PASO 01</div>
-      <div class="proc-title">Diagnóstico BIM</div>
-      <div class="proc-desc">Evaluamos el proyecto, definimos el nivel de desarrollo (LOD) y el BEP (BIM Execution Plan) adaptado a tus objetivos.</div>
-    </div>
-    <div class="proc-card">
-      <div class="proc-step">PASO 02</div>
-      <div class="proc-title">Modelado y Diseño</div>
-      <div class="proc-desc">Desarrollamos los modelos de cada disciplina en Revit, sincronizados en una nube colaborativa en tiempo real.</div>
-    </div>
-    <div class="proc-card">
-      <div class="proc-step">PASO 03</div>
-      <div class="proc-title">Coordinación y Clash</div>
-      <div class="proc-desc">Federamos los modelos, corremos clash detection y resolvemos conflictos antes de que lleguen a obra.</div>
-    </div>
-    <div class="proc-card">
-      <div class="proc-step">PASO 04</div>
-      <div class="proc-title">Entrega y Soporte</div>
-      <div class="proc-desc">Entregamos el modelo federado, documentación técnica y capacitación al equipo. Soporte post-entrega incluido.</div>
-    </div>
+    <div class="proc-card"><div class="proc-step">PASO 01</div><div class="proc-title">Diagnóstico BIM</div><div class="proc-desc">Evaluamos el proyecto, definimos el LOD y el BIM Execution Plan adaptado a tus objetivos.</div></div>
+    <div class="proc-card"><div class="proc-step">PASO 02</div><div class="proc-title">Modelado y Diseño</div><div class="proc-desc">Desarrollamos los modelos de cada disciplina en Revit, sincronizados en nube colaborativa.</div></div>
+    <div class="proc-card"><div class="proc-step">PASO 03</div><div class="proc-title">Coordinación y Clash</div><div class="proc-desc">Federamos los modelos, corremos clash detection y resolvemos conflictos antes de obra.</div></div>
+    <div class="proc-card"><div class="proc-step">PASO 04</div><div class="proc-title">Entrega y Soporte</div><div class="proc-desc">Entregamos modelo federado, documentación técnica y capacitación al equipo.</div></div>
   </div>
 </section>
 
-<!-- ── CTA ────────────────────────────────────────────────────────────────── -->
+<!-- CTA -->
 <section id="contact">
   <div class="cta-left rv">
     <h2 class="cta-h">¿Listo para <em>digitalizar</em><br/>tu proyecto?</h2>
-    <p>Conversemos sobre tu proyecto. La primera consultoría es sin costo y sin compromiso. Cuéntanos qué necesitas y te proponemos el mejor camino BIM.</p>
+    <p>La primera consultoría es sin costo y sin compromiso. Cuéntanos qué necesitas y te proponemos el mejor camino BIM.</p>
   </div>
   <div class="cta-form rv">
     <input type="text" id="cta-name" placeholder="Nombre completo"/>
     <input type="email" id="cta-email" placeholder="Correo electrónico"/>
-    <input type="text" id="cta-project" placeholder="Tipo de proyecto (edificio, industrial, etc.)"/>
+    <input type="text" id="cta-project" placeholder="Tipo de proyecto"/>
     <textarea id="cta-msg" placeholder="Cuéntanos sobre tu proyecto..."></textarea>
     <button class="cta-submit" onclick="handleCTA()">ENVIAR CONSULTA →</button>
   </div>
 </section>
 
-<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<!-- FOOTER -->
 <footer>
   <div>
     <div class="ft-brand">NEXVUM GROUP</div>
@@ -1301,20 +372,11 @@ footer{
   </div>
   <div>
     <div class="ft-heading">Servicios</div>
-    <div class="ft-links">
-      <a href="#services">Modelado BIM</a>
-      <a href="#services">Coordinación BIM</a>
-      <a href="#services">Ingeniería</a>
-      <a href="#services">Arquitectura</a>
-    </div>
+    <div class="ft-links"><a href="#services">Modelado BIM</a><a href="#services">Coordinación BIM</a><a href="#services">Ingeniería</a><a href="#services">Arquitectura</a></div>
   </div>
   <div>
     <div class="ft-heading">Contacto</div>
-    <div class="ft-links">
-      <a href="#contact">Consultoría gratuita</a>
-      <a href="#process">Nuestro proceso</a>
-      <a href="mailto:contacto@nexvumgroup.com">contacto@nexvumgroup.com</a>
-    </div>
+    <div class="ft-links"><a href="#contact">Consultoría gratuita</a><a href="#process">Nuestro proceso</a><a href="mailto:contacto@nexvumgroup.com">contacto@nexvumgroup.com</a></div>
   </div>
   <div class="ft-bottom">
     <span class="ft-copy">© 2025 <span class="ft-gold">NEXVUM GROUP</span>. Todos los derechos reservados.</span>
@@ -1322,53 +384,380 @@ footer{
   </div>
 </footer>
 
+<!-- THREE.JS BIM MODEL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-// Intro auto-dismiss
-(function(){
-  var intro = document.getElementById('intro');
-  var t = setTimeout(function(){intro.classList.add('hidden')}, 2800);
-  intro.addEventListener('click', function(){clearTimeout(t);intro.classList.add('hidden')});
+// ── Three.js BIM Building ────────────────────────────────────────────────────
+(function() {
+  var container = document.getElementById('canvas-container');
+  var canvas = document.getElementById('bim-canvas');
+
+  var W = container.clientWidth, H = container.clientHeight;
+  canvas.width = W; canvas.height = H;
+
+  // Renderer
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+  renderer.setSize(W, H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+
+  // Scene
+  var scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x1A2030);
+  scene.fog = new THREE.Fog(0x1A2030, 60, 120);
+
+  // Camera
+  var camera = new THREE.PerspectiveCamera(35, W / H, 0.1, 200);
+  camera.position.set(18, 14, 22);
+  camera.lookAt(0, 8, 0);
+
+  // ── LIGHTS ──────────────────────────────────────────────────────────────
+  var ambient = new THREE.AmbientLight(0xCCDDFF, 0.55);
+  scene.add(ambient);
+
+  var sun = new THREE.DirectionalLight(0xFFF5E0, 1.8);
+  sun.position.set(12, 24, 14);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.camera.near = 1;
+  sun.shadow.camera.far = 80;
+  sun.shadow.camera.left = -16;
+  sun.shadow.camera.right = 16;
+  sun.shadow.camera.top = 32;
+  sun.shadow.camera.bottom = -8;
+  sun.shadow.bias = -0.001;
+  scene.add(sun);
+
+  var fill = new THREE.DirectionalLight(0x8899CC, 0.45);
+  fill.position.set(-8, 10, -6);
+  scene.add(fill);
+
+  var bounce = new THREE.HemisphereLight(0x4466AA, 0x334455, 0.3);
+  scene.add(bounce);
+
+  // ── MATERIALS ───────────────────────────────────────────────────────────
+  var matConcrete = new THREE.MeshStandardMaterial({
+    color: 0xB0B8C0,
+    roughness: 0.88,
+    metalness: 0.02,
+  });
+  var matConcreteShade = new THREE.MeshStandardMaterial({
+    color: 0x8C939A,
+    roughness: 0.9,
+    metalness: 0.0,
+  });
+  var matSlab = new THREE.MeshStandardMaterial({
+    color: 0x9AA2AA,
+    roughness: 0.85,
+    metalness: 0.02,
+  });
+  var matGlass = new THREE.MeshStandardMaterial({
+    color: 0x1E3A5A,
+    roughness: 0.05,
+    metalness: 0.95,
+    transparent: true,
+    opacity: 0.82,
+    envMapIntensity: 1.2,
+  });
+  var matGlassLight = new THREE.MeshStandardMaterial({
+    color: 0x2A4E72,
+    roughness: 0.04,
+    metalness: 0.95,
+    transparent: true,
+    opacity: 0.78,
+  });
+  var matFrame = new THREE.MeshStandardMaterial({
+    color: 0xD0D8E0,
+    roughness: 0.3,
+    metalness: 0.7,
+  });
+  var matGround = new THREE.MeshStandardMaterial({
+    color: 0x2A3240,
+    roughness: 0.95,
+    metalness: 0.0,
+  });
+  var matRoof = new THREE.MeshStandardMaterial({
+    color: 0xA0A8B0,
+    roughness: 0.8,
+    metalness: 0.05,
+  });
+  var matPipe = new THREE.MeshStandardMaterial({ color: 0xCC3333, roughness: 0.5, metalness: 0.4 });
+  var matPipeBlue = new THREE.MeshStandardMaterial({ color: 0x2266BB, roughness: 0.5, metalness: 0.4 });
+  var matPipeYellow = new THREE.MeshStandardMaterial({ color: 0xBB9900, roughness: 0.4, metalness: 0.5 });
+  var matColumn = new THREE.MeshStandardMaterial({ color: 0xC0C8D0, roughness: 0.8, metalness: 0.05 });
+
+  // ── GROUND ───────────────────────────────────────────────────────────────
+  var gnd = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), matGround);
+  gnd.rotation.x = -Math.PI / 2;
+  gnd.receiveShadow = true;
+  scene.add(gnd);
+
+  // Grid helper (like Revit viewport)
+  var grid = new THREE.GridHelper(40, 40, 0x3A4458, 0x2A3448);
+  grid.position.y = 0.01;
+  scene.add(grid);
+
+  // ── BUILDING PARAMETERS ─────────────────────────────────────────────────
+  var FLOORS = 12;
+  var FLOOR_H = 3.2;         // m per floor
+  var BW = 10;               // building width X
+  var BD = 7;                // building depth Z
+  var SLAB_T = 0.28;         // slab thickness
+  var COL_S = 0.45;          // column section
+  var BAYS_X = 4;            // bays in X
+  var BAYS_Z = 2;            // bays in Z
+  var BAY_W = BW / BAYS_X;
+  var BAY_D = BD / BAYS_Z;
+
+  var building = new THREE.Group();
+  scene.add(building);
+
+  function box(w, h, d, mat, x, y, z, shadow) {
+    var m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+    m.position.set(x, y, z);
+    if (shadow !== false) { m.castShadow = true; m.receiveShadow = true; }
+    building.add(m);
+    return m;
+  }
+
+  // ── SLABS ────────────────────────────────────────────────────────────────
+  for (var f = 0; f <= FLOORS; f++) {
+    var sy = f * FLOOR_H;
+    box(BW + 0.1, SLAB_T, BD + 0.1, matSlab, 0, sy + SLAB_T/2, 0);
+  }
+
+  // ── COLUMNS ──────────────────────────────────────────────────────────────
+  var colH = FLOORS * FLOOR_H + SLAB_T;
+  for (var cx = 0; cx <= BAYS_X; cx++) {
+    for (var cz = 0; cz <= BAYS_Z; cz++) {
+      var colX = -BW/2 + cx * BAY_W;
+      var colZ = -BD/2 + cz * BAY_D;
+      box(COL_S, colH, COL_S, matColumn, colX, colH/2, colZ);
+    }
+  }
+
+  // ── FACADE PANELS (spandrel + glass windows) ─────────────────────────────
+  var WIN_W = BAY_W - COL_S - 0.15;
+  var WIN_H = FLOOR_H - SLAB_T - 0.55;
+  var SPAN_H = 0.55;
+  var WALL_T = 0.18;
+
+  // Front face (Z = BD/2)
+  for (var ff = 0; ff < FLOORS; ff++) {
+    var floorBase = ff * FLOOR_H + SLAB_T;
+    for (var bx = 0; bx < BAYS_X; bx++) {
+      var bxCenter = -BW/2 + (bx + 0.5) * BAY_W;
+      var fz = BD/2 + WALL_T/2;
+
+      // Spandrel (concrete panel below window)
+      box(WIN_W, SPAN_H, WALL_T, matConcrete, bxCenter, floorBase + SPAN_H/2, fz);
+      // Glass window
+      var wMat = (bx % 2 === 0) ? matGlass : matGlassLight;
+      box(WIN_W, WIN_H, 0.06, wMat, bxCenter, floorBase + SPAN_H + WIN_H/2, fz + WALL_T/2 - 0.02);
+      // Window frame top
+      box(WIN_W, 0.06, 0.06, matFrame, bxCenter, floorBase + SPAN_H + WIN_H + 0.03, fz + WALL_T/2);
+      // Window frame sides
+      box(0.06, WIN_H, 0.06, matFrame, bxCenter - WIN_W/2 + 0.03, floorBase + SPAN_H + WIN_H/2, fz + WALL_T/2);
+      box(0.06, WIN_H, 0.06, matFrame, bxCenter + WIN_W/2 - 0.03, floorBase + SPAN_H + WIN_H/2, fz + WALL_T/2);
+    }
+  }
+
+  // Back face (Z = -BD/2)
+  for (var bf = 0; bf < FLOORS; bf++) {
+    var floorBaseB = bf * FLOOR_H + SLAB_T;
+    for (var bxb = 0; bxb < BAYS_X; bxb++) {
+      var bxCenterB = -BW/2 + (bxb + 0.5) * BAY_W;
+      var bzB = -BD/2 - WALL_T/2;
+      box(WIN_W, SPAN_H, WALL_T, matConcreteShade, bxCenterB, floorBaseB + SPAN_H/2, bzB);
+      box(WIN_W, WIN_H, 0.06, matGlass, bxCenterB, floorBaseB + SPAN_H + WIN_H/2, bzB - WALL_T/2 + 0.02);
+      box(WIN_W, 0.06, 0.06, matFrame, bxCenterB, floorBaseB + SPAN_H + WIN_H + 0.03, bzB - WALL_T/2);
+    }
+  }
+
+  // Side faces (X = ±BW/2)
+  var WIN_WS = BAY_D - COL_S - 0.15;
+  for (var sf = 0; sf < FLOORS; sf++) {
+    var floorBaseS = sf * FLOOR_H + SLAB_T;
+    for (var bz2 = 0; bz2 < BAYS_Z; bz2++) {
+      var bzCenter = -BD/2 + (bz2 + 0.5) * BAY_D;
+
+      // Right side (X = BW/2)
+      var xR = BW/2 + WALL_T/2;
+      box(WALL_T, SPAN_H, WIN_WS, matConcreteShade, xR, floorBaseS + SPAN_H/2, bzCenter);
+      box(0.06, WIN_H, WIN_WS, matGlass, xR + WALL_T/2 - 0.02, floorBaseS + SPAN_H + WIN_H/2, bzCenter);
+      box(0.06, 0.06, WIN_WS, matFrame, xR + WALL_T/2, floorBaseS + SPAN_H + WIN_H + 0.03, bzCenter);
+
+      // Left side (X = -BW/2)
+      var xL = -BW/2 - WALL_T/2;
+      box(WALL_T, SPAN_H, WIN_WS, matConcreteShade, xL, floorBaseS + SPAN_H/2, bzCenter);
+      box(0.06, WIN_H, WIN_WS, matGlass, xL - WALL_T/2 + 0.02, floorBaseS + SPAN_H + WIN_H/2, bzCenter);
+    }
+  }
+
+  // ── ROOF ─────────────────────────────────────────────────────────────────
+  var roofY = FLOORS * FLOOR_H + SLAB_T;
+  // Parapet walls
+  var parpH = 1.0;
+  box(BW + 0.1, parpH, 0.2, matConcrete, 0, roofY + parpH/2, BD/2 + 0.1);
+  box(BW + 0.1, parpH, 0.2, matConcrete, 0, roofY + parpH/2, -BD/2 - 0.1);
+  box(0.2, parpH, BD - 0.2, matConcrete, BW/2 + 0.1, roofY + parpH/2, 0);
+  box(0.2, parpH, BD - 0.2, matConcrete, -BW/2 - 0.1, roofY + parpH/2, 0);
+
+  // Elevator shaft
+  box(2.2, 4.5, 2.2, matConcrete, -3, roofY + 2.25 + parpH, -1.5);
+  box(2.4, 0.15, 2.4, matRoof, -3, roofY + 4.5 + parpH + 0.075, -1.5);
+
+  // Stair/mechanical room
+  box(3.5, 2.8, 2.8, matConcreteShade, 2.5, roofY + 1.4 + parpH, 0);
+  box(3.7, 0.15, 3.0, matRoof, 2.5, roofY + 2.8 + parpH + 0.075, 0);
+
+  // ── MEP ON ROOF ──────────────────────────────────────────────────────────
+  var mepY = roofY + parpH + 0.3;
+
+  // HVAC duct (red)
+  var ductGeom = new THREE.CylinderGeometry(0.18, 0.18, 5, 8);
+  var duct1 = new THREE.Mesh(ductGeom, matPipe);
+  duct1.rotation.z = Math.PI/2;
+  duct1.position.set(-1, mepY + 0.18, 1);
+  duct1.castShadow = true;
+  building.add(duct1);
+
+  // Plumbing (blue)
+  var pipe1 = new THREE.Mesh(new THREE.CylinderGeometry(0.10, 0.10, 4, 8), matPipeBlue);
+  pipe1.rotation.z = Math.PI/2;
+  pipe1.position.set(0.5, mepY + 0.5, -1);
+  pipe1.castShadow = true;
+  building.add(pipe1);
+
+  // Electrical conduit (yellow)
+  var pipe2 = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 6, 8), matPipeYellow);
+  pipe2.rotation.z = Math.PI/2;
+  pipe2.position.set(0, mepY + 0.8, 1.5);
+  pipe2.castShadow = true;
+  building.add(pipe2);
+
+  // ── ORBIT CONTROLS (manual, no import needed) ────────────────────────────
+  var isDragging = false;
+  var prevMouse = { x: 0, y: 0 };
+  var spherical = { theta: 0.6, phi: 1.0, radius: 30 };
+
+  function updateCamera() {
+    camera.position.x = spherical.radius * Math.sin(spherical.phi) * Math.sin(spherical.theta);
+    camera.position.y = spherical.radius * Math.cos(spherical.phi) + 8;
+    camera.position.z = spherical.radius * Math.sin(spherical.phi) * Math.cos(spherical.theta);
+    camera.lookAt(0, 8, 0);
+  }
+  updateCamera();
+
+  canvas.addEventListener('mousedown', function(e) { isDragging = true; prevMouse = { x: e.clientX, y: e.clientY }; });
+  window.addEventListener('mouseup', function() { isDragging = false; });
+  window.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    var dx = (e.clientX - prevMouse.x) * 0.008;
+    var dy = (e.clientY - prevMouse.y) * 0.006;
+    spherical.theta -= dx;
+    spherical.phi = Math.max(0.15, Math.min(Math.PI * 0.48, spherical.phi + dy));
+    prevMouse = { x: e.clientX, y: e.clientY };
+    updateCamera();
+  });
+  canvas.addEventListener('wheel', function(e) {
+    spherical.radius = Math.max(12, Math.min(55, spherical.radius + e.deltaY * 0.04));
+    updateCamera();
+  });
+
+  // Touch support
+  var lastTouch = null;
+  canvas.addEventListener('touchstart', function(e) { lastTouch = e.touches[0]; });
+  canvas.addEventListener('touchmove', function(e) {
+    if (!lastTouch) return;
+    e.preventDefault();
+    var t = e.touches[0];
+    var dx = (t.clientX - lastTouch.clientX) * 0.01;
+    var dy = (t.clientY - lastTouch.clientY) * 0.008;
+    spherical.theta -= dx;
+    spherical.phi = Math.max(0.15, Math.min(Math.PI * 0.48, spherical.phi + dy));
+    lastTouch = t;
+    updateCamera();
+  }, { passive: false });
+
+  // View presets
+  window.setView = function(v) {
+    document.querySelectorAll('.bim-tab').forEach(function(t) { t.classList.remove('active'); });
+    event.target.classList.add('active');
+    if (v === '3d') { spherical.theta = 0.6; spherical.phi = 1.0; spherical.radius = 30; }
+    if (v === 'front') { spherical.theta = 0; spherical.phi = Math.PI/2; spherical.radius = 28; }
+    if (v === 'iso') { spherical.theta = Math.PI/4; spherical.phi = Math.PI/4; spherical.radius = 35; }
+    updateCamera();
+  };
+
+  // Resize
+  window.addEventListener('resize', function() {
+    W = container.clientWidth; H = container.clientHeight;
+    camera.aspect = W / H;
+    camera.updateProjectionMatrix();
+    renderer.setSize(W, H);
+  });
+
+  // ── ANIMATE ──────────────────────────────────────────────────────────────
+  var clock = new THREE.Clock();
+  function animate() {
+    requestAnimationFrame(animate);
+    var t = clock.getElapsedTime();
+    // Subtle auto-rotate when not interacting
+    if (!isDragging) { spherical.theta += 0.0015; updateCamera(); }
+    renderer.render(scene, camera);
+  }
+  animate();
 })();
 
-// Nav scroll class
-window.addEventListener('scroll', function(){
-  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-});
+// ── Page JS ──────────────────────────────────────────────────────────────────
+(function() {
+  // Intro
+  var intro = document.getElementById('intro');
+  var timer = setTimeout(function() { intro.classList.add('hidden'); }, 2800);
+  intro.addEventListener('click', function() { clearTimeout(timer); intro.classList.add('hidden'); });
 
-// Scroll reveal
-var obs = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){if(e.isIntersecting) e.target.classList.add('in')});
-}, {threshold:0.07});
-document.querySelectorAll('.rv').forEach(function(el){obs.observe(el)});
-
-// Number counters
-function animNum(el, target){
-  var steps=60, i=0;
-  var timer = setInterval(function(){
-    i++;
-    el.textContent = Math.round(target*(i/steps));
-    if(i>=steps){el.textContent=target;clearInterval(timer)}
-  }, 22);
-}
-var numObs = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){
-      var t = parseInt(e.target.getAttribute('data-t'));
-      animNum(e.target, t);
-      numObs.unobserve(e.target);
-    }
+  // Nav scroll
+  window.addEventListener('scroll', function() {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
   });
-}, {threshold:0.3});
-document.querySelectorAll('[data-t]').forEach(function(el){numObs.observe(el)});
 
-// CTA
-function handleCTA(){
+  // Scroll reveal
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
+
+  // Number counters
+  function animNum(el, target) {
+    var steps = 60, i = 0;
+    var iv = setInterval(function() {
+      i++; el.textContent = Math.round(target * i / steps);
+      if (i >= steps) { el.textContent = target; clearInterval(iv); }
+    }, 22);
+  }
+  var nobs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        animNum(e.target, parseInt(e.target.getAttribute('data-t')));
+        nobs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('[data-t]').forEach(function(el) { nobs.observe(el); });
+})();
+
+function handleCTA() {
   var name = document.getElementById('cta-name').value.trim();
   var email = document.getElementById('cta-email').value.trim();
-  if(!name||!email){alert('Por favor completa nombre y correo.'); return;}
-  alert('¡Gracias '+name+'! Nos pondremos en contacto contigo pronto a '+email);
-  ['cta-name','cta-email','cta-project','cta-msg'].forEach(function(id){
-    document.getElementById(id).value='';
+  if (!name || !email) { alert('Por favor completa nombre y correo.'); return; }
+  alert('¡Gracias ' + name + '! Nos pondremos en contacto pronto a ' + email);
+  ['cta-name','cta-email','cta-project','cta-msg'].forEach(function(id) {
+    document.getElementById(id).value = '';
   });
 }
 </script>
